@@ -1,0 +1,82 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.image_custom {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
+
+.one-line-paragraph {
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* Số dòng bạn muốn giới hạn */
+  -webkit-box-orient: vertical;
+  visibility: visible; /* Tránh bug không giới hạn số dòng được do trình duyệt */
+  text-overflow: ellipsis;
+  overflow:hidden;
+  max-width: 300px;
+}
+.two-line-paragraph {
+  display: block;
+  display: -webkit-box;
+  line-height: 20px; /* Fallback  */
+  max-height: 50px; /* Fallback số dòng bạn muốn giới hạn */
+  -webkit-line-clamp: 2; /* Số dòng bạn muốn giới hạn */
+  -webkit-box-orient: vertical;
+  visibility: visible; /* Tránh bug không giới hạn số dòng được do trình duyệt */
+  text-overflow: ellipsis;
+  overflow:hidden;
+  max-width: 300px;
+}
+
+.four-line-paragraph {
+  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Số dòng bạn muốn giới hạn */
+  -webkit-box-orient: vertical;
+  visibility: visible; /* Tránh bug không giới hạn số dòng được do trình duyệt */
+  text-overflow: ellipsis;
+  overflow:hidden;
+  max-width: 300px;
+}
