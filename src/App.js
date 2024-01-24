@@ -12,10 +12,10 @@ export default function App() {
     <div className="container mx-auto ">
       <Navbar />
       <Routes>
-        <Route path="/" element={<>  <Slider /><Features />  </>} />
-        <Route path="/dich-vu" element={<Service />} />
-        <Route path="/dich-vu/chi-tiet" element={<ServiceDetails />} />
-        <Route path="/cong-viec" element={<Job />} />
+        <Route path="GabiSpa/" element={<>  <Slider /><Features />  </>} />
+        <Route path="GabiSpa/dich-vu" element={<Service />} />
+        <Route path="GabiSpa/dich-vu/chi-tiet" element={<ServiceDetails />} />
+        <Route path="GabiSpa/cong-viec" element={<Job />} />
       </Routes>
       <Footer />
     </div>
