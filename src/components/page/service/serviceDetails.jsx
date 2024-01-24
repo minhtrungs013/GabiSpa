@@ -1,4 +1,4 @@
-import { faBars, faCircle, faMinus, faNewspaper, faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faCircle, faNewspaper, faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { Link } from 'react-router-dom'
