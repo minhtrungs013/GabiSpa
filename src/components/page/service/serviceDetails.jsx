@@ -1,4 +1,4 @@
-import { faBars, faCheck, faNewspaper, faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faCircle, faMinus, faNewspaper, faStar, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { Link } from 'react-router-dom'
@@ -40,9 +40,35 @@ export default function ServiceDetails() {
                         </div>
                     </div>
                 </div>
-                <h4 className="text-base lg:text-lg font-bold lg:tracking-tight text-[#214581] mb-16">
+                <h4 className="text-base lg:text-lg font-bold lg:tracking-tight text-[#214581] mb-5">
                     <FontAwesomeIcon className='pr-3 text-xl text-[#cb8a40]' icon={faBars} /> Chi tiết lịch trình của dịch vụ 1
                 </h4>
+                <div className='pl-5 '>
+                    <p className='mb-2'><FontAwesomeIcon className='pr-3 text-[5px] pb-[3px] text-black' icon={faCircle} />
+                    Chuẩn bị kế hoạch sinh con chu đáo.
+                    </p >
+                    <p className='mb-2'><FontAwesomeIcon className='pr-3 text-[5px] pb-[3px] text-black' icon={faCircle} />
+                    Đăng ký tham gia lớp học tiền sản.
+                    </p >
+                    <p className='mb-2'><FontAwesomeIcon className='pr-3 text-[5px] pb-[3px] text-black' icon={faCircle} />
+                    Thường xuyên thăm khám cuối thai kỳ
+                    </p >
+                    <p className='mb-2'><FontAwesomeIcon className='pr-3 text-[5px] pb-[3px] text-black' icon={faCircle} />
+                    Tăng cường dinh dưỡng cho thai phụ
+                    </p >
+                    <p className='mb-2'><FontAwesomeIcon className='pr-3 text-[5px] pb-[3px] text-black' icon={faCircle} />
+                    Kiểm soát cân nặng mẹ bầu.
+                    </p >
+                    <p className='mb-2'><FontAwesomeIcon className='pr-3 text-[5px] pb-[3px] text-black' icon={faCircle} />
+                    Tập thể dục nhẹ nhàng hàng ngày.
+                    </p >
+                    <p className='mb-2'><FontAwesomeIcon className='pr-3 text-[5px] pb-[3px] text-black' icon={faCircle} />
+                    Đếm cử động thai.
+                    </p >
+                    <p className='mb-2'><FontAwesomeIcon className='pr-3 text-[5px] pb-[3px] text-black' icon={faCircle} />
+                    Sẵn sàng tâm lý trước đi sinh.
+                    </p >
+                </div>
 
             </div>
         </div>
