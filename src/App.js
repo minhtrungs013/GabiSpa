@@ -10,12 +10,14 @@ import Job from './components/page/job/job';
 export default function App() {
   return (
     <div className="container mx-auto ">
+      <Navbar />
       <Routes>
-        <Route path="/" element={<> <Navbar /> <Slider /><Features /> <Footer /> </>} />
-        <Route path="/dich-vu" element={<> <Navbar /> <Service /> <Footer /> </>} />
-        <Route path="/dich-vu/chi-tiet" element={<> <Navbar /> <ServiceDetails /> <Footer /> </>} />
-        <Route path="/cong-viec" element={<> <Navbar /> <Job /> <Footer /> </>} />
+        <Route path="/" element={<>  <Slider /><Features />  </>} />
+        <Route path="/dich-vu" element={<Service />} />
+        <Route path="/dich-vu/chi-tiet" element={<ServiceDetails />} />
+        <Route path="/cong-viec" element={<Job />} />
       </Routes>
+      <Footer />
     </div>
   )
 }
