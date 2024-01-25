@@ -50,7 +50,7 @@ export default function Features() {
     return (
         <div>
             <div className="mt-16 md:mt-0">
-                <h2 className="text-4xl lg:text-5xl font-bold lg:tracking-tight text-[#214581]">
+                <h2 className="text-3xl lg:text-4xl font-bold lg:tracking-tight text-[#214581]">
                     DỊCH VỤ CHĂM SÓC MẸ VÀ BÉ
                 </h2>
                 <p className="text-lg mt-4 text-[#214581]">
@@ -58,7 +58,7 @@ export default function Features() {
                     tín hàng đầu hiện nay và được Sở Y Tế TP.HCM <br />cấp giấy phép hoạt động Chăm sóc sau sinh theo tiêu chuẩn của Bộ Y TẾ
                 </p>
             </div>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 mt-16 gap-16">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 my-16 gap-16">
                 {
                     features.map((item) => (
                         <div className="flex gap-4 items-start " key={item.id}>

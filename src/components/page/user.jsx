@@ -1,21 +1,22 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Features from './features/features'
-import Footer from './footer/footer'
-import Navbar from './navbar/navbar'
+import Job from './job/job'
 import Service from './service/service'
 import ServiceDetails from './service/serviceDetails'
 import Slider from './slider/slider'
-import Job from './job/job'
+import Blog from './blog/blog'
+import News from './news/news'
 
 export default function User() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<> <Navbar /> <Slider /><Features /> <Footer /> </>} />
-        <Route path="/dich-vu" element={<> <Navbar /> <Service /> <Footer /> </>} />
-        <Route path="/dich-vu/chi-tiet" element={<> <Navbar /> <ServiceDetails /> <Footer /> </>} />
-        <Route path="/cong-viec" element={<> <Navbar /> <Job /> <Footer /> </>} />
+        <Route path="GabiSpa/" element={<> <Slider /><Features /><Blog />  </>} />
+        <Route path="GabiSpa/dich-vu" element={<Service />} />
+        <Route path="GabiSpa/dich-vu/chi-tiet" element={<ServiceDetails />} />
+        <Route path="GabiSpa/cong-viec" element={<Job />} />
+        <Route path="GabiSpa/tin-tuc" element={<News />} />
       </Routes>
     </>
   )

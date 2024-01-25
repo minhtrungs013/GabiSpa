@@ -5,13 +5,13 @@ export default function Footer() {
     return (
         <footer className="my-20">
             <p className="text-center text-sm text-slate-500">
-                Copyright ©  Astroship. All rights reserved.
+                Copyright ©  Trung. All rights reserved.
             </p>
             <p className="text-center text-xs text-slate-500 mt-1">
                 Made by <Link
-                    to={'/'}
+                    to={'/GabiSpa'}
                     className="hover:underline">
-                    Web3Templates
+                    Trung
                 </Link>
             </p>
         </footer>
