@@ -1,9 +1,8 @@
-import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useCallback, useEffect } from 'react';
 
-export default function Register({ showModal, closeModal , switchLogin}) {
+export default function Register({ showModal, closeModal, switchLogin }) {
     const handleKeyDown = useCallback((e) => {
         if (e.key === 'Escape') {
             closeModal();

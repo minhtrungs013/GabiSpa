@@ -1,4 +1,3 @@
-import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useCallback, useEffect } from 'react';

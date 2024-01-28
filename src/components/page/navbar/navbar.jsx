@@ -34,6 +34,7 @@ export default function Navbar() {
 
     const openModalLogin = () => {
         setModalLogin(true);
+        setOpen(false)
     };
 
     const closeModalLogin = () => {
@@ -42,6 +43,7 @@ export default function Navbar() {
 
     const openModalRegister = () => {
         setModalRegister(true);
+        setOpen(false)
     };
 
     const closeModalRegister = () => {
@@ -74,7 +76,7 @@ export default function Navbar() {
                     <ul className="flex flex-col lg:flex-row lg:gap-3" >
                         {menuitems.map((item) => (
                             <li key={item.id}>
-                                <Link
+                                <Link onClick={() => setOpen(!open)}
                                     to={`${item.path}`}
                                     className="flex lg:px-2 xl:px-3 py-2 text-gray-600 hover:text-[#214581] font-medium text-xl ">
                                     {item.title}
@@ -83,8 +85,8 @@ export default function Navbar() {
                         ))}
                     </ul>
                     <div class="lg:!hidden flex items-center justify-center mt-3 gap-4 " style={{ display: open ? 'flex' : 'none' }}>
-                        <Link to={'/GabiSpa'} className='w-full rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 ] text-black border-[1px] border-[#2e4d81]' >Đăng nhập</Link>
-                        <Link to={'/GabiSpa'} size="md" className='w-full rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 bg-[#214581] text-white hover:bg-[#2e4d81]  border-2 border-transparent'>Đăng ký</Link>
+                        <Link to={'/GabiSpa'} onClick={openModalLogin} className='w-full rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 ] text-black border-[1px] border-[#2e4d81]' >Đăng nhập</Link>
+                        <Link to={'/GabiSpa'} onClick={openModalRegister} size="md" className='w-full rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 bg-[#214581] text-white hover:bg-[#2e4d81]  border-2 border-transparent'>Đăng ký</Link>
                     </div>
                 </nav>
                 <div>
