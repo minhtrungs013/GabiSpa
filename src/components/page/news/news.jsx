@@ -50,13 +50,13 @@ const features = [
 export default function News() {
     return (
         <div>
-            <div className="mt-16 md:mt-0">
+            <div className="my-10 md:mt-0">
                 <h2 className="text-2xl lg:text-3xl font-bold lg:tracking-tight text-[#214581]">
                     TIN TỨC - BÀI VIẾT NỔI BẬT
                 </h2>
             </div>
-            <div className="grid grid-cols-4 gap-3">
-                <div className="mt-10">
+            <div className=" grid gap-3 lg:grid-cols-6 md:grid-cols-3 xl:grid-cols-4">
+                <div className="xl:col-span-1 lg:col-span-2 md:col-span-3  lg:block ">
                     <h2 className="text-base lg:text-lg font-bold lg:tracking-tight text-[#214581]">
                         BÀI VIẾT GẦN ĐÂY
                     </h2>
@@ -66,7 +66,7 @@ export default function News() {
                         </div>
                         <div>
                             <h2 className="one-line-paragraph font-bold text-base  text-[#214581]">sdasdasdasd</h2>{" "}
-                            <p className="two-line-paragraph text-sm text-[#214581] mt-2 leading-relaxed">Need some JS? Astro can automatically hydrate interactive components when they become visible on the page. </p>
+                            <p className="two-line-paragraph text-sm text-[#214581] !max-w-full mt-2 leading-relaxed">Need some JS? Astro can automatically hydrate interactive components when they become visible on the page. </p>
                         </div>
 
                     </div>
@@ -76,13 +76,13 @@ export default function News() {
                         </div>
                         <div>
                             <h2 className="one-line-paragraph font-bold text-base  text-[#214581]">sdasdasdasd</h2>{" "}
-                            <p className="two-line-paragraph text-sm text-[#214581] mt-2 leading-relaxed">Need some JS? Astro can automatically hydrate interactive components when they become visible on the page. </p>
+                            <p className="two-line-paragraph text-sm text-[#214581] !max-w-full mt-2 leading-relaxed">Need some JS? Astro can automatically hydrate interactive components when they become visible on the page. </p>
                         </div>
 
                     </div>
                 </div>
-                <div className="col-span-3 mt-16">
-                    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-16">
+                <div className="xl:col-span-3 lg:col-span-4 md:col-span-4 mt-8">
+                    <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 lg:gap-5 md:gap-5 xl:gap-10 sm:gap-5">
                         {
                             features.map((item) => (
                                 <BlogItem item={item} />

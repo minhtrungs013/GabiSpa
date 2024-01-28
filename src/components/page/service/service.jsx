@@ -71,7 +71,7 @@ export default function Service() {
                                     <p className='py-2 font-semibold text-base text-[#46b252]' >300.000 VND</p>
                                 </div>
                                 <div className='absolute right-3 bottom-[10px] flex justify-end'>
-                                    <Link to={'/dich-vu/chi-tiet'} className='px-4 py-2 font-semibold text-sm bg-[#214581] text-white rounded-md shadow-sm' >Xem Chi Tiết</Link>
+                                    <Link to={'/GabiSpa/dich-vu/chi-tiet'} className='px-4 py-2 font-semibold text-sm bg-[#214581] text-white rounded-md shadow-sm' >Xem Chi Tiết</Link>
                                 </div>
                             </div>
                         ))

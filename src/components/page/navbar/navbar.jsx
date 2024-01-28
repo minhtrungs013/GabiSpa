@@ -2,6 +2,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Login from '../../login/login';
 const menuitems = [
     {
         id: 0,
@@ -27,7 +28,18 @@ const menuitems = [
 
 export default function Navbar() {
     const [open, setOpen] = useState(false)
+    const [isModalVisible, setModalVisibility] = useState(false);
+
+    const openModal = () => {
+        setModalVisibility(true);
+    };
+
+    const closeModal = () => {
+        setModalVisibility(false);
+    };
+
     return (
+        <>
         <div className='flex flex-col lg:flex-row justify-between items-center my-5'>
             <div className="flex w-full lg:w-auto items-center justify-between">
                 <Link to={'/GabiSpa'} className="text-lg">
@@ -45,7 +57,7 @@ export default function Navbar() {
                         <li key={item.id}>
                             <Link
                                 to={`${item.path}`}
-                                className="flex lg:px-3 py-2 text-gray-600 hover:text-[#214581] font-medium text-xl ">
+                                className="flex lg:px-2 xl:px-3 py-2 text-gray-600 hover:text-[#214581] font-medium text-xl ">
                                 {item.title}
                             </Link>
                         </li>
@@ -58,10 +70,12 @@ export default function Navbar() {
             </nav>
             <div>
                 <div className="hidden lg:flex items-center gap-4" >
-                    <Link to={'/GabiSpa'} className=' rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 ] text-black border-[1px] border-[#2e4d81]' >Đăng nhập</Link>
+                    <Link to={'/GabiSpa'} onClick={openModal} className=' rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 ] text-black border-[1px] border-[#2e4d81]' >Đăng nhập</Link>
                     <Link to={'/GabiSpa'} size="md" className='rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 bg-[#214581] text-white hover:bg-[#2e4d81]  border-2 border-transparent'>Đăng ký</Link>
                 </div>
             </div>
         </div >
+        <Login closeModal={closeModal} showModal={isModalVisible}/>
+        </>
     )
 }

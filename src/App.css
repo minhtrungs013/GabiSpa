@@ -55,7 +55,6 @@
   visibility: visible; /* Tránh bug không giới hạn số dòng được do trình duyệt */
   text-overflow: ellipsis;
   overflow:hidden;
-  max-width: 300px;
 }
 .two-line-paragraph {
   display: block;
@@ -67,7 +66,6 @@
   visibility: visible; /* Tránh bug không giới hạn số dòng được do trình duyệt */
   text-overflow: ellipsis;
   overflow:hidden;
-  max-width: 300px;
 }
 
 .four-line-paragraph {
@@ -78,5 +76,4 @@
   visibility: visible; /* Tránh bug không giới hạn số dòng được do trình duyệt */
   text-overflow: ellipsis;
   overflow:hidden;
-  max-width: 300px;
 }
