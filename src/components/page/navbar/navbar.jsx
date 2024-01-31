@@ -8,22 +8,22 @@ const menuitems = [
     {
         id: 0,
         title: "Dịch vụ",
-        path: "GabiSpa/dich-vu",
+        path: "dich-vu",
     },
     {
         id: 1,
         title: "Công Việc",
-        path: "GabiSpa/cong-viec",
+        path: "cong-viec",
     },
     {
         id: 2,
         title: "Tin Tức",
-        path: "GabiSpa/tin-tuc",
+        path: "tin-tuc",
     },
     {
         id: 3,
         title: "Liên Hệ",
-        path: "GabiSpa/lien-he",
+        path: "lien-he",
     },
 ];
 
@@ -63,7 +63,7 @@ export default function Navbar() {
         <>
             <div className='flex flex-col lg:flex-row justify-between items-center my-5'>
                 <div className="flex w-full lg:w-auto items-center justify-between">
-                    <Link to={'/GabiSpa'} className="text-lg">
+                    <Link to={'/'} className="text-lg">
                         <img className='' src="https://res.cloudinary.com/dax8xvyhi/image/upload/c_fill,h_90,w_250/v1705774032/mdggvkgqlr2osrxdt1hh.png" alt="" />
                     </Link>
                     <div class="block lg:hidden">
@@ -85,14 +85,14 @@ export default function Navbar() {
                         ))}
                     </ul>
                     <div class="lg:!hidden flex items-center justify-center mt-3 gap-4 " style={{ display: open ? 'flex' : 'none' }}>
-                        <Link to={'/GabiSpa'} onClick={openModalLogin} className='w-full rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 ] text-black border-[1px] border-[#2e4d81]' >Đăng nhập</Link>
-                        <Link to={'/GabiSpa'} onClick={openModalRegister} size="md" className='w-full rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 bg-[#214581] text-white hover:bg-[#2e4d81]  border-2 border-transparent'>Đăng ký</Link>
+                        <Link to={'/'} onClick={openModalLogin} className='w-full rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 ] text-black border-[1px] border-[#2e4d81]' >Đăng nhập</Link>
+                        <Link to={'/'} onClick={openModalRegister} size="md" className='w-full rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 bg-[#214581] text-white hover:bg-[#2e4d81]  border-2 border-transparent'>Đăng ký</Link>
                     </div>
                 </nav>
                 <div>
                     <div className="hidden lg:flex items-center gap-4" >
-                        <Link to={'/GabiSpa'} onClick={openModalLogin} className=' rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 ] text-black border-[1px] border-[#2e4d81]' >Đăng nhập</Link>
-                        <Link to={'/GabiSpa'} onClick={openModalRegister} size="md" className='rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 bg-[#214581] text-white hover:bg-[#2e4d81]  border-2 border-transparent'>Đăng ký</Link>
+                        <Link to={'/'} onClick={openModalLogin} className=' rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 ] text-black border-[1px] border-[#2e4d81]' >Đăng nhập</Link>
+                        <Link to={'/'} onClick={openModalRegister} size="md" className='rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 bg-[#214581] text-white hover:bg-[#2e4d81]  border-2 border-transparent'>Đăng ký</Link>
                     </div>
                 </div>
             </div >
