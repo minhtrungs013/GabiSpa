@@ -1,17 +1,18 @@
-import { Route, Routes } from 'react-router-dom';
+import { ToastContainer } from "react-toastify";
 import './App.css';
-import Login from './components/login/login';
+import Admin from './components/admin/admin';
 import Footer from './components/page/footer/footer';
-import Navbar from './components/page/navbar/navbar';
+// import Navbar from './components/page/navbar/navbar';
 import User from './components/page/user';
+import { useSelector } from "react-redux";
+
 export default function App() {
+  const role = useSelector((state) => state.user.role)
   return (
-    <div className="container mx-auto ">
-      <Navbar />
-      <Routes>
-        <Route path="/login" exact element={<Login />} />
-      </Routes>
-      <User />
+    <div className="">
+      <ToastContainer />
+      {/* <Navbar /> */}
+      {role === 'Admin' ? <Admin /> : <User />}
       <Footer />
     </div>
   )

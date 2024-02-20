@@ -1,7 +1,8 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useCallback, useEffect } from 'react';
-
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 export default function Login({ showModal, closeModal, switchRegister }) {
     const handleKeyDown = useCallback((e) => {
         if (e.key === 'Escape') {
@@ -18,6 +19,10 @@ export default function Login({ showModal, closeModal, switchRegister }) {
             window.removeEventListener('keydown', handleKeyDown);
         };
     }, [showModal, handleKeyDown]);
+
+    const submit = () => {
+        toast.success("Success Notification !");
+    }
 
     return (
         <div className={`fixed inset-0 bg-gray-200 bg-opacity-50 flex justify-center !z-10 items-center ${showModal ? '' : 'hidden'}`} onClick={closeModal}>
@@ -45,12 +50,11 @@ export default function Login({ showModal, closeModal, switchRegister }) {
                                             <label for="password" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Mật Khẩu</label>
                                         </div>
                                         <div className="relative">
-                                            <button className="bg-[#214581] text-white w-32 rounded-md px-2 py-1">Đăng Nhập</button>
+                                            <button className="bg-[#214581] text-white w-32 rounded-md px-2 py-1" onClick={submit}>Đăng Nhập</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                             <div className="w-full flex justify-center">
                                 <span>bạn chưa có tài khoản? </span>
                                 <span className='pl-2 text-blue-700 underline cursor-pointer' onClick={switchRegister}>Đăng Ký </span>

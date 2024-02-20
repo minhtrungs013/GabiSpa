@@ -4,6 +4,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 export default function ServiceDetails() {
+    const aaa = '<p class="ql-align-justify"><strong style="font-size: 16px;"><em>Triệu chứng:</em></strong></p><ul><li class="ql-align-justify"><strong style="color: rgb(230, 0, 0); font-size: 12px;">Đột ngột sốt</strong></li><li class="ql-align-justify"><strong style="color: rgb(230, 0, 0); font-size: 12px;">Đau đầu</strong></li><li class="ql-align-justify"><strong style="color: rgb(230, 0, 0); font-size: 12px;">Đau cơ</strong></li><li class="ql-align-justify"><strong style="color: rgb(230, 0, 0); font-size: 12px;">Đau họng</strong></li><li class="ql-align-justify"><strong style="color: rgb(230, 0, 0); font-size: 12px;">Ho</strong></li><li class="ql-align-justify"><strong style="color: rgb(230, 0, 0); font-size: 12px;">Đỏ mắt</strong></li><li class="ql-align-justify"><strong style="color: rgb(230, 0, 0); font-size: 12px;">Đau bụng</strong></li><li class="ql-align-justify"><strong style="color: rgb(230, 0, 0); font-size: 12px;">Buồn nôn và nôn</strong></li></ul><h2 class="ql-align-justify"><br></h2><p><br></p>'
     return (
         <div>
             <div className="mt-16 md:mt-0 mb-4">
@@ -69,7 +70,7 @@ export default function ServiceDetails() {
                     Sẵn sàng tâm lý trước đi sinh.
                     </p >
                 </div>
-
+                <div dangerouslySetInnerHTML={{ __html: aaa }} />
             </div>
         </div>
     )
