@@ -7,10 +7,12 @@ import ServiceDetails from './service/serviceDetails'
 import Slider from './slider/slider'
 import Blog from './blog/blog'
 import News from './news/news'
+import Navbar from './navbar/navbar';
 
 export default function User() {
   return (
-    <>
+    <div className="container mx-auto ">
+      <Navbar />
       <Routes>
         <Route path="GabiSpa/" element={<> <Slider /><Features /><Blog />  </>} />
         <Route path="GabiSpa/dich-vu" element={<Service />} />
@@ -18,6 +20,6 @@ export default function User() {
         <Route path="GabiSpa/cong-viec" element={<Job />} />
         <Route path="GabiSpa/tin-tuc" element={<News />} />
       </Routes>
-    </>
+    </div>
   )
 }

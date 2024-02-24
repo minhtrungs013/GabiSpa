@@ -1,4 +1,4 @@
-import { faCreditCard, faCubes, faEnvelopesBulk, faGears, faPowerOff, faRightToBracket, faStore, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faCalendar, faCreditCard, faCubes, faEnvelopesBulk, faGears, faPowerOff, faRightToBracket, faStore, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
@@ -33,6 +33,18 @@ const SlideNav = [
         title: "Quản Lý Tin Tức",
         path: "/GabiSpa/admin/news-management",
         icon: faCubes
+    },
+    {
+        id: 5,
+        title: "Quản Lý Đặt Lịch",
+        path: "/GabiSpa/admin/booking-management",
+        icon: faCalendar
+    },
+    {
+        id: 6,
+        title: "Chi Tiết công việc",
+        path: "/GabiSpa/admin/calendar-management",
+        icon: faCalendar
     },
 ]
 

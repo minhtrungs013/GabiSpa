@@ -5,6 +5,8 @@ import NavbarAdmin from '../UI/navbarAdmin';
 import ServiceManagement from './serviceAdmin/serviceManagement';
 import { Route, Routes } from 'react-router-dom';
 import CategoriesManagement from './categoriesAdmin/categoriesManagement';
+import BookingManagement from './bookingAdmin/bookingManagement';
+import CalenderManagement from './calendarAdmin/calendarManagement';
 
 
 export default function Admin() {
@@ -25,6 +27,8 @@ export default function Admin() {
                                 <Route path="GabiSpa/admin/user-management" element={<UserManagement />} />
                                 <Route path="GabiSpa/admin/service-management" element={<ServiceManagement />} />
                                 <Route path="GabiSpa/admin/categories-management" element={<CategoriesManagement />} />
+                                <Route path="GabiSpa/admin/booking-management" element={<BookingManagement />} />
+                                <Route path="GabiSpa/admin/calendar-management" element={<CalenderManagement />} />
                             </Routes>
                         </div>
                     </main>

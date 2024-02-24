@@ -2,7 +2,6 @@ import { ToastContainer } from "react-toastify";
 import './App.css';
 import Admin from './components/admin/admin';
 import Footer from './components/page/footer/footer';
-// import Navbar from './components/page/navbar/navbar';
 import User from './components/page/user';
 import { useSelector } from "react-redux";
 
@@ -11,7 +10,6 @@ export default function App() {
   return (
     <div className="">
       <ToastContainer />
-      {/* <Navbar /> */}
       {role === 'Admin' ? <Admin /> : <User />}
       <Footer />
     </div>
