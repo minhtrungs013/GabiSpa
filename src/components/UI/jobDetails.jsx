@@ -19,8 +19,8 @@ export default function JobDetails({ serviceDetails }) {
         <div className='w-full px-4'>
             <div className='flex justify-between mb-4 items-center '>
                 <div className='flex items-center ' >
-                    <h2 className="flex-auto font-semibold text-xl text-gray-900 truncate  overflow-hidden max-w-[200px] "> <FontAwesomeIcon icon={faAlignRight} className='pr-2 ' /> {serviceDetails?.service?.nameService} {serviceDetails?.service?.nameService}{serviceDetails?.service?.nameService}{serviceDetails?.service?.nameService}</h2>
-                    <div className="ml-5 flex items-center"> <FontAwesomeIcon icon={faCalendarPlus}  className='pr-2 text-gray-600' />
+                    <h2 className="flex-auto font-semibold text-xl text-gray-900 truncate overflow-hidden max-w-[200px] "> <FontAwesomeIcon icon={faAlignRight} className='pr-2 ' /> {serviceDetails?.service?.nameService} </h2>
+                    <div className="ml-5 flex items-center"> <FontAwesomeIcon icon={faCalendarPlus} className='pr-2 text-gray-600' />
                         <p className="mt-0.5 text-gray-600">
                             <time dateTime={serviceDetails?.startDatetime}>
                                 {format(startDateTime, 'h:mm a')}
@@ -81,9 +81,9 @@ export default function JobDetails({ serviceDetails }) {
             </div>
             <ul className='grid grid-cols-2 gap-2 w-full my-4'>
                 {serviceDetails?.service?.ServiceScheduleDetails?.map((schedule, index) => (
-                    <li key={index} className='flex items-center p-2 py-4 shadow-lg rounded-md bg-amber-50'>
+                    <li key={index} className='flex items-center p-2 py-4 shadow-lg rounded-md bg-amber-50 '>
                         <FontAwesomeIcon icon={faStar} className='text-[12px] text-amber-400' />
-                        <p className="text-sm pl-3 text-gray-900">{schedule}</p>
+                        <p className="text-sm pl-3 text-gray-900  truncate overflow-hidden max-w-[250px]">{schedule}</p>
                     </li>
                 ))}
             </ul>
