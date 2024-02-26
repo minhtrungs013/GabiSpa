@@ -12,7 +12,7 @@ export default function Meeting({ meeting, handleDetails }) {
   let endDateTime = parseISO(meeting.endDatetime)
 
   return (
-    <li onClick={() => handleDetails(meeting)} className="cursor-pointer flex items-center px-4 py-2 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100">
+    <li onClick={() => handleDetails(meeting)} className={`${meeting?.status && '!bg-green-50 '} mb-2 bg-amber-50 shadow-md cursor-pointer flex items-center px-4 py-2 space-x-4 group rounded-lg focus-within:bg-gray-100 hover:bg-gray-100`}>
       <img
         src={meeting.service?.imageURL}
         alt=""
@@ -34,7 +34,7 @@ export default function Meeting({ meeting, handleDetails }) {
           <h3 className="flex-auto font-semibold text-green-700">Hoàn thành</h3>
         </div>
       </div>
-      <Menu
+      {/* <Menu
         as="div"
         className="relative opacity-0 focus-within:opacity-100 group-hover:opacity-100"
       >
@@ -84,7 +84,7 @@ export default function Meeting({ meeting, handleDetails }) {
             </div>
           </Menu.Items>
         </Transition>
-      </Menu>
+      </Menu> */}
     </li>
   )
 }
