@@ -1,5 +1,3 @@
-import { faCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import {
   add,
@@ -17,6 +15,7 @@ import {
 } from 'date-fns';
 import React, { useState } from 'react';
 import Meeting from '../../UI/Meeting';
+import JobDetails from '../../UI/jobDetails';
 import { dataMeetings } from '../../utils/DataForm';
 
 function classNames(...classes) {
@@ -25,6 +24,7 @@ function classNames(...classes) {
 
 export default function CalenderManagement() {
   const [serviceDetails, setServiceDetails] = useState({})
+  const [showJobDetails, setShowServiceDetails] = useState(false)
   let today = startOfToday()
   let [selectedDay, setSelectedDay] = useState(today)
   let [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'))
@@ -35,6 +35,10 @@ export default function CalenderManagement() {
     end: endOfMonth(firstDayCurrentMonth),
   })
 
+  const showJob = (isShow)  => {
+    setShowServiceDetails(isShow)
+  }
+ 
   function previousMonth() {
     let firstDayNextMonth = add(firstDayCurrentMonth, { months: -1 })
     setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'))
@@ -51,6 +55,7 @@ export default function CalenderManagement() {
 
   const handleDetails = (meeting) => {
     setServiceDetails(meeting);
+    showJob(true)
   }
 
   return (
@@ -110,7 +115,7 @@ export default function CalenderManagement() {
                         >
                           <button
                             type="button"
-                            onClick={() => setSelectedDay(day)}
+                            onClick={() => {setSelectedDay(day); showJob(false);}}
                             className={classNames(
                               isEqual(day, selectedDay) && 'text-white',
                               !isEqual(day, selectedDay) &&
@@ -169,20 +174,7 @@ export default function CalenderManagement() {
                   </section>
                 </div>
               </div>
-              <div>
-                <h2 className="flex-auto font-semibold text-gray-900">{serviceDetails?.service?.nameService} </h2>
-                <h3 className="flex-auto font-semibold text-gray-900">{serviceDetails?.service?.description} </h3>
-                <h3 className="flex-auto font-semibold text-gray-900">Công Việc cần làm: </h3>
-                <ul className=' grid grid-cols-2 gap-4 w-full'>
-                  {serviceDetails?.service?.ServiceScheduleDetails?.map((schedule, index) => (
-                    <li key={index} className='flex items-center py-2 pl-6 '>
-                      <FontAwesomeIcon icon={faCircle} className='text-[06px]' />
-                      <p className="text-sm pl-3 text-gray-900">{schedule}</p>
-                    </li>
-                  ))}
-                </ul>
-
-              </div>
+              {showJobDetails && <JobDetails serviceDetails={serviceDetails} />}
             </div>
           </div>
         </div>

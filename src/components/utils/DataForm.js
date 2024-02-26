@@ -227,10 +227,12 @@ export const dataMeetings = [
         user: {
             id: 0,
             name: 'John Michael',
+            phoneNumber: '0339372465',
         },
         employee: {
             id: 0,
             name: 'John aswr',
+            phoneNumber: '0339372465',
         },
         service: {
             id: 0,
@@ -246,6 +248,7 @@ export const dataMeetings = [
             imageURL: 'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
             price: 100,
         },
+        status: true,
         startDatetime: '2024-02-23T13:00',
         endDatetime: '2024-02-23T17:30',
     },
@@ -254,10 +257,12 @@ export const dataMeetings = [
         user: {
             id: 0,
             name: 'John Michael',
+            phoneNumber: '0339372465',
         },
         employee: {
             id: 0,
             name: 'John aswr',
+            phoneNumber: '0339372465',
         },
         service: {
             id: 0,
@@ -273,6 +278,7 @@ export const dataMeetings = [
             imageURL: 'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
             price: 100,
         },
+        status: false,
         startDatetime: '2024-02-25T13:00',
         endDatetime: '2024-02-25T17:30',
     },
@@ -281,10 +287,12 @@ export const dataMeetings = [
         user: {
             id: 0,
             name: 'John Michael',
+            phoneNumber: '0339372465',
         },
         employee: {
             id: 0,
             name: 'John aswr',
+            phoneNumber: '0339372465',
         },
         service: {
             id: 0,
@@ -300,6 +308,7 @@ export const dataMeetings = [
             imageURL: 'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
             price: 100,
         },
+        status: true,
         startDatetime: '2024-02-23T13:00',
         endDatetime: '2024-02-23T17:30',
     },
@@ -308,10 +317,12 @@ export const dataMeetings = [
         user: {
             id: 0,
             name: 'John Michael',
+            phoneNumber: '0339372465',
         },
         employee: {
             id: 0,
             name: 'John aswr',
+            phoneNumber: '0339372465',
         },
         service: {
             id: 0,
@@ -327,6 +338,7 @@ export const dataMeetings = [
             imageURL: 'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
             price: 100,
         },
+        status: true,
         startDatetime: '2024-02-24T13:00',
         endDatetime: '2024-02-24T17:30',
     },

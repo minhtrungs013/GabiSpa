@@ -7,12 +7,12 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Meeting({ meeting , handleDetails}) {
+export default function Meeting({ meeting, handleDetails }) {
   let startDateTime = parseISO(meeting.startDatetime)
   let endDateTime = parseISO(meeting.endDatetime)
 
   return (
-    <li className="cursor-pointer flex items-center px-4 py-2 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100">
+    <li onClick={() => handleDetails(meeting)} className="cursor-pointer flex items-center px-4 py-2 space-x-4 group rounded-xl focus-within:bg-gray-100 hover:bg-gray-100">
       <img
         src={meeting.service?.imageURL}
         alt=""
@@ -29,6 +29,10 @@ export default function Meeting({ meeting , handleDetails}) {
             {format(endDateTime, 'h:mm a')}
           </time>
         </p>
+        <div className='flex items-center'>
+          <input type="checkbox" className='h-5 w-5 cursor-pointer mr-2' defaultChecked={meeting?.status} />
+          <h3 className="flex-auto font-semibold text-green-700">Hoàn thành</h3>
+        </div>
       </div>
       <Menu
         as="div"
@@ -55,7 +59,7 @@ export default function Meeting({ meeting , handleDetails}) {
               <Menu.Item>
                 {({ active }) => (
                   <span
-                  onClick={()=> handleDetails(meeting)}
+                    onClick={() => handleDetails(meeting)}
                     className={classNames(
                       active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                       'block px-4 py-2 text-sm'
