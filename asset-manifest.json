@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/GabiSpa/static/css/main.78636061.css",
-    "main.js": "/GabiSpa/static/js/main.b838c743.js",
+    "main.js": "/GabiSpa/static/js/main.e4e4eac5.js",
     "index.html": "/GabiSpa/index.html",
     "main.78636061.css.map": "/GabiSpa/static/css/main.78636061.css.map",
-    "main.b838c743.js.map": "/GabiSpa/static/js/main.b838c743.js.map"
+    "main.e4e4eac5.js.map": "/GabiSpa/static/js/main.e4e4eac5.js.map"
   },
   "entrypoints": [
     "static/css/main.78636061.css",
-    "static/js/main.b838c743.js"
+    "static/js/main.e4e4eac5.js"
   ]
 }
