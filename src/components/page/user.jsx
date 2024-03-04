@@ -8,6 +8,7 @@ import Slider from './slider/slider'
 import Blog from './blog/blog'
 import News from './news/news'
 import Navbar from './navbar/navbar';
+import Profile from './profile/profile'
 
 export default function User() {
   return (
@@ -19,6 +20,7 @@ export default function User() {
         <Route path="GabiSpa/dich-vu/chi-tiet" element={<ServiceDetails />} />
         <Route path="GabiSpa/cong-viec" element={<Job />} />
         <Route path="GabiSpa/tin-tuc" element={<News />} />
+        <Route path="GabiSpa/trang-ca-nhan" element={<Profile />} />
       </Routes>
     </div>
   )

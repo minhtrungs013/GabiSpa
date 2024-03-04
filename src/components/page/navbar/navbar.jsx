@@ -1,9 +1,13 @@
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Login from '../../login/login';
 import Register from '../../register/register';
+import { useDispatch, useSelector } from 'react-redux';
+import { Menu, Transition } from '@headlessui/react';
+import { setLoggedIn, setUsername } from '../../../redux/slice/userSlice';
+
 const menuitems = [
     {
         id: 0,
@@ -22,6 +26,11 @@ const menuitems = [
     },
     {
         id: 3,
+        title: "Tuyển Dụng",
+        path: "GabiSpa/tuyen-dung",
+    },
+    {
+        id: 4,
         title: "Liên Hệ",
         path: "GabiSpa/lien-he",
     },
@@ -29,9 +38,11 @@ const menuitems = [
 
 export default function Navbar() {
     const [open, setOpen] = useState(false)
+    const isLoggedIn = useSelector(state => state.userReducer.isLoggedIn);
+    const usename = useSelector(state => state.userReducer.usename);
+    const dispatch = useDispatch();
     const [isModalLogin, setModalLogin] = useState(false);
     const [isModalRegister, setModalRegister] = useState(false);
-
     const openModalLogin = () => {
         setModalLogin(true);
         setOpen(false)
@@ -59,6 +70,11 @@ export default function Navbar() {
         setModalRegister(true);
     }
 
+    const Logout = () => {
+        dispatch(setLoggedIn(false))
+        dispatch(setUsername(null))
+    }
+
     return (
         <>
             <div className='flex flex-col lg:flex-row justify-between items-center my-5'>
@@ -66,8 +82,8 @@ export default function Navbar() {
                     <Link to={'/GabiSpa'} className="text-lg">
                         <img className='' src="https://res.cloudinary.com/dax8xvyhi/image/upload/c_fill,h_90,w_250/v1705774032/mdggvkgqlr2osrxdt1hh.png" alt="" />
                     </Link>
-                    <div class="block lg:hidden">
-                        <button class="text-gray-800" onClick={() => setOpen(!open)}>
+                    <div className="block lg:hidden">
+                        <button className="text-gray-800" onClick={() => setOpen(!open)}>
                             <FontAwesomeIcon icon={faBars} className='pr-3 text-4xl text-[#214581]' />
                         </button>
                     </div>
@@ -84,17 +100,58 @@ export default function Navbar() {
                             </li>
                         ))}
                     </ul>
-                    <div class="lg:!hidden flex items-center justify-center mt-3 gap-4 " style={{ display: open ? 'flex' : 'none' }}>
-                        <button  onClick={openModalLogin} className='w-full rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 ] text-black border-[1px] border-[#2e4d81]' >Đăng nhập</button>
-                        <button  onClick={openModalRegister} size="md" className='w-full rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 bg-[#214581] text-white hover:bg-[#2e4d81]  border-2 border-transparent'>Đăng ký</button>
+                    <div className="lg:!hidden flex items-center justify-center mt-3 gap-4 " style={{ display: open ? 'flex' : 'none' }}>
+                        <button onClick={openModalLogin} className='w-full rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 ] text-black border-[1px] border-[#2e4d81]' >Đăng nhập</button>
+                        <button onClick={openModalRegister} size="md" className='w-full rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 bg-[#214581] text-white hover:bg-[#2e4d81]  border-2 border-transparent'>Đăng ký</button>
                     </div>
                 </nav>
-                <div>
-                    <div className="hidden lg:flex items-center gap-4" >
-                        <button  onClick={openModalLogin} className=' rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 ] text-black border-[1px] border-[#2e4d81]' >Đăng nhập</button>
-                        <button  onClick={openModalRegister} size="md" className='rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-5 py-2 bg-[#214581] text-white hover:bg-[#2e4d81]  border-2 border-transparent'>Đăng ký</button>
+                {!isLoggedIn ? <>
+                    <div>
+                        <div className="hidden lg:flex items-center gap-4" >
+                            <button onClick={openModalLogin} className=' rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 ] text-black border-[1px] border-[#2e4d81]' >Đăng nhập</button>
+                            <button onClick={openModalRegister} size="md" className='rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-5 py-2 bg-[#214581] text-white hover:bg-[#2e4d81]  border-2 border-transparent'>Đăng ký</button>
+                        </div>
                     </div>
-                </div>
+                </> :
+                    <div className='flex items-center' >
+                        <Menu as="div" className="relative">
+                            <div className='flex items-center '>
+                                <Menu.Button className="-m-2 flex items-center rounded-full p-1.5 text-gray-500 hover:text-gray-600">
+                                    <h2 className="flex lg:px-2 xl:px-3 py-2 text-gray-600 hover:text-[#214581] font-medium text-base ">{usename}</h2>
+                                    <div className="cursor-pointer">
+                                        <img className='h-14 w-14 rounded-full' src="https://res.cloudinary.com/dax8xvyhi/image/upload/v1700795002/tezswzzswt8sn4sd0maf.jpg" alt="" />
+                                    </div>
+                                </Menu.Button>
+                            </div>
+
+                            <Transition
+                                as={Fragment}
+                                enter="transition ease-out duration-100"
+                                enterFrom="transform opacity-0 scale-95"
+                                enterTo="transform opacity-100 scale-100"
+                                leave="transition ease-in duration-75"
+                                leaveFrom="transform opacity-100 scale-100"
+                                leaveTo="transform opacity-0 scale-95"
+                            >
+                                <Menu.Items className="absolute right-0 z-10 mt-2 origin-top-right bg-white rounded-md shadow-lg w-36 ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                    <div className="py-1">
+                                        <Menu.Item>
+                                            <Link to={'/GabiSpa/trang-ca-nhan'} className='text-gray-700 block px-4 py-2 text-sm'>
+                                                Trang Cá Nhân
+                                            </Link>
+                                        </Menu.Item>
+                                        <Menu.Item>
+                                            <span onClick={() => Logout()} className='cursor-pointer text-gray-700 block px-4 py-2 text-sm'>
+                                                Đăng Xuất
+                                            </span>
+                                        </Menu.Item>
+                                    </div>
+                                </Menu.Items>
+                            </Transition>
+                        </Menu>
+                    </div>
+
+                }
             </div >
             <Login closeModal={closeModalLogin} showModal={isModalLogin} switchRegister={switchRegister} />
             <Register closeModal={closeModalRegister} showModal={isModalRegister} switchLogin={switchLogin} />

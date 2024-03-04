@@ -11,9 +11,9 @@ import {
   isToday,
   parse,
   parseISO,
-  startOfToday,
+  startOfToday
 } from 'date-fns';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Meeting from '../../UI/Meeting';
 import JobDetails from '../../UI/jobDetails';
 import { dataMeetings } from '../../utils/DataForm';
@@ -24,6 +24,8 @@ function classNames(...classes) {
 
 export default function CalenderManagement() {
   const [serviceDetails, setServiceDetails] = useState({})
+  const [meeting, setMeeting] = useState(null)
+  const [selectedDayMeetings, setSelectedDayMeetings] = useState([])
   const [showJobDetails, setShowServiceDetails] = useState(false)
   let today = startOfToday()
   let [selectedDay, setSelectedDay] = useState(today)
@@ -35,10 +37,13 @@ export default function CalenderManagement() {
     end: endOfMonth(firstDayCurrentMonth),
   })
 
-  const showJob = (isShow)  => {
+  const showJob = (isShow) => {
     setShowServiceDetails(isShow)
   }
- 
+  const onClickSelecedDay = (day) => {
+    setSelectedDay(day)
+  }
+
   function previousMonth() {
     let firstDayNextMonth = add(firstDayCurrentMonth, { months: -1 })
     setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'))
@@ -49,15 +54,58 @@ export default function CalenderManagement() {
     setCurrentMonth(format(firstDayNextMonth, 'MMM-yyyy'))
   }
 
-  let selectedDayMeetings = dataMeetings.filter((meeting) =>
-    isSameDay(parseISO(meeting.startDatetime), selectedDay)
-  )
-
-  const handleDetails = (meeting) => {
-    setServiceDetails(meeting);
+  const handleDetails = (data, meeting) => {
+    setServiceDetails(data);
+    setMeeting(meeting)
     showJob(true)
   }
 
+  const findDataMettingById = (id) => {
+    return dataMeetings.find((meeting) =>
+      meeting.id === id
+    )
+  }
+  // const renderTask = (start, end, id) => {
+  //   const startDatetime = parseISO(start);
+  //   const endDatetime = parseISO(end);
+
+  //   const extractTime = (datetimeString) => {
+  //     const [date, time] = datetimeString.split('T');
+  //     const [hour, minute] = time.split(':');
+  //     return { hour: parseInt(hour, 10), minute: parseInt(minute, 10) };
+  //   };
+  //   const startTime = extractTime(start);
+  //   const endTime = extractTime(end);
+
+  //   const interval = eachDayOfInterval({ start: startDatetime, end: endDatetime });
+  //   const dateObjects = interval.map(date => ({
+  //     id: id,
+  //     startDateTime: format(new Date(date.setHours(startTime.hour, startTime.minute)), "yyyy-MM-dd'T'HH:mm"),
+  //     endDateTime: format(new Date(date.setHours(endTime.hour, endTime.minute)), "yyyy-MM-dd'T'HH:mm"),
+  //   }));
+  //   setDateJob(prevData => [...prevData, dateObjects])
+  // }
+
+  useEffect(() => {
+    const getDataMeetingToday = () => {
+      let data = []
+      for (let i = 0; i < dataMeetings.length; ++i) {
+        let a1 = dataMeetings[i].roleDetails?.find((meeting) =>
+          isSameDay(parseISO(meeting.startDateTime), selectedDay)
+        )
+        if (a1) {
+          a1 = { ...a1, idMeeting: dataMeetings[i].id };
+          data.push(a1)
+        }
+      }
+      setSelectedDayMeetings(data)
+    }
+    getDataMeetingToday()
+  }, [selectedDay])
+
+  const sortedMeetings = selectedDayMeetings.sort((a, b) => {
+    return new Date(a.startDateTime) - new Date(b.startDateTime);
+  });
   return (
     <div className="w-full px-6 py-6 mx-auto">
       <div className="flex flex-wrap -mx-3">
@@ -115,7 +163,7 @@ export default function CalenderManagement() {
                         >
                           <button
                             type="button"
-                            onClick={() => {setSelectedDay(day); showJob(false);}}
+                            onClick={() => { onClickSelecedDay(day); showJob(false); }}
                             className={classNames(
                               isEqual(day, selectedDay) && 'text-white',
                               !isEqual(day, selectedDay) &&
@@ -145,11 +193,9 @@ export default function CalenderManagement() {
                           </button>
 
                           <div className="w-1 h-1 mx-auto mt-1">
-                            {dataMeetings.some((meeting) =>
-                              isSameDay(parseISO(meeting.startDatetime), day)
-                            ) && (
-                                <div className="w-1 h-1 rounded-full bg-sky-500"></div>
-                              )}
+                            {dataMeetings.find((meeting) =>
+                              meeting.roleDetails?.some((detail) => isSameDay(parseISO(detail.startDateTime), day))
+                            ) && <div className="w-1 h-1 rounded-full bg-sky-500"></div>}
                           </div>
                         </div>
                       ))}
@@ -163,9 +209,9 @@ export default function CalenderManagement() {
                       </time>
                     </h2>
                     <ol className="mt-4 space-y-1 text-sm leading-6 text-gray-500">
-                      {selectedDayMeetings.length > 0 ? (
-                        selectedDayMeetings.map((meeting) => (
-                          <Meeting meeting={meeting} key={meeting.id} handleDetails={handleDetails} />
+                      {sortedMeetings.length > 0 ? (
+                        sortedMeetings.map((meeting) => (
+                          <Meeting meeting={meeting} data={findDataMettingById(meeting?.idMeeting)} handleDetails={handleDetails} />
                         ))
                       ) : (
                         <p>No meetings for today.</p>
@@ -174,7 +220,7 @@ export default function CalenderManagement() {
                   </section>
                 </div>
               </div>
-              {showJobDetails && <JobDetails serviceDetails={serviceDetails} />}
+              {showJobDetails && <JobDetails serviceDetails={serviceDetails} meeting={meeting} />}
             </div>
           </div>
         </div>

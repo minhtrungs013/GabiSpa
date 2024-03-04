@@ -1,37 +1,53 @@
-import { format, parseISO } from 'date-fns'
-import React, { Fragment } from 'react'
-import { Menu, Transition } from '@headlessui/react'
-import { DotsVerticalIcon } from '@heroicons/react/outline'
+import { format, parseISO } from 'date-fns';
+import React, { Fragment } from 'react';
+import { VALIDATION_DATE_TIME } from '../utils/utils';
+// function classNames(...classes) {
+//   return classes.filter(Boolean).join(' ')
+// }
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
+/**
+  * @param {object} meeting - meeting object
+  * @param {object} data - service object
+  * @param {function} handleDetails - function to handle meeting details
+ */
+export default function Meeting({ meeting, data, handleDetails }) {
+  let startDateTime = parseISO(meeting.startDateTime)
+  let endDateTime = parseISO(meeting.endDateTime)
 
-export default function Meeting({ meeting, handleDetails }) {
-  let startDateTime = parseISO(meeting.startDatetime)
-  let endDateTime = parseISO(meeting.endDatetime)
 
   return (
-    <li onClick={() => handleDetails(meeting)} className={`${meeting?.status && '!bg-green-50 '} mb-2 bg-amber-50 shadow-md cursor-pointer flex items-center px-4 py-2 space-x-4 group rounded-lg focus-within:bg-gray-100 hover:bg-gray-100`}>
+    <li onClick={() => handleDetails(data, meeting)} className={`${meeting?.isCompleted && '!bg-green-50 '} mb-2 bg-amber-50 shadow-md cursor-pointer flex items-center px-4 py-1 space-x-4 group rounded-lg focus-within:bg-gray-100 hover:bg-gray-100`}>
       <img
-        src={meeting.service?.imageURL}
+        src={data.service?.imageURL}
         alt=""
         className="flex-none w-10 h-10 rounded-full"
       />
       <div className="flex-auto">
-        <p className="text-gray-900">{meeting?.service?.nameService}</p>
+        <p className="text-gray-900">{data?.service?.nameService}</p>
         <p className="mt-0.5">
-          <time dateTime={meeting.startDatetime}>
+          <time dateTime={meeting.startDateTime}>
             {format(startDateTime, 'h:mm a')}
           </time>{' '}
           -{' '}
-          <time dateTime={meeting.endDatetime}>
+          <time dateTime={meeting.endDateTime}>
             {format(endDateTime, 'h:mm a')}
           </time>
         </p>
         <div className='flex items-center'>
-          <input type="checkbox" className='h-5 w-5 cursor-pointer mr-2' defaultChecked={meeting?.status} />
-          <h3 className="flex-auto font-semibold text-green-700">Hoàn thành</h3>
+          {meeting?.isCompleted ? (
+            <Fragment>
+              <h3 className="flex-auto font-semibold text-green-500">Hoàn thành</h3>
+            </Fragment>
+          )
+            : !meeting?.isCompleted && VALIDATION_DATE_TIME(startDateTime, endDateTime) ? (
+              <Fragment>
+                <h3 className="flex-auto font-semibold text-amber-500">Đang chờ</h3>
+              </Fragment>
+            ) : !meeting?.isCompleted && !VALIDATION_DATE_TIME(startDateTime, endDateTime) ? (
+              <Fragment>
+                <h3 className="flex-auto font-semibold text-red-600">Đã hủy</h3>
+              </Fragment>) : <></>
+          }
         </div>
       </div>
       {/* <Menu

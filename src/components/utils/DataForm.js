@@ -8,6 +8,21 @@ export const userFormFields = [
     { name: 'image', label: 'image', type: 'file', required: true, textrequired: "Vui lòng điền Email" },
 ];
 
+export const User = {
+    avatar: null,
+    fullName: null,
+    dateOfBirth: null,
+    age: null,
+    email: null,
+    address: null,
+    phone: null,
+}
+export const ChangePassword = {
+    oldPassword: null,
+    newPassword: null,
+    confirmPassword: null,
+}
+
 export const dataUserManagement = [
     {
         id: 0,
@@ -250,7 +265,19 @@ export const dataMeetings = [
         },
         status: true,
         startDatetime: '2024-02-23T13:00',
-        endDatetime: '2024-02-23T17:30',
+        endDatetime: '2024-03-23T17:30',
+        roleDetails: [
+            { startDateTime: '2024-02-23T13:00', endDateTime: '2024-02-23T17:30', isCompleted: true, note: "hi hi hi" },
+            { startDateTime: '2024-02-24T13:00', endDateTime: '2024-02-24T17:30', isCompleted: true, note: "hi hi hi" },
+            { startDateTime: '2024-02-25T13:00', endDateTime: '2024-02-25T17:30', isCompleted: true, note: "hi hi hi" },
+            { startDateTime: '2024-02-27T13:00', endDateTime: '2024-02-27T17:30', isCompleted: true, note: "hi hi hi" },
+            { startDateTime: '2024-02-28T13:00', endDateTime: '2024-02-28T13:40', isCompleted: false, note: "hi hi hi" },
+            { startDateTime: '2024-02-29T13:00', endDateTime: '2024-02-29T17:30', isCompleted: false, note: "hi hi hi" },
+            { startDateTime: '2024-03-01T13:00', endDateTime: '2024-03-01T17:30', isCompleted: false, note: "hi hi hi" },
+            { startDateTime: '2024-03-02T13:00', endDateTime: '2024-03-02T17:30', isCompleted: false, note: "hi hi hi" },
+            { startDateTime: '2024-03-03T13:00', endDateTime: '2024-03-03T17:30', isCompleted: false, note: "hi hi hi" },
+            { startDateTime: '2024-03-04T13:00', endDateTime: '2024-03-04T17:30', isCompleted: false, note: "hi hi hi" },
+        ]
     },
     {
         id: 1,
@@ -274,13 +301,26 @@ export const dataMeetings = [
                 'Manager Employee Manager Employee',
                 'Manager Employee Manager Employee',
                 'Manager Employee Manager Employee',
-                'Manager Employee Manager Employee'],
+                'Manager Employee Manager Employee'
+            ],
             imageURL: 'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
             price: 100,
         },
-        status: false,
-        startDatetime: '2024-02-25T13:00',
-        endDatetime: '2024-02-25T17:30',
+        status: true,
+        startDatetime: '2024-02-22T13:00',
+        endDatetime: '2024-03-27T17:30',
+        roleDetails: [
+            { startDateTime: '2024-02-24T13:00', endDateTime: '2024-02-24T17:30', isCompleted: true, note: "hi hi hi" },
+            { startDateTime: '2024-02-25T13:00', endDateTime: '2024-02-25T17:30', isCompleted: true, note: "hi hi hi" },
+            { startDateTime: '2024-02-26T13:00', endDateTime: '2024-02-26T17:30', isCompleted: true, note: "hi hi hi" },
+            { startDateTime: '2024-02-27T13:00', endDateTime: '2024-02-27T17:30', isCompleted: true, note: "hi hi hi" },
+            { startDateTime: '2024-02-28T15:48', endDateTime: '2024-02-28T17:30', isCompleted: false, note: "hi hi hi" },
+            { startDateTime: '2024-02-29T13:00', endDateTime: '2024-02-29T17:30', isCompleted: false, note: "hi hi hi" },
+            { startDateTime: '2024-03-01T13:00', endDateTime: '2024-03-01T17:30', isCompleted: false, note: "hi hi hi" },
+            { startDateTime: '2024-03-02T13:00', endDateTime: '2024-03-02T17:30', isCompleted: false, note: "hi hi hi" },
+            { startDateTime: '2024-03-03T13:00', endDateTime: '2024-03-03T17:30', isCompleted: false, note: "hi hi hi" },
+            { startDateTime: '2024-03-04T13:00', endDateTime: '2024-03-04T17:30', isCompleted: false, note: "hi hi hi" },
+        ]
     },
     {
         id: 2,
@@ -310,7 +350,19 @@ export const dataMeetings = [
         },
         status: true,
         startDatetime: '2024-02-23T13:00',
-        endDatetime: '2024-02-23T17:30',
+        endDatetime: '2024-03-23T17:30',
+        roleDetails: [
+            { startDateTime: '2024-02-23T10:00', endDateTime: '2024-02-23T13:30', isCompleted: true, note: "hi hi hi" },
+            { startDateTime: '2024-02-24T10:00', endDateTime: '2024-02-24T13:30', isCompleted: true, note: "hi hi hi" },
+            { startDateTime: '2024-02-25T10:00', endDateTime: '2024-02-25T13:30', isCompleted: true, note: "hi hi hi" },
+            { startDateTime: '2024-02-26T10:00', endDateTime: '2024-02-26T13:30', isCompleted: true, note: "hi hi hi" },
+            { startDateTime: '2024-02-27T10:00', endDateTime: '2024-02-27T13:30', isCompleted: true, note: "hi hi hi" },
+            { startDateTime: '2024-02-28T10:00', endDateTime: '2024-02-28T13:30', isCompleted: false, note: "hi hi hi" },
+            { startDateTime: '2024-02-29T10:00', endDateTime: '2024-02-29T13:30', isCompleted: false, note: "hi hi hi" },
+            { startDateTime: '2024-03-01T10:00', endDateTime: '2024-03-01T13:30', isCompleted: false, note: "hi hi hi" },
+            { startDateTime: '2024-03-02T10:00', endDateTime: '2024-03-02T13:30', isCompleted: false, note: "hi hi hi" },
+            { startDateTime: '2024-03-04T10:00', endDateTime: '2024-03-04T13:30', isCompleted: false, note: "hi hi hi" },
+        ]
     },
     {
         id: 3,
@@ -340,10 +392,24 @@ export const dataMeetings = [
         },
         status: true,
         startDatetime: '2024-02-24T13:00',
-        endDatetime: '2024-02-24T17:30',
+        endDatetime: '2024-03-24T17:30',
+        roleDetails: [
+            { startDateTime: '2024-02-23T10:00', endDateTime: '2024-02-23T13:30', isCompleted: true, note: "hi hi hi" },
+            { startDateTime: '2024-02-24T10:00', endDateTime: '2024-02-24T13:30', isCompleted: true, note: "hi hi hi" },
+            { startDateTime: '2024-02-25T10:00', endDateTime: '2024-02-25T13:30', isCompleted: false, note: "hi hi hi" },
+            { startDateTime: '2024-02-26T10:00', endDateTime: '2024-02-26T13:30', isCompleted: true, note: "hi hi hi" },
+            { startDateTime: '2024-02-27T10:00', endDateTime: '2024-02-27T13:30', isCompleted: true, note: "hi hi hi" },
+            { startDateTime: '2024-02-29T10:00', endDateTime: '2024-02-29T13:30', isCompleted: false, note: "hi hi hi" },
+            { startDateTime: '2024-03-01T10:00', endDateTime: '2024-03-01T13:30', isCompleted: false, note: "hi hi hi" },
+            { startDateTime: '2024-03-02T10:00', endDateTime: '2024-03-02T13:30', isCompleted: false, note: "hi hi hi" },
+            { startDateTime: '2024-03-03T10:00', endDateTime: '2024-03-03T13:30', isCompleted: false, note: "hi hi hi" },
+            { startDateTime: '2024-03-04T10:00', endDateTime: '2024-03-04T13:30', isCompleted: false, note: "hi hi hi" },
+        ]
     },
 
 ]
+
+
 
 export const columnNameBooking = [
     { name: 'Tên Người Dùng', field: 'User' },
