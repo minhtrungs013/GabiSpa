@@ -30,11 +30,29 @@ export const STATUS_HISTORY_TESTING = "TESTING";
 
 export const STATUS_HISTORY_DONE = "DONE";
 
+// export const STATUS_HISTORY_DONE = "DONE";
+
 export const ACCESS_TOKEN = "access_token";
 
 export const REFRESH_TOKEN = "refresh_token";
 
-export const ROLE_DEFAULT = "Khách hàng";
+export const ROLE_DEFAULT = "0caa5ce1a76fe25eae5446acc49ab375";
+
+export const ROLE_ADMIN = "Quản trị viên";
+
+export const ROLE_EMPLOYEE = "Nhân viên";
+
+export const CREATE_CATEGORY_SUCCESS = "Tạo danh mục thành công!";
+
+export const UPDATE_CATEGORY_SUCCESS = "Cập nhật danh mục thành công!";
+
+export const DELETE_CATEGORY_SUCCESS = "Xóa danh mục thành công!";
+
+export const CREATE_TASK_SUCCESS = "Tạo nhiệm vụ thành công!";
+
+export const UPDATE_TASK_SUCCESS = "Cập nhật nhiệm vụ thành công!";
+
+export const DELETE_TASK_SUCCESS = "Xóa nhiệm vụ thành công!";
 
 export const NAME = "name";
 
@@ -57,3 +75,5 @@ export const CONFIRM_CHANGE_PASSWORD = 'Changing your password you will have to 
 export const CONTACT_ADMIN = 'Please contact admin for support';
 
 export const DEFAULT_IMAGE = "https://www.dropbox.com/scl/fi/j2jzyxg6q9hw9shxhe6m4/no-image.png?rlkey=zc2jnd2rdyb9oxe20bfmklcnz&raw=1";
+
+export const SECRET_ROLE = 'WJpQ+sh9wJ15v11oKe8KZfwfIaZPxI9Ha5Tcr+dMGaM';

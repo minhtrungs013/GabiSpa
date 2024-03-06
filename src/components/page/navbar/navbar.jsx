@@ -1,12 +1,13 @@
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Menu, Transition } from '@headlessui/react';
 import React, { Fragment, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { setLoggedIn, setUsername } from '../../../redux/slice/userSlice';
+import { persistor } from '../../../redux/store';
 import Login from '../../login/login';
 import Register from '../../register/register';
-import { useDispatch, useSelector } from 'react-redux';
-import { Menu, Transition } from '@headlessui/react';
-import { setLoggedIn, setUsername } from '../../../redux/slice/userSlice';
 
 const menuitems = [
     {
@@ -71,8 +72,12 @@ export default function Navbar() {
     }
 
     const Logout = () => {
+        persistor.purge()
         dispatch(setLoggedIn(false))
         dispatch(setUsername(null))
+        localStorage.removeItem('refresh_token')
+        localStorage.removeItem('access_token')
+        localStorage.removeItem('persist:root')
     }
 
     return (

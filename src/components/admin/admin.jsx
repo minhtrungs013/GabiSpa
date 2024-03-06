@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom';
 import CategoriesManagement from './categoriesAdmin/categoriesManagement';
 import BookingManagement from './bookingAdmin/bookingManagement';
 import CalenderManagement from './calendarAdmin/calendarManagement';
+import TaskManagement from './taskAdmin/taskManagement';
 
 
 export default function Admin() {
@@ -29,6 +30,7 @@ export default function Admin() {
                                 <Route path="GabiSpa/admin/categories-management" element={<CategoriesManagement />} />
                                 <Route path="GabiSpa/admin/booking-management" element={<BookingManagement />} />
                                 <Route path="GabiSpa/admin/calendar-management" element={<CalenderManagement />} />
+                                <Route path="GabiSpa/admin/task-management" element={<TaskManagement />} />
                             </Routes>
                         </div>
                     </main>

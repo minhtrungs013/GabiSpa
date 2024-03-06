@@ -1,6 +1,6 @@
 import axios from 'axios';
+import { AES, enc } from 'crypto-js';
 import { addMinutes, format, getHours, getMinutes, isAfter, isSameDay } from 'date-fns';
-
 
 /**
  * Get the current date as a timestamp.
@@ -33,9 +33,9 @@ export const handleUpload = async (files) => {
   }
 };
 
- /**
-    * @returns {boolean} true if the current date is the same as the meeting date or the current date is after the meeting date, false otherwise
-    */
+/**
+   * @returns {boolean} true if the current date is the same as the meeting date or the current date is after the meeting date, false otherwise
+   */
 export const VALIDATION_DATE_TIME = (startDateTime, endDateTime) => {
   const currentHour = getHours(CURRENT_DATE());
   const currentMinute = getMinutes(CURRENT_DATE());
@@ -56,4 +56,28 @@ export const VALIDATION_DATE_TIME = (startDateTime, endDateTime) => {
   } else {
     return false;
   }
+}
+
+/**
+ * Encrypts the given string value using AES encryption algorithm with the provided secret key.
+ * 
+ * @param value - The string value to be encrypted.
+ * @param secret - The secret key used for encryption.
+ * @returns The encrypted string.
+ */
+export const encryptData = (value, secret) => {
+  return AES.encrypt(value, secret).toString();
+}
+
+/**
+ * Compares the given string value with its encrypted version using AES decryption algorithm 
+ * with the provided secret key.
+ * 
+ * @param value - The original string value to be compared.
+ * @param encryptedValue - The encrypted string value to be compared with the original value.
+ * @param secret - The secret key used for decryption.
+ * @returns A boolean indicating whether the decrypted value matches the original value.
+ */
+export const compareData = (value, encryptedValue, secret) => {
+  return AES.decrypt(encryptedValue, secret).toString(enc.Utf8) === value;
 }

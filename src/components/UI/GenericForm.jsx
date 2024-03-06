@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { handleUpload } from '../utils/utils';
+import { ObjectTask } from '../utils/DataForm';
 
 const GenericForm = ({ formFields, onSubmit, isUpdate, initialData }) => {
     const [formData, setFormData] = useState({});
-    const [images, setImages] = useState([initialData?.image]);
+    const [images, setImages] = useState(initialData?.image === undefined ? [] : [initialData.image])
+
     useEffect(() => {
         if (isUpdate && initialData) {
             setFormData(initialData);
         }
     }, [isUpdate, initialData]);
 
-
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prevData) => ({ ...prevData, [name]: value }));
+        const checked = e.target.checked;
+        setFormData((prevData) => ({ ...prevData, [name]: name === 'isActive' ? checked : value }));
     };
     const handleChangeImage = async (e) => {
         const files = e.target?.files
@@ -29,31 +31,64 @@ const GenericForm = ({ formFields, onSubmit, isUpdate, initialData }) => {
 
     return (
         <form onSubmit={handleSubmit} className="max-w-2xl mx-auto mt-4">
-            <div className='grid grid-cols-3 gap-3'>
+            <div className={`grid ${formFields.length < 4 && !isUpdate && '!grid-cols-2'} grid-cols-3 gap-3`}>
                 {formFields.map((field) => (
-                    <div key={field.name} className="mb-4">
-                        <label htmlFor={field.name} className="text-sm  text-gray-600">{field.label}:</label>
-                        {field.type === "file" ?
-                            <input
-                                type={field.type}
-                                onChange={handleChangeImage}
-                                className="text-sm p-2 w-full "
-                            />
-                            :
-                            <input
-                                type={field.type || 'text'}
-                                id={field.name}
-                                name={field.name}
-                                value={formData[field.name] || ''}
-                                onChange={handleChange}
-                                className="border rounded-lg text-sm border-gray-400 p-2 w-full "
-                                required={field.required}
-                                onInvalid={e => e.target.setCustomValidity(field.textrequired)}
-                                onInput={F => F.target.setCustomValidity('')}
-                                placeholder={field.label}
-                            />
-                        }
-                    </div>
+                    <>
+                        {field.name === 'isActive' && !isUpdate ? <></> :
+                            <div key={field.name} className="mb-4">
+                                <label htmlFor={field.name} className="text-sm  text-gray-600">{field.label}:</label>
+                                {field.type === "file" ?
+                                    <input
+                                        type={field.type}
+                                        onChange={handleChangeImage}
+                                        className="text-sm p-2 w-full "
+                                    />
+                                    :
+                                    <>
+                                        {field.type === "checkbox" && isUpdate ?
+                                            <div className='flex items-center justify-start pt-1'>
+                                                <input
+                                                    type={field.type}
+                                                    id={field.name}
+                                                    name={field.name}
+                                                    checked={formData[field.name]}
+                                                    onChange={handleChange}
+                                                    className="cursor-pointer text-xl h-6 p-2 w-6 "
+                                                    placeholder={field.label}
+                                                />
+                                            </div>
+                                            :
+                                            <>
+                                                {field.type === "select" ?
+                                                    <div className='flex items-center justify-start '>
+                                                        <select id="countries" required={field.required} name='object' class="border rounded-lg text-sm border-gray-400 p-2 w-full" value={formData[field.name]} onChange={handleChange}>
+                                                            <option value="" disabled selected>Chọn một</option>
+                                                            {ObjectTask.map((task, index) => (
+                                                                <option key={index} value={task.name}>{task.name}</option>
+
+                                                            ))}
+                                                        </select>
+                                                    </div>
+                                                    :
+                                                    <input
+                                                        type={field.type || 'text'}
+                                                        id={field.name}
+                                                        name={field.name}
+                                                        value={formData[field.name] || ''}
+                                                        onChange={handleChange}
+                                                        className="border rounded-lg text-sm border-gray-400 p-2 w-full "
+                                                        required={field.required}
+                                                        onInvalid={e => e.target.setCustomValidity(field.textrequired)}
+                                                        onInput={F => F.target.setCustomValidity('')}
+                                                        placeholder={field.label}
+                                                    />
+                                                }
+                                            </>
+                                        }
+                                    </>
+                                }
+                            </div>
+                        }</>
                 ))}
             </div>
             <div className='flex justify-between items-baseline'>
@@ -66,7 +101,7 @@ const GenericForm = ({ formFields, onSubmit, isUpdate, initialData }) => {
                     {isUpdate ? 'Cập nhật' : 'Thêm'}
                 </button>
             </div>
-        </form>
+        </form >
     );
 };
 

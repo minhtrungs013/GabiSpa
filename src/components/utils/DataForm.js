@@ -8,6 +8,18 @@ export const userFormFields = [
     { name: 'image', label: 'image', type: 'file', required: true, textrequired: "Vui lòng điền Email" },
 ];
 
+export const categoryFormFields = [
+    { name: 'name', label: 'Tên Dịch Vụ', type: 'text', required: true, textrequired: "Vui lòng điền tên dịch vụ" },
+    { name: 'description', label: 'Mô Tả', type: 'text', required: true, textrequired: "Vui lòng điền mô tả" },
+    { name: 'isActive', label: 'Trạng Thái', type: 'checkbox', required: true, textrequired: "Vui lòng điền mô tả" },
+];
+export const taskFormFields = [
+    { name: 'name', label: 'Tên Nhiệm Vụ', type: 'text', required: true, textrequired: "Vui lòng điền tên Nhiệm Vụ" },
+    { name: 'description', label: 'Mô Tả', type: 'text', required: true, textrequired: "Vui lòng điền mô tả" },
+    { name: 'object', label: 'Loại Nhiệm Vụ', type: 'select', required: true, textrequired: "Vui lòng Chọn Loại Nhiệm Vụ" },
+    { name: 'isActive', label: 'Trạng Thái', type: 'checkbox', required: true, textrequired: "Vui lòng điền mô tả" },
+];
+
 export const User = {
     avatar: null,
     fullName: null,
@@ -22,6 +34,30 @@ export const ChangePassword = {
     newPassword: null,
     confirmPassword: null,
 }
+export const Task = {
+    id: null,
+    name: null,
+    description: null,
+    object: null,
+    createdAt: null,
+    isActive: null,
+}
+
+export const ObjectTask = [
+    {
+        name: "Mẹ mang thai",
+    },
+    {
+        name: "Mẹ cho con bú",
+    },
+    {
+        name: "Em bé",
+    },
+    {
+        name: "Mẹ và bé"
+    },
+]
+
 
 export const dataUserManagement = [
     {
@@ -139,26 +175,23 @@ export const dataServiceManagement = [
 export const dataCategoriesManagement = [
     {
         id: 0,
-        nameCategory: 'Dịch Vụ Cho Mẹ Bầu',
+        name: 'Dịch Vụ Cho Mẹ Bầu',
         description: 'Mẹ Bầu',
-        CreatedAt: '12-02-2024 10:30 PM',
-        UpdatedAt: '12-02-2024 11:30 PM',
+        createdAt: '12-02-2024 10:30 PM',
         isActive: true,
     },
     {
         id: 2,
-        nameCategory: 'Dịch Vụ Cho Mẹ Sau Sinh',
+        name: 'Dịch Vụ Cho Mẹ Sau Sinh',
         description: ' Mẹ Sau Sinh',
-        CreatedAt: '12-02-2024 10:30 PM',
-        UpdatedAt: '12-02-2024 11:30 PM',
+        createdAt: '12-02-2024 10:30 PM',
         isActive: true,
     },
     {
         id: 3,
-        nameCategory: 'Dịch Vụ Cho Bé',
+        name: 'Dịch Vụ Cho Bé',
         description: ' Bé',
-        CreatedAt: '12-02-2024 10:30 PM',
-        UpdatedAt: '12-02-2024 11:30 PM',
+        createdAt: '12-02-2024 10:30 PM',
         isActive: true,
     },
 ];
@@ -437,8 +470,15 @@ export const columnNameUser = [
 ];
 
 export const columnNameCategories = [
-    { name: 'Tên Dịch Vụ', field: 'name' },
+    { name: 'Tên Danh Mục', field: 'name' },
     { name: 'Mô Tả', field: 'description' },
+    { name: 'Ngày tạo', field: 'CreatedAt' },
+    { name: 'Trạng thái', field: 'isActive' },
+];
+export const columnNameTask = [
+    { name: 'Tên Nhiệm Vụ', field: 'name' },
+    { name: 'Mô Tả', field: 'description' },
+    { name: 'Loại Nhiệm Vụ', field: 'object' },
     { name: 'Ngày tạo', field: 'CreatedAt' },
     { name: 'Trạng thái', field: 'isActive' },
 ];
