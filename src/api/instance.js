@@ -7,7 +7,8 @@ API.interceptors.request.use(
   function (config) {
     let token = getToken();
     if (!token) return config;
-    config.headers['Authorization'] = 'Bearer ' + getToken();
+    console.log(token);
+    config.headers['Authorization'] = 'Bearer ' + token;
 
     return config;
   },

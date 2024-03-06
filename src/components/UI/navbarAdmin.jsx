@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 export default function NavbarAdmin() {
     return (
-        <nav className="relative flex flex-wrap items-center justify-between px-0 py-4 mx-6 transition-all shadow-none duration-250 ease-soft-in rounded-2xl lg:flex-nowrap lg:justify-start" navbar-main navbar-scroll="true">
+        <div className="relative flex flex-wrap items-center justify-between px-0 py-4 mx-6 transition-all shadow-none duration-250 ease-soft-in rounded-2xl lg:flex-nowrap lg:justify-start" navbar-main navbar-scroll="true">
             <div className="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
                 <div className="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
                     <div className="flex items-center md:ml-auto md:pr-4">
@@ -43,6 +43,6 @@ export default function NavbarAdmin() {
                     </ul>
                 </div>
             </div>
-        </nav>
+        </div>
     )
 }

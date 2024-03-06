@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { ROLE_DEFAULT } from '../../commom/messageConstant'
 
 const initialState = {
     isLoggedIn: false,
