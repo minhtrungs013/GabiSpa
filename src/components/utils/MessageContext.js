@@ -21,7 +21,6 @@ export const MessageProvider = ({ children }) => {
     };
   
     const hideMessage = (id) => {
-        console.log(id);
       setMessages((prevMessages) => prevMessages.filter((msg) => msg.id !== id));
     };
   

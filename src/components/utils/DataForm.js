@@ -1,11 +1,21 @@
 export const userFormFields = [
-    { name: 'fullName', label: 'Họ và tên', required: true, textrequired: "Vui lòng điền họ và tên" },
-    { name: 'address', label: 'Địa chỉ', required: true, textrequired: "Vui lòng điền Địa chỉ" },
-    { name: 'role', label: 'Quyền', required: true, textrequired: "Vui lòng điền Quyền" },
-    { name: 'status', label: 'Trạng thái', required: true, textrequired: "Vui lòng điền Trạng thái" },
+    { name: 'username', label: 'Tài Khoản', type: 'text', required: true, textrequired: "Vui lòng điền Tài Khoản" },
+    { name: 'password', label: 'Mật Khẩu', type: 'password', required: true, textrequired: "Vui lòng điền Mật Khẩu" },
+    { name: 'confirmPassword', label: 'Nhập Lại Mật Khẩu', type: 'password', required: true, textrequired: "Vui lòng Nhập Lại Mật Khẩu" },
+    { name: 'fullName', label: 'Họ Và Tên', type: 'text', required: true, textrequired: "Vui lòng điền họ và tên" },
+    { name: 'address', label: 'Địa Thỉ', type: 'text', required: true, textrequired: "Vui lòng điền Địa chỉ" },
+    { name: 'role', label: 'Quyền', type: 'select', required: true, textrequired: "Vui lòng điền Quyền" },
+    { name: 'dateOfBirth', label: 'Ngày Sinh', type: 'date', required: true, textrequired: "Vui lòng điền ngày sinh" },
+    { name: 'age', label: 'Tuổi', required: true, type: 'number', textrequired: "Vui lòng điền ngày sinh" },
     { name: 'email', label: 'Email', type: 'email', required: true, textrequired: "Vui lòng điền Email" },
-    { name: 'phoneNumber', label: 'Số điện thoại', type: 'tel', required: true, textrequired: "Vui lòng điền Số điện thoại" },
-    { name: 'image', label: 'image', type: 'file', required: true, textrequired: "Vui lòng điền Email" },
+    { name: 'phone', label: 'Số Điện Thoại', type: 'number', required: true, textrequired: "Vui lòng điền Số điện thoại" },
+    { name: 'avatar', label: 'Ảnh Đại Diện', type: 'file', required: true, textrequired: "Vui lòng thêm hình ảnh" },
+    { name: 'isActive', label: 'Trạng Thái', type: 'checkbox', required: true, textrequired: "Vui lòng điền mô tả" },
+];
+
+export const userUpdateFormFields = [
+    { name: 'note', label: 'Lưu ý', type: 'text', required: true, textrequired: "Vui lòng điền ..." },
+    { name: 'isActive', label: 'Trạng Thái', type: 'checkbox', required: true, textrequired: "Vui lòng điền mô tả" },
 ];
 
 export const categoryFormFields = [
@@ -20,7 +30,7 @@ export const taskFormFields = [
     { name: 'isActive', label: 'Trạng Thái', type: 'checkbox', required: true, textrequired: "Vui lòng điền mô tả" },
 ];
 
-export const User = {
+export const UserDetails = {
     avatar: null,
     fullName: null,
     dateOfBirth: null,
@@ -29,6 +39,23 @@ export const User = {
     address: null,
     phone: null,
 }
+
+export const User = {
+    username: null,
+    password: null,
+    confirmPassword: null,
+    role: null,
+    userDetail: {
+        avatar: null,
+        fullName: null,
+        dateOfBirth: null,
+        age: null,
+        email: null,
+        address: null,
+        phone: null,
+    }
+}
+
 export const ChangePassword = {
     oldPassword: null,
     newPassword: null,
@@ -57,70 +84,19 @@ export const ObjectTask = [
         name: "Mẹ và bé"
     },
 ]
+export const Role = [
+    {
+        name: "Quản trị viên",
+    },
+    {
+        name: "Nhân viên",
+    },
+    {
+        name: "Khách hàng",
+    }
+]
 
 
-export const dataUserManagement = [
-    {
-        id: 0,
-        name: 'John Michael',
-        role: 'Manager',
-        roleDetails: 'Manager Employee',
-        email: 'Manager@gmail.com',
-        imageURL: 'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
-        address: 'Thái Nguyên',
-        status: true,
-    },
-    {
-        id: 1,
-        name: 'John Michael',
-        role: 'Manager',
-        roleDetails: 'Manager Employee',
-        email: 'Manager@gmail.com',
-        imageURL: 'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
-        address: 'Thái Nguyên',
-        status: true,
-    },
-    {
-        id: 2,
-        name: 'John Michael',
-        role: 'Manager',
-        roleDetails: 'Manager Employee',
-        email: 'Manager@gmail.com',
-        imageURL: 'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
-        address: 'Thái Nguyên',
-        status: false,
-    },
-    {
-        id: 3,
-        name: 'John Michael',
-        role: 'Manager',
-        roleDetails: 'Manager Employee',
-        email: 'Manager@gmail.com',
-        imageURL: 'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
-        address: 'Thái Nguyên',
-        status: false,
-    },
-    {
-        id: 4,
-        name: 'John Michael',
-        role: 'Manager',
-        roleDetails: 'Manager Employee',
-        email: 'Manager@gmail.com',
-        imageURL: 'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
-        address: 'Thái Nguyên',
-        status: true,
-    },
-    {
-        id: 5,
-        name: 'John Michael',
-        role: 'Manager',
-        roleDetails: 'Manager Employee',
-        email: 'Manager@gmail.com',
-        imageURL: 'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
-        address: 'Thái Nguyên',
-        status: false,
-    },
-];
 export const dataServiceManagement = [
     {
         id: 0,
@@ -452,6 +428,8 @@ export const columnNameBooking = [
     { name: 'Giá Dịch Vụ', field: 'price' },
     { name: 'Trạng Thái', field: 'Status' },
 ];
+
+
 export const columnNameService = [
     { name: 'Tên Dịch Vụ', field: 'nameService' },
     { name: 'Mô Tả', field: 'description' },
@@ -463,10 +441,15 @@ export const columnNameService = [
 ];
 
 export const columnNameUser = [
-    { name: 'Họ và Tên', field: 'name' },
+    { name: 'Họ và Tên', field: 'fullName' },
+    { name: 'Tài Khoản', field: 'username' },
     { name: 'Quyền', field: 'role' },
     { name: 'Địa chỉ', field: 'address' },
-    { name: 'Trạng thái', field: 'status' },
+    { name: 'Ngày Sinh', field: 'dateOfBirth' },
+    { name: 'Tuổi', field: 'age' },
+    { name: 'Số Điện Thoại', field: 'phone' },
+    { name: 'Ghi Chú', field: 'note' },
+    { name: 'Trạng thái', field: 'isActive' },
 ];
 
 export const columnNameCategories = [

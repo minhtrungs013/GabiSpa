@@ -1,26 +1,26 @@
-export const USER_NAME_CHARACTERS = "User name cannot contain special characters";
+export const USER_NAME_CHARACTERS = " không được chứa ký tự đặc biệt";
 
-export const ENTER_ALL_INFORMATION = "You need to enter all the information";
+export const ENTER_ALL_INFORMATION = "Bạn cần nhập đầy đủ thông tin";
 
 export const REGEX = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>?]+/;
 
 export const REGEX_NUMBER = /^\d+$/;
 
-export const SPECIAL_CHARACTERS = 'Cannot contain special characters';
+export const SPECIAL_CHARACTERS = 'Không thể chứa các ký tự đặc biệt';
 
-export const PHONE_NUMBER_INCORRECT_FORMAT = 'Phone number is not in the correct format';
+export const PHONE_NUMBER_INCORRECT_FORMAT = 'Số điện thoại không đúng định dạng';
 
-export const REGEX_BIRTHDAY = 'The date of birth must not coincide with the current date';
+export const REGEX_BIRTHDAY = 'Ngày sinh không được trùng với ngày hiện tại';
 
-export const CONFIRM_PASSWORD_INCORRECT = 'Password does not match, please re-enter';
+export const CONFIRM_PASSWORD_INCORRECT = 'Mật khẩu không khớp, vui lòng nhập lại';
 
-export const AGE_INCORRECT_FORMAT = 'Age is not in the correct format';
+export const AGE_INCORRECT_FORMAT = 'Độ tuổi không ở định dạng đúng';
 
-export const TYPE_MESSAGE_SUCCESS = "success";
+export const TYPE_MESSAGE_SUCCESS = "thành công";
 
-export const TYPE_MESSAGE_WARNING = "warning";
+export const TYPE_MESSAGE_WARNING = "cảnh báo";
 
-export const TYPE_MESSAGE_ERROR = "error";
+export const TYPE_MESSAGE_ERROR = "lỗi";
 
 export const SLASH = "/";
 
@@ -54,6 +54,10 @@ export const UPDATE_TASK_SUCCESS = "Cập nhật nhiệm vụ thành công!";
 
 export const DELETE_TASK_SUCCESS = "Xóa nhiệm vụ thành công!";
 
+export const CREATE_USER_SUCCESS = "Tạo người dùng thành công!";
+
+export const UPDATE_USER_SUCCESS = "Cập nhật người dùng thành công!";
+
 export const NAME = "name";
 
 export const VALUE = "value";
@@ -66,14 +70,14 @@ export const COLOR_MEDIUM = "#f29f05";
 
 export const COLOR_DEFAULT = "black";
 
-export const IMAGE_NANE_EXISTS = "Image name already exists";
+export const IMAGE_NANE_EXISTS = "Tên hình ảnh đã tồn tại";
 
 export const INVALID_TOKEN = "Access token is invalid";
 
-export const CONFIRM_CHANGE_PASSWORD = 'Changing your password you will have to log in again!';
+export const CONFIRM_CHANGE_PASSWORD = 'Đổi mật khẩu bạn sẽ phải đăng nhập lại!';
 
-export const CONTACT_ADMIN = 'Please contact admin for support';
+export const CONTACT_ADMIN = 'Hãy liên hệ với quản trị viên để được hỗ trợ';
 
-export const DEFAULT_IMAGE = "https://www.dropbox.com/scl/fi/j2jzyxg6q9hw9shxhe6m4/no-image.png?rlkey=zc2jnd2rdyb9oxe20bfmklcnz&raw=1";
+export const DEFAULT_IMAGE = "http://res.cloudinary.com/dax8xvyhi/image/upload/v1709525315/rpcbhfhqzl4qgskvlcqh.jpg";
 
 export const SECRET_ROLE = 'WJpQ+sh9wJ15v11oKe8KZfwfIaZPxI9Ha5Tcr+dMGaM';

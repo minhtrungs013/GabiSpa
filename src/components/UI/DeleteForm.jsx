@@ -5,7 +5,6 @@ export default function DeleteForm({onCancel, onSubmit, id, title}) {
         onCancel()
     }
     const handleSubmit = () => {
-        console.log(id);
         onSubmit(id)
     }
     return (

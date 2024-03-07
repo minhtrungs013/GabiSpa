@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { handleUpload } from '../utils/utils';
-import { ObjectTask } from '../utils/DataForm';
 
-const GenericForm = ({ formFields, onSubmit, isUpdate, initialData }) => {
+const GenericForm = ({ formFields, onSubmit, isUpdate, initialData, selectData }) => {
     const [formData, setFormData] = useState({});
     const [images, setImages] = useState(initialData?.image === undefined ? [] : [initialData.image])
 
@@ -31,7 +30,7 @@ const GenericForm = ({ formFields, onSubmit, isUpdate, initialData }) => {
 
     return (
         <form onSubmit={handleSubmit} className="max-w-2xl mx-auto mt-4">
-            <div className={`grid ${formFields.length < 4 && !isUpdate && '!grid-cols-2'} grid-cols-3 gap-3`}>
+            <div className={`grid ${formFields.length < 4 && '!grid-cols-2'} grid-cols-3 gap-3`}>
                 {formFields.map((field) => (
                     <>
                         {field.name === 'isActive' && !isUpdate ? <></> :
@@ -41,6 +40,9 @@ const GenericForm = ({ formFields, onSubmit, isUpdate, initialData }) => {
                                     <input
                                         type={field.type}
                                         onChange={handleChangeImage}
+                                        required={field.required}
+                                        onInvalid={e => e.target.setCustomValidity(field.textrequired)}
+                                        onInput={F => F.target.setCustomValidity('')}
                                         className="text-sm p-2 w-full "
                                     />
                                     :
@@ -61,9 +63,9 @@ const GenericForm = ({ formFields, onSubmit, isUpdate, initialData }) => {
                                             <>
                                                 {field.type === "select" ?
                                                     <div className='flex items-center justify-start '>
-                                                        <select id="countries" required={field.required} name='object' class="border rounded-lg text-sm border-gray-400 p-2 w-full" value={formData[field.name]} onChange={handleChange}>
+                                                        <select id="countries" required={field.required} name={field.name} class="border rounded-lg text-sm border-gray-400 p-2 w-full" value={formData[field.name]} onChange={handleChange}>
                                                             <option value="" disabled selected>Chọn một</option>
-                                                            {ObjectTask.map((task, index) => (
+                                                            {selectData.map((task, index) => (
                                                                 <option key={index} value={task.name}>{task.name}</option>
 
                                                             ))}

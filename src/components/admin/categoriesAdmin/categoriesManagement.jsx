@@ -9,7 +9,7 @@ import DeleteForm from '../../UI/DeleteForm';
 import GenericForm from '../../UI/GenericForm';
 import Modal from '../../UI/Modal ';
 import { categoryFormFields, columnNameCategories } from '../../utils/DataForm';
-import { format } from 'date-fns';
+import { formatDate } from '../../utils/utils';
 
 export default function CategoriesManagement() {
 
@@ -106,7 +106,7 @@ export default function CategoriesManagement() {
                 <h4 className='text-lg font-semibold'> Quản Lý Danh Mục</h4>
               </div>
               <div className="p-6 pb-0 mb-3 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-                <button onClick={handleAddCategory} className='px-4 py-2 font-medium text-xs bg-black text-white rounded-lg shadow-sm' > <FontAwesomeIcon icon={faPlus} className='h-4 w-4 ' /> Thêm Người Dùng</button>
+                <button onClick={handleAddCategory} className='px-4 py-2 font-medium text-xs bg-black text-white rounded-lg shadow-sm' > <FontAwesomeIcon icon={faPlus} className='h-4 w-4 ' /> Thêm Danh Mục</button>
               </div>
             </div>
             <div className="flex-auto px-0 pt-0 relative">
@@ -130,7 +130,7 @@ export default function CategoriesManagement() {
                           <span className="text-xs font-semibold leading-tight text-slate-400">{item.description}</span>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <span className="text-xs font-semibold leading-tight text-slate-400">{format(item.createdAt, 'dd-MM-yyyy- HH:mm a')}</span>
+                          <span className="text-xs font-semibold leading-tight text-slate-400">{formatDate(item.createdAt)}</span>
                         </td>
                         <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                           <span className={`${item.isActive ? ' from-green-600 to-lime-500 ' : 'from-red-600 to-red-500 '} bg-gradient-to-tl  px-2 text-xs rounded-md py-1.5 inline-block whitespace-nowrap text-center align-baseline font-normal  leading-none text-white`}
@@ -149,8 +149,8 @@ export default function CategoriesManagement() {
           </div>
         </div>
       </div>
-      <Modal isOpen={isModalOpen} onClose={closeModal} title={isDelete ? "Xóa Người Dùng " : isUpdatingCategory ? 'Cập nhật' : 'Thêm người dùng'}>
-        {isDelete ? <DeleteForm id={initialCategoryData} onCancel={closeModal} onSubmit={submitDeleteCategory} title={"Bạn có muốn xóa người dùng này không"} /> :
+      <Modal isOpen={isModalOpen} onClose={closeModal} title={isDelete ? "Xóa Danh Mục " : isUpdatingCategory ? 'Cập nhật' : 'Thêm Danh Mục'}>
+        {isDelete ? <DeleteForm id={initialCategoryData} onCancel={closeModal} onSubmit={submitDeleteCategory} title={"Bạn có muốn xóa danh mục này không"} /> :
           <GenericForm
             formFields={categoryFormFields}
             onSubmit={submitAddOrUpdateCategory}

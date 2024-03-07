@@ -1,6 +1,5 @@
 import { faPenToSquare, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -9,7 +8,8 @@ import { CREATE_TASK_SUCCESS, DELETE_TASK_SUCCESS, UPDATE_TASK_SUCCESS } from '.
 import DeleteForm from '../../UI/DeleteForm';
 import GenericForm from '../../UI/GenericForm';
 import Modal from '../../UI/Modal ';
-import { columnNameTask, taskFormFields } from '../../utils/DataForm';
+import { ObjectTask, columnNameTask, taskFormFields } from '../../utils/DataForm';
+import { formatDate } from '../../utils/utils';
 
 export default function TaskManagement() {
 
@@ -106,7 +106,7 @@ export default function TaskManagement() {
                 <h4 className='text-lg font-semibold'> Quản Lý Nhiệm Vụ</h4>
               </div>
               <div className="p-6 pb-0 mb-3 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-                <button onClick={handleAddTask} className='px-4 py-2 font-medium text-xs bg-black text-white rounded-lg shadow-sm' > <FontAwesomeIcon icon={faPlus} className='h-4 w-4 ' /> Thêm Người Dùng</button>
+                <button onClick={handleAddTask} className='px-4 py-2 font-medium text-xs bg-black text-white rounded-lg shadow-sm' > <FontAwesomeIcon icon={faPlus} className='h-4 w-4 ' /> Thêm Nhiệm Vụ</button>
               </div>
             </div>
             <div className="flex-auto px-0 pt-0 relative">
@@ -133,7 +133,7 @@ export default function TaskManagement() {
                           <span className="text-xs font-semibold leading-tight text-slate-400">{item.object}</span>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <span className="text-xs font-semibold leading-tight text-slate-400">{format(item?.createdAt, 'dd-MM-yyyy- HH:mm a')}</span>
+                          <span className="text-xs font-semibold leading-tight text-slate-400">{formatDate(item?.createdAt)}</span>
                         </td>
                         <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                           <span className={`${item.isActive ? ' from-green-600 to-lime-500 ' : 'from-red-600 to-red-500 '} bg-gradient-to-tl  px-2 text-xs rounded-md py-1.5 inline-block whitespace-nowrap text-center align-baseline font-normal  leading-none text-white`}
@@ -152,13 +152,14 @@ export default function TaskManagement() {
           </div>
         </div>
       </div>
-      <Modal isOpen={isModalOpen} onClose={closeModal} title={isDelete ? "Xóa Người Dùng " : isUpdatingTask ? 'Cập nhật' : 'Thêm người dùng'}>
-        {isDelete ? <DeleteForm id={initialTaskData} onCancel={closeModal} onSubmit={submitDeleteTask} title={"Bạn có muốn xóa người dùng này không"} /> :
+      <Modal isOpen={isModalOpen} onClose={closeModal} title={isDelete ? "Xóa Nhiệm Vụ " : isUpdatingTask ? 'Cập nhật' : 'Thêm Nhiệm Vụ'}>
+        {isDelete ? <DeleteForm id={initialTaskData} onCancel={closeModal} onSubmit={submitDeleteTask} title={"Bạn có muốn xóa nhiệm vụ này không"} /> :
           <GenericForm
             formFields={taskFormFields}
             onSubmit={submitAddOrUpdateTask}
             isUpdate={isUpdatingTask}
             initialData={initialTaskData}
+            selectData={ObjectTask}
           />
         }
       </Modal>

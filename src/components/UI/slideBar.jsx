@@ -1,7 +1,10 @@
-import { faCalendar, faCreditCard, faCubes, faEnvelopesBulk, faGears, faListCheck, faPowerOff, faRightToBracket, faStore, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faCalendar, faCreditCard, faCubes, faEnvelopesBulk, faGears, faListCheck, faPowerOff, faStore } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
+import { setLoggedIn, setRole, setUsername } from '../../redux/slice/userSlice'
+import { persistor } from '../../redux/store'
 
 const SlideNav = [
     {
@@ -57,7 +60,18 @@ const SlideNav = [
 export default function SlideBar() {
     const location = useLocation();
     const param = location.pathname;
+    const dispatch = useDispatch();
 
+    const Logout = () => {
+        persistor.purge()
+        dispatch(setLoggedIn(false))
+        dispatch(setUsername(null))
+        dispatch(setRole(''))
+        localStorage.removeItem('refresh_token')
+        localStorage.removeItem('access_token')
+        localStorage.removeItem('persist:root')
+    }
+   
     return (
         <aside className="max-w-[16.666667%] ease-nav-brand lg:ml-0 z-990 fixed inset-y-0 my-4 ml-4 block w-full  flex-wrap items-center justify-between overflow-y-auto rounded-2xl border-0 bg-white p-0 antialiased shadow-none transition-transform duration-200 xl:left-0 xl:translate-x-0 xl:bg-transparent">
             <div className="h-20">
@@ -84,7 +98,7 @@ export default function SlideBar() {
                     <li className="w-full mt-4">
                         <h6 className="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60">Account pages</h6>
                     </li>
-                    <li className="mt-0.5 w-full">
+                    {/* <li className="mt-0.5 w-full">
                         <Link className="py-3 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors" >
                             <div className="shadow-slate-300 shadow-md mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                                 <FontAwesomeIcon icon={faUser} className='h-3 w-3 text-2xl ' />
@@ -99,13 +113,13 @@ export default function SlideBar() {
                             </div>
                             <span className="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Sign In</span>
                         </Link>
-                    </li>
+                    </li> */}
                     <li className="mt-0.5 w-full">
-                        <Link className="py-3 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors" >
+                        <Link to={'/GabiSpa'} className="py-3 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors" onClick={() => Logout()} >
                             <div className="shadow-slate-300 shadow-md mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                                 <FontAwesomeIcon icon={faPowerOff} className='h-3 w-3 text-2xl ' />
                             </div>
-                            <span className="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">Sign Up</span>
+                            <span className="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">LogOut</span>
                         </Link>
                     </li>
                 </ul>

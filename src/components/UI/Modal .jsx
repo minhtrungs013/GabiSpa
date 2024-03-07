@@ -23,7 +23,7 @@ const Modal = ({ isOpen, onClose, children, title }) => {
     return (
         <>
             {isOpen && (
-                <div className="fixed inset-0  bg-opacity-30 flex items-start top-28 justify-center" onClick={onClose}>
+                <div className="fixed inset-0  bg-opacity-30 flex items-start top-28 justify-center" >
                     <div onClick={(e) => e.stopPropagation()}>
                     <div className="relative border-solid shadow-soft-xl drop-shadow-lg bg-white pb-4 pt-12 px-4 rounded-lg">
                         <h3 className="text-lg !z-10 absolute top-0 left-0 p-4 text-black font-medium" >{title}</h3>

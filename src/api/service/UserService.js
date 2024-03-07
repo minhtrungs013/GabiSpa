@@ -6,15 +6,17 @@ export function getUserByIdAPI(endpoint) {
     return API.get(`${API_BASE}/${endpoint}`, null);
 }
 
-export function getUser(endpoint) {
-    return API.get(`${API_BASE}/${endpoint}`);
+export function createUserAPI(endpoint, body) {
+    return API.post(`${API_BASE}/${endpoint}`, body);
 }
-
-export function getAllUser(endpoint) {
+export function getAllUserAPI(endpoint) {
     return API.get(`${API_BASE}/${endpoint}`, null);
 }
 
 export function updateUserAPI(endpoint, body) {
+    return API.put(`${API_BASE}/${endpoint}`, body);
+}
+export function updateUserActiveAPI(endpoint, body) {
     return API.put(`${API_BASE}/${endpoint}`, body);
 }
 

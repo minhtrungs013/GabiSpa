@@ -1,12 +1,17 @@
-import { faPenToSquare, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { createUserAPI, getAllUserAPI, updateUserActiveAPI } from '../../../api/service/UserService';
+import { CONFIRM_PASSWORD_INCORRECT, CREATE_USER_SUCCESS, DEFAULT_IMAGE, REGEX, SPECIAL_CHARACTERS, UPDATE_USER_SUCCESS, USER_NAME_CHARACTERS } from '../../../commom/messageConstant';
 import DeleteForm from '../../UI/DeleteForm';
 import GenericForm from '../../UI/GenericForm';
 import Modal from '../../UI/Modal ';
 import Pagination from '../../UI/Pagination';
-import { columnNameUser, dataUserManagement, userFormFields } from '../../utils/DataForm';
+import { Role, columnNameUser, userFormFields, userUpdateFormFields } from '../../utils/DataForm';
+import { userMapper } from '../../utils/mapper';
+import { formatDate } from '../../utils/utils';
 
 export default function UserManagement() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,6 +19,7 @@ export default function UserManagement() {
   const [isUpdatingUser, setIsUpdatingUser] = React.useState(false);
   const [initialUserData, setInitialUserData] = React.useState(null)
   const [currentPage, setCurrentPage] = useState(1);
+  const [users, setUsers] = useState([]);
   const totalPages = 4;
 
   const handlePageChange = (page) => {
@@ -32,14 +38,42 @@ export default function UserManagement() {
 
   const submitAddOrUpdateUser = (userData) => {
     if (isUpdatingUser) {
-      // Xử lý logic cập nhật người dùng
-      console.log('Cập nhật người dùng:', userData);
+      updateUserActiveAPI(`users/update-active/${userData.id}/user-id`, userData).then((res) => {
+        if (res) {
+          getAllUser()
+          closeModal()
+          toast.success(UPDATE_USER_SUCCESS)
+        }
+      }).catch((error) => {
+        toast.error(error.response?.data?.message)
+      })
     } else {
-      // Xử lý logic thêm người dùng
-      console.log('Thêm người dùng:', userData);
-    }
+      const newUser = userMapper(userData)
 
-    closeModal()
+      if (REGEX.test(newUser?.userDetail.fullName)) {
+        toast.warning('Họ và tên' + SPECIAL_CHARACTERS)
+        return
+      }
+
+      if (REGEX.test(newUser?.username)) {
+        toast.warning('Tài khoản' + USER_NAME_CHARACTERS)
+        return
+      }
+
+      if (newUser?.password !== newUser?.confirmPassword) {
+        toast.warning(CONFIRM_PASSWORD_INCORRECT)
+        return
+      }
+      createUserAPI(`users`, newUser).then((res) => {
+        if (res) {
+          getAllUser()
+          closeModal()
+          toast.success(CREATE_USER_SUCCESS)
+        }
+      }).catch((error) => {
+        toast.error(error.response?.data?.message)
+      })
+    }
   };
 
   const handleAddUser = () => {
@@ -48,31 +82,41 @@ export default function UserManagement() {
     openModal()
   };
 
-  const DeleteUser = (userId) => {
-    setIsDelete(true)
-    openModal()
-  };
+  // const DeleteUser = (userId) => {
+  //   setIsDelete(true)
+  //   openModal()
+  // };
 
   const submitDeleteUser = (userId) => {
     console.log('xóa người dùng:', userId);
     closeModal()
   };
 
-  const handleUpdateUser = (userId) => {
-    const userToUpdate = {
-      id: userId,
-      fullName: 'John Doe',
-      address: '123 Main Street',
-      role: 'Admin',
-      status: 'Active',
-      email: 'john.doe@example.com',
-      phoneNumber: '123-456-7890',
-      image: 'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
-    };
-    setInitialUserData(userToUpdate);
+  const handleUpdateUser = (user) => {
+    const form = {
+      id: user?.id,
+      note: user?.note,
+      isActive: user.isActive
+    }
+    setInitialUserData(form);
     setIsUpdatingUser(true);
     openModal()
   };
+
+  const getAllUser = () => {
+    getAllUserAPI(`users`).then((res) => {
+      if (res) {
+        setUsers(res.data.data)
+      }
+    }).catch((error) => {
+      toast.error(error.response?.data?.message)
+    })
+  }
+
+  useEffect(() => {
+    getAllUser()
+  }, []);
+
   return (
     <div className="w-full px-6 py-6 mx-auto">
       <div className="flex flex-wrap -mx-3">
@@ -87,7 +131,7 @@ export default function UserManagement() {
               </div>
             </div>
             <div className="flex-auto px-0 pt-0 relative">
-              <div className="p-0 overflow-x-auto">
+              <div className="p-0 overflow-x-auto mb-20">
                 <table className="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
                   <thead className="align-bottom">
                     <tr>
@@ -98,33 +142,49 @@ export default function UserManagement() {
                     </tr>
                   </thead>
                   <tbody>
-                    {dataUserManagement.map((item) => (
-                      <tr>
+                    {users?.map((item) => (
+                      <tr key={item.id}>
                         <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                           <div className="flex px-2 py-1">
                             <div>
-                              <img src={item.imageURL} className="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl" alt="user1" />
+                              <img src={item.userDetail.avatar ? item.userDetail.avatar : DEFAULT_IMAGE} className="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl" alt="user1" />
                             </div>
                             <div className="flex flex-col justify-center">
-                              <h6 className="mb-0 text-sm leading-normal">{item.name}</h6>
-                              <p className="mb-0 text-xs leading-tight text-slate-400">{item.email}</p>
+                              <h6 className="mb-0 text-sm leading-normal">{item.userDetail.fullName}</h6>
+                              <p className="mb-0 text-xs leading-tight text-slate-400">{item.userDetail.email}</p>
                             </div>
                           </div>
                         </td>
-                        <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <p className="mb-0 text-xs font-semibold leading-tight">{item.role}</p>
-                          <p className="mb-0 text-xs leading-tight text-slate-400">{item.roleDetails}</p>
+                        <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                          <p className="mb-0 text-xs font-semibold leading-tight">{item.username}</p>
+                          <p className="mb-0 text-xs leading-tight text-slate-400"></p>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <span className="text-xs font-semibold leading-tight text-slate-400">{item.address}</span>
+                          <p className="mb-0 text-xs font-semibold leading-tight">{item.role}</p>
+                          <p className="mb-0 text-xs leading-tight text-slate-400">roleDetails</p>
                         </td>
-                        <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <span className={`${item.status ? ' from-green-600 to-lime-500 ' : 'from-red-600 to-red-500 '} bg-gradient-to-tl  px-2 text-xs rounded-md py-1.5 inline-block whitespace-nowrap text-center align-baseline font-normal  leading-none text-white`}
-                          >{item.status ? 'Đang Hoạt Động' : 'Dừng Hoạt Động'}</span>
+                        <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                          <span className="text-xs font-semibold leading-tight text-slate-400">{item.userDetail.address}</span>
+                        </td>
+                        <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                          <span className="text-xs font-semibold leading-tight text-slate-400">{formatDate(item?.userDetail?.dateOfBirth)}</span>
+                        </td>
+                        <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                          <span className="text-xs font-semibold leading-tight text-slate-400">{item.userDetail.age}</span>
+                        </td>
+                        <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                          <span className="text-xs font-semibold leading-tight text-slate-400">{item.userDetail.phone}</span>
+                        </td>
+                        <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                          <span className="text-xs font-semibold leading-tight text-slate-400">{item.note}</span>
                         </td>
                         <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparen">
-                          <Link onClick={() => handleUpdateUser(1)} className="text-xs font-semibold leading-tight text-yellow-500 mr-4"><FontAwesomeIcon icon={faPenToSquare} className='' /> Edit </Link>
-                          <Link onClick={() => DeleteUser(1)} className="text-xs font-semibold leading-tight text-red-500"><FontAwesomeIcon icon={faTrashCan} /> Del </Link>
+                          <span className={`${item.isActive ? ' from-green-600 to-lime-500 ' : 'from-red-600 to-red-500 '} bg-gradient-to-tl  p-2 text-xs rounded-md  inline-block whitespace-nowrap text-center align-baseline font-normal  leading-none text-white`}
+                          > {item.isActive ? 'Đang Hoạt Động' : 'Dừng Hoạt Động'}</span>
+                        </td>
+                        <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparen">
+                          <Link onClick={() => handleUpdateUser(item)} className="text-xs font-semibold leading-tight text-yellow-500 mr-4"><FontAwesomeIcon icon={faPenToSquare} className='' /> Edit </Link>
+                          {/* <Link onClick={() => DeleteUser(1)} className="text-xs font-semibold leading-tight text-red-500"><FontAwesomeIcon icon={faTrashCan} /> Del </Link> */}
                         </td>
                       </tr>
                     ))}
@@ -138,13 +198,14 @@ export default function UserManagement() {
           </div>
         </div>
       </div>
-      <Modal isOpen={isModalOpen} onClose={closeModal} title={isDelete ? "Xóa Người Dùng " : isUpdatingUser ? 'Cập nhật' : 'Thêm người dùng'}>
+      <Modal isOpen={isModalOpen} onClose={closeModal} title={isDelete ? "Xóa Người Dùng " : isUpdatingUser ? 'Cập nhật Trạng Thái' : 'Thêm người dùng'}>
         {isDelete ? <DeleteForm id={1} onCancel={closeModal} onSubmit={submitDeleteUser} title={"Bạn có muốn xóa người dùng này không"} /> :
           <GenericForm
-            formFields={userFormFields}
+            formFields={!isUpdatingUser ? userFormFields : userUpdateFormFields}
             onSubmit={submitAddOrUpdateUser}
             isUpdate={isUpdatingUser}
             initialData={initialUserData}
+            selectData={Role}
           />
         }
       </Modal>

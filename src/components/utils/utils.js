@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AES, enc } from 'crypto-js';
-import { addMinutes, format, getHours, getMinutes, isAfter, isSameDay } from 'date-fns';
+import { addMinutes, format, getHours, getMinutes, isAfter, isSameDay, isValid, parseISO } from 'date-fns';
 
 /**
  * Get the current date as a timestamp.
@@ -80,4 +80,16 @@ export const encryptData = (value, secret) => {
  */
 export const compareData = (value, encryptedValue, secret) => {
   return AES.decrypt(encryptedValue, secret).toString(enc.Utf8) === value;
+}
+
+export const formatDate = (value) => {
+  if (!value) {
+    return null;
+  }
+  const date = typeof value === 'string' ? parseISO(value) : value;
+  if (!isValid(date)) {
+    return null;
+  }
+  const formattedDate = format(date, 'dd-MM-yyyy HH:mm a');
+  return formattedDate;
 }

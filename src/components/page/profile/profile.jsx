@@ -6,7 +6,7 @@ import { changePasswordAPI } from '../../../api/service/AuthService';
 import { getUserByIdAPI, updateUserAPI } from '../../../api/service/UserService';
 import { CONFIRM_PASSWORD_INCORRECT, DEFAULT_IMAGE } from '../../../commom/messageConstant';
 import { setIdUser, setLoggedIn, setUsername } from '../../../redux/slice/userSlice';
-import { ChangePassword, User } from '../../utils/DataForm';
+import { ChangePassword, UserDetails } from '../../utils/DataForm';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { handleUpload } from '../../utils/utils';
@@ -19,8 +19,8 @@ export default function Profile() {
     const [isUpdateUser, setIsUpdateUser] = useState(false)
     const [isUpdateAccount, setIsUpdateAccount] = useState(false)
     const [account, setAccount] = useState(ChangePassword);
-    const [userUpdate, setUserUpdate] = useState(User);
-    const [userById, setUserById] = useState(User);
+    const [userUpdate, setUserUpdate] = useState(UserDetails);
+    const [userById, setUserById] = useState(UserDetails);
     const handleAccountForm = (event) => {
         event.preventDefault();
         const { name, value } = event.target;
