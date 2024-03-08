@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { AES, enc } from 'crypto-js';
 import { addMinutes, format, getHours, getMinutes, isAfter, isSameDay, isValid, parseISO } from 'date-fns';
+import { jwtDecode } from 'jwt-decode';
+import { clearAuth } from '../../redux/slice/authSlice';
+import { clearUserSlice } from '../../redux/slice/userSlice';
+import { persistor, store } from '../../redux/store';
 
 /**
  * Get the current date as a timestamp.
@@ -92,4 +96,20 @@ export const formatDate = (value) => {
   }
   const formattedDate = format(date, 'dd-MM-yyyy HH:mm a');
   return formattedDate;
+}
+
+
+export const checkRefreshToken = (refreshToken) => {
+  if (refreshToken === null) return false
+  const decodedToken = jwtDecode(refreshToken);
+  const currentTimestamp = Math.floor(Date.now() / 1000);
+  if (decodedToken.exp && decodedToken.exp < currentTimestamp) {
+    persistor.purge()
+    store.dispatch(clearUserSlice());
+    store.dispatch(clearAuth());
+    return false;
+  } else {
+    return true;
+
+  }
 }

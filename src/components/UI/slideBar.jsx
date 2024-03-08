@@ -3,8 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
-import { setLoggedIn, setRole, setUsername } from '../../redux/slice/userSlice'
+import { clearUserSlice, setLoggedIn, setRole, setUsername } from '../../redux/slice/userSlice'
 import { persistor } from '../../redux/store'
+import { clearAuth } from '../../redux/slice/authSlice'
 
 const SlideNav = [
     {
@@ -67,11 +68,10 @@ export default function SlideBar() {
         dispatch(setLoggedIn(false))
         dispatch(setUsername(null))
         dispatch(setRole(''))
-        localStorage.removeItem('refresh_token')
-        localStorage.removeItem('access_token')
-        localStorage.removeItem('persist:root')
+        dispatch(clearUserSlice())
+        dispatch(clearAuth())
     }
-   
+
     return (
         <aside className="max-w-[16.666667%] ease-nav-brand lg:ml-0 z-990 fixed inset-y-0 my-4 ml-4 block w-full  flex-wrap items-center justify-between overflow-y-auto rounded-2xl border-0 bg-white p-0 antialiased shadow-none transition-transform duration-200 xl:left-0 xl:translate-x-0 xl:bg-transparent">
             <div className="h-20">

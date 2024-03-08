@@ -1,13 +1,13 @@
 import React from 'react';
-import SlideBar from '../UI/slideBar';
-import UserManagement from './userAdmin/userManagement';
-import NavbarAdmin from '../UI/navbarAdmin';
-import ServiceManagement from './serviceAdmin/serviceManagement';
 import { Route, Routes } from 'react-router-dom';
-import CategoriesManagement from './categoriesAdmin/categoriesManagement';
+import NavbarAdmin from '../UI/navbarAdmin';
+import SlideBar from '../UI/slideBar';
 import BookingManagement from './bookingAdmin/bookingManagement';
 import CalenderManagement from './calendarAdmin/calendarManagement';
+import CategoriesManagement from './categoriesAdmin/categoriesManagement';
+import ServiceManagement from './serviceAdmin/serviceManagement';
 import TaskManagement from './taskAdmin/taskManagement';
+import UserManagement from './userAdmin/userManagement';
 
 
 export default function Admin() {

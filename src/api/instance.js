@@ -1,13 +1,22 @@
 import axios from "axios";
-import { ACCESS_TOKEN, INVALID_TOKEN, REFRESH_TOKEN } from "../commom/messageConstant";
+import { INVALID_TOKEN } from "../commom/messageConstant";
+import { checkRefreshToken } from "../components/utils/utils";
+import { setAccessToken, setRefreshToken } from "../redux/slice/authSlice";
+import { store } from "../redux/store";
 import { refreshTokenAPI } from "./service/AuthService";
 
 const API = axios.create();
 API.interceptors.request.use(
   function (config) {
-    let token = getToken();
-    if (!token) return config;
-    config.headers['Authorization'] = 'Bearer ' + token;
+    const refreshToken = store.getState().authReducer.refreshToken;
+    const checkbox = checkRefreshToken(refreshToken)
+    if (!checkbox) {
+      window.location.href = '/GabiSpa';
+      return Promise.reject('Chuyển hướng');
+    }
+    const accessToken = store.getState().authReducer.accessToken;
+    if (!accessToken) return config;
+    config.headers['Authorization'] = 'Bearer ' + accessToken;
 
     return config;
   },
@@ -25,6 +34,7 @@ API.interceptors.response.use(
     if (error.response.status === 401 && error.response.data.message === INVALID_TOKEN && !originalRequest._retry) {
       originalRequest._retry = true;
       const token = await refreshToken();
+      if (!token) return
       API.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${token}`;
@@ -34,26 +44,22 @@ API.interceptors.response.use(
   }
 );
 
-export function getToken() {
-  return localStorage.getItem('access_token');
-}
-
 const refreshToken = async () => {
-  return await refreshTokenAPI('auth/refresh-token')
-    .then((res) => {
-      localStorage.setItem(ACCESS_TOKEN, res.data.data.accessToken);
-      localStorage.setItem(REFRESH_TOKEN, res.data.data.refreshToken);
-      return res.data.data.accessToken
-    })
-    .catch((error) => {
-      console.error('Lỗi khi làm mới token:', error.message);
-    });
+  try {
+    const res = await refreshTokenAPI('auth/refresh-token');
+    store.dispatch(setAccessToken(res.data.data.accessToken));
+    store.dispatch(setRefreshToken(res.data.data.refreshToken));
+    return res.data.data.accessToken;
+  } catch (error) {
+    console.error('Lỗi khi làm mới token:', error.message);
+  }
 }
 
 export const refresh_token_API = axios.create();
 refresh_token_API.interceptors.request.use(
   function (config) {
-    const refreshToken = localStorage.getItem('refresh_token');
+    const refreshToken = store.getState().authReducer.refreshToken;
+    console.log(refreshToken);
     if (!refreshToken) return config;
     config.headers['Authorization'] = 'Bearer ' + refreshToken;
     return config;

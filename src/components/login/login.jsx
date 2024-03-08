@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux';
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { loginAPI } from '../../api/service/AuthService';
-import { ACCESS_TOKEN, ENTER_ALL_INFORMATION, REFRESH_TOKEN, REGEX, USER_NAME_CHARACTERS } from '../../commom/messageConstant';
+import { ENTER_ALL_INFORMATION, REGEX, USER_NAME_CHARACTERS } from '../../commom/messageConstant';
+import { setAccessToken, setRefreshToken } from '../../redux/slice/authSlice';
 import { setIdUser, setLoggedIn, setRole, setUsername } from '../../redux/slice/userSlice';
 export default function Login({ showModal, closeModal, switchRegister }) {
     const dispatch = useDispatch();
@@ -46,9 +47,9 @@ export default function Login({ showModal, closeModal, switchRegister }) {
         await loginAPI('auth/sign-in', userLogin)
             .then((response) => {
                 if (response) {
-                    localStorage.setItem(ACCESS_TOKEN, response.data.data.tokens.accessToken)
-                    localStorage.setItem(REFRESH_TOKEN, response.data.data.tokens.refreshToken)
                     dispatch(setLoggedIn(true))
+                    dispatch(setAccessToken(response.data.data.tokens.accessToken))
+                    dispatch(setRefreshToken(response.data.data.tokens.refreshToken))
                     dispatch(setRole(response.data.data.user.role))
                     dispatch(setUsername(response.data.data.user.username))
                     dispatch(setIdUser(response.data.data.user.id))

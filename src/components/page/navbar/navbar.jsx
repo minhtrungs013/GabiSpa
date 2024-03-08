@@ -4,10 +4,11 @@ import { Menu, Transition } from '@headlessui/react';
 import React, { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setLoggedIn, setRole, setUsername } from '../../../redux/slice/userSlice';
+import { clearUserSlice, setLoggedIn, setRole, setUsername } from '../../../redux/slice/userSlice';
 import { persistor } from '../../../redux/store';
 import Login from '../../login/login';
 import Register from '../../register/register';
+import { clearAuth } from '../../../redux/slice/authSlice';
 
 const menuitems = [
     {
@@ -76,9 +77,8 @@ export default function Navbar() {
         dispatch(setLoggedIn(false))
         dispatch(setUsername(null))
         dispatch(setRole(''))
-        localStorage.removeItem('refresh_token')
-        localStorage.removeItem('access_token')
-        localStorage.removeItem('persist:root')
+        dispatch(clearUserSlice())
+        dispatch(clearAuth())
     }
 
     return (
