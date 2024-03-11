@@ -6,6 +6,7 @@ const GenericForm = ({ formFields, onSubmit, isUpdate, initialData, selectData, 
     const [formData, setFormData] = useState({});
     const [jobs, setJos] = useState([]);
     const [images, setImages] = useState(initialData?.images === undefined ? [] : initialData.images)
+
     useEffect(() => {
         if (isUpdate && initialData) {
             setFormData(initialData);
