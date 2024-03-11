@@ -59,7 +59,6 @@ export const refresh_token_API = axios.create();
 refresh_token_API.interceptors.request.use(
   function (config) {
     const refreshToken = store.getState().authReducer.refreshToken;
-    console.log(refreshToken);
     if (!refreshToken) return config;
     config.headers['Authorization'] = 'Bearer ' + refreshToken;
     return config;

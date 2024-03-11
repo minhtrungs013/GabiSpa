@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { handleUpload } from '../utils/utils';
+import Jobs from './Jobs';
 
-const GenericForm = ({ formFields, onSubmit, isUpdate, initialData, selectData }) => {
+const GenericForm = ({ formFields, onSubmit, isUpdate, initialData, selectData, dataJobOfServie, typeForm }) => {
     const [formData, setFormData] = useState({});
-    const [images, setImages] = useState(initialData?.image === undefined ? [] : [initialData.image])
-
+    const [jobs, setJos] = useState([]);
+    const [images, setImages] = useState(initialData?.images === undefined ? [] : initialData.images)
     useEffect(() => {
         if (isUpdate && initialData) {
             setFormData(initialData);
+            if (typeForm === 'serviceSpa') {
+                setJos( initialData?.jobs);
+            }
         }
-    }, [isUpdate, initialData]);
+    }, [isUpdate, initialData, typeForm]);
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -20,11 +25,18 @@ const GenericForm = ({ formFields, onSubmit, isUpdate, initialData, selectData }
         const files = e.target?.files
         const image = await handleUpload(files)
         setImages((prevImages) => [...prevImages, ...image]);
-        setFormData((prevData) => ({ ...prevData, image: image[0] }));
+        if (typeForm !== 'serviceSpa') {
+            setFormData((prevData) => ({ ...prevData, image: image[0] }));
+        }
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (typeForm === 'serviceSpa') {
+            formData.jobs = jobs
+            formData.images = images
+            formData.price = parseInt(formData.price, 10)
+        }
         onSubmit(formData);
     };
 
@@ -39,6 +51,7 @@ const GenericForm = ({ formFields, onSubmit, isUpdate, initialData, selectData }
                                 {field.type === "file" ?
                                     <input
                                         type={field.type}
+                                        multiple={typeForm === 'serviceSpa' ? true : false}
                                         onChange={handleChangeImage}
                                         required={field.required}
                                         onInvalid={e => e.target.setCustomValidity(field.textrequired)}
@@ -66,7 +79,7 @@ const GenericForm = ({ formFields, onSubmit, isUpdate, initialData, selectData }
                                                         <select id="countries" required={field.required} name={field.name} class="border rounded-lg text-sm border-gray-400 p-2 w-full" value={formData[field.name]} onChange={handleChange}>
                                                             <option value="" disabled selected>Chọn một</option>
                                                             {selectData.map((task, index) => (
-                                                                <option key={index} value={task.name}>{task.name}</option>
+                                                                <option key={index} value={task.id}>{task.name}</option>
 
                                                             ))}
                                                         </select>
@@ -93,6 +106,7 @@ const GenericForm = ({ formFields, onSubmit, isUpdate, initialData, selectData }
                         }</>
                 ))}
             </div>
+            {dataJobOfServie && <Jobs jobs={jobs} setJos={setJos} dataJobOfServie={dataJobOfServie} />}
             <div className='flex justify-between items-baseline'>
                 <div className='flex justify-end '>
                     {images.length > 0 && images?.map((url) => (

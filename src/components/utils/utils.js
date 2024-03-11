@@ -15,7 +15,7 @@ export const CURRENT_DATE = () => {
   const vietNamTimeZone = 'Asia/Ho_Chi_Minh';
   const currentDate = new Date();
   const formattedTodayInVietNam = currentDate.toLocaleString('en-US', { timeZone: vietNamTimeZone });
-  return format(formattedTodayInVietNam, 'dd-MMM-yyyy- HH:mm');
+  return format(formattedTodayInVietNam, 'dd-MM-yyyy- HH:mm');
 }
 
 

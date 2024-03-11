@@ -29,6 +29,14 @@ export const taskFormFields = [
     { name: 'object', label: 'Loại Nhiệm Vụ', type: 'select', required: true, textrequired: "Vui lòng Chọn Loại Nhiệm Vụ" },
     { name: 'isActive', label: 'Trạng Thái', type: 'checkbox', required: true, textrequired: "Vui lòng điền mô tả" },
 ];
+export const serviceFormFields = [
+    { name: 'name', label: 'Tên Nhiệm Vụ', type: 'text', required: true, textrequired: "Vui lòng điền tên Nhiệm Vụ" },
+    { name: 'description', label: 'Mô Tả', type: 'text', required: true, textrequired: "Vui lòng điền mô tả" },
+    { name: 'categoryId', label: 'Danh Mục', type: 'select', required: true, textrequired: "Vui lòng điền mô tả" },
+    { name: 'price', label: 'Giá Tiền', type: 'number', required: true, textrequired: "Vui lòng điền mô tả" },
+    { name: 'images', label: 'Ảnh', type: 'file', required: false, textrequired: "Vui lòng điền mô tả" },
+    { name: 'isActive', label: 'Trạng Thái', type: 'checkbox', required: false, textrequired: "" },
+];
 
 export const UserDetails = {
     avatar: null,
@@ -54,6 +62,17 @@ export const User = {
         address: null,
         phone: null,
     }
+}
+
+export const Service = {
+    id: null,
+    name: null,
+    categoryId: null,
+    description: null,
+    price: null,
+    isActive: null,
+    images: [],
+    jobs: []
 }
 
 export const ChangePassword = {
@@ -96,6 +115,25 @@ export const Role = [
     }
 ]
 
+
+export const ObjectTask1 = [
+    {
+        id: '0',
+        name: "Mẹ mang thai",
+    },
+    {
+        id: '1',
+        name: "Mẹ cho con bú",
+    },
+    {
+        id: '2',
+        name: "Em bé",
+    },
+    {
+        id: '3',
+        name: "Mẹ và bé"
+    },
+]
 
 export const dataServiceManagement = [
     {

@@ -58,6 +58,12 @@ export const CREATE_USER_SUCCESS = "Tạo người dùng thành công!";
 
 export const UPDATE_USER_SUCCESS = "Cập nhật người dùng thành công!";
 
+export const CREATE_SERVICE_SUCCESS = "Tạo dịch vụ thành công!";
+
+export const UPDATE_SERVICE_SUCCESS = "Cập nhật dịch vụ thành công!";
+
+export const DELETE_SERVICE_SUCCESS = "Xóa dịch vụ thành công!";
+
 export const NAME = "name";
 
 export const VALUE = "value";

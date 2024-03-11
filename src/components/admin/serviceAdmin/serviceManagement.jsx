@@ -1,23 +1,19 @@
 import { faPenToSquare, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { getAllCategoryAPI } from '../../../api/service/categories';
+import { createServiceSpaAPI, deleteServiceSpaAPI, getAllServiceSpaAPI, updateServiceSpaAPI } from '../../../api/service/serviceSpaService';
+import { getAllTaskAPI } from '../../../api/service/taskService';
+import { CREATE_SERVICE_SUCCESS, DELETE_SERVICE_SUCCESS, UPDATE_SERVICE_SUCCESS } from '../../../commom/messageConstant';
 import DeleteForm from '../../UI/DeleteForm';
 import GenericForm from '../../UI/GenericForm';
 import Modal from '../../UI/Modal ';
-import { RenderStars } from '../../UI/renderStars';
-import { columnNameService, dataServiceManagement } from '../../utils/DataForm';
 import Pagination from '../../UI/Pagination';
-
-const uerviceFormFields = [
-  { name: 'fullName', label: 'Họ và tên', required: true, textrequired: "Vui lòng điền họ và tên" },
-  { name: 'address', label: 'Địa chỉ', required: true, textrequired: "Vui lòng điền Địa chỉ" },
-  { name: 'role', label: 'Quyền', required: true, textrequired: "Vui lòng điền Quyền" },
-  { name: 'status', label: 'Trạng thái', required: true, textrequired: "Vui lòng điền Trạng thái" },
-  { name: 'email', label: 'Email', type: 'email', required: true, textrequired: "Vui lòng điền Email" },
-  { name: 'phoneNumber', label: 'Số điện thoại', type: 'tel', required: true, textrequired: "Vui lòng điền Số điện thoại" },
-  { name: 'image', label: 'image', type: 'file', required: true, textrequired: "Vui lòng điền Email" },
-];
+import { RenderStars } from '../../UI/renderStars';
+import { Service, columnNameService, serviceFormFields } from '../../utils/DataForm';
+import { CURRENT_DATE } from '../../utils/utils';
 
 export default function ServiceManagement() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,6 +21,10 @@ export default function ServiceManagement() {
   const [isUpdatingService, setIsUpdatingService] = React.useState(false);
   const [initialServiceData, setInitialServiceData] = React.useState(null)
   const [currentPage, setCurrentPage] = useState(1);
+  const [serviceSpas, setServiceSpas] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [tasks, setTasks] = useState([]);
+
   const totalPages = 4;
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -42,11 +42,28 @@ export default function ServiceManagement() {
 
   const submitAddOrUpdateService = (serviceData) => {
     if (isUpdatingService) {
-      console.log('Cập nhật người dùng:', serviceData);
+      updateServiceSpaAPI(`services/update-service/${serviceData?.id}/service-id`, serviceData).then((res) => {
+        if (res) {
+          getAllServiceSpa()
+          closeModal()
+          toast.success(UPDATE_SERVICE_SUCCESS)
+        }
+      }).catch((error) => {
+        closeModal()
+        toast.error(error.response?.data?.message)
+      })
     } else {
-      console.log('Thêm người dùng:', serviceData);
+      createServiceSpaAPI(`services`, serviceData).then((res) => {
+        if (res) {
+          getAllServiceSpa()
+          closeModal()
+          toast.success(CREATE_SERVICE_SUCCESS)
+        }
+      }).catch((error) => {
+        closeModal()
+        toast.error(error.response?.data?.message)
+      })
     }
-    closeModal()
   };
 
   const handleAddService = () => {
@@ -55,31 +72,80 @@ export default function ServiceManagement() {
     openModal()
   };
 
-  const DeleteService = () => {
+  const DeleteService = (id) => {
+    setInitialServiceData(id);
     setIsDelete(true)
     openModal()
   };
 
   const submitDeleteService = (serviceId) => {
-    console.log('xóa người dùng:', serviceId);
-    closeModal()
+    deleteServiceSpaAPI(`services/${serviceId}/service-id`).then((res) => {
+      if (res) {
+        getAllServiceSpa()
+        closeModal()
+        toast.success(DELETE_SERVICE_SUCCESS)
+      }
+    }).catch((error) => {
+      closeModal()
+      toast.error(error.response?.data?.message)
+    })
   };
 
-  const handleUpdateService = (serviceId) => {
-    const serviceToUpdate = {
-      id: serviceId,
-      fullName: 'John Doe',
-      address: '123 Main Street',
-      role: 'Admin',
-      status: 'Active',
-      email: 'john.doe@example.com',
-      phoneNumber: '123-456-7890',
-      image: 'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
-    };
-    setInitialServiceData(serviceToUpdate);
+  const handleUpdateService = (service) => {
+    const newJobs = service?.jobs.map(item => ({
+      taskId: item.task.id,
+      dayGap: item.dayGap,
+    }));
+    Service.id = service.id
+    Service.categoryId = service.category.id
+    Service.name = service.name
+    Service.description = service.description
+    Service.price = service.price
+    Service.images = service.images
+    Service.jobs = newJobs
+    Service.isActive = service.isActive
+    setInitialServiceData(Service);
     setIsUpdatingService(true);
     openModal()
   };
+
+  const getAllTask = () => {
+    getAllTaskAPI(`tasks`).then((res) => {
+      if (res) {
+        setTasks(res.data.data)
+      }
+    }).catch((error) => {
+      toast.error(error.response?.data?.message)
+    })
+  }
+
+
+  const getAllCategory = () => {
+    getAllCategoryAPI(`service-categories`).then((res) => {
+      if (res) {
+        setCategories(res.data.data)
+      }
+    }).catch((error) => {
+      toast.error(error.response?.data?.message)
+    })
+  }
+
+  const getAllServiceSpa = () => {
+    getAllServiceSpaAPI(`services`).then((res) => {
+      if (res) {
+        setServiceSpas(res.data.data)
+      }
+    }).catch((error) => {
+      toast.error(error.response?.data?.message)
+    })
+  }
+
+  useEffect(() => {
+    getAllServiceSpa()
+    getAllCategory()
+    getAllTask()
+  }, []);
+
   return (
     <div className="w-full px-6 py-6 mx-auto">
       <div className="flex flex-wrap -mx-3">
@@ -105,19 +171,19 @@ export default function ServiceManagement() {
                     </tr>
                   </thead>
                   <tbody>
-                    {dataServiceManagement.map((item) => (
+                    {serviceSpas.map((item) => (
                       <tr key={item.id}>
                         <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <span className="text-xs px-3 py-1 font-semibold leading-tight text-slate-400">{item.nameService}</span>
+                          <span className="text-xs px-3 py-1 font-semibold leading-tight text-slate-400">{item.name}</span>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                           <span className="text-xs font-semibold leading-tight text-slate-400">{item.description}</span>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                           <div className="flex items-center justify-center">
-                            {item.imageURL.slice(0, 3).map((image, index) =>
+                            {item?.images?.slice(0, 3).map((image, index) =>
                             (
-                              <img key={index} src={image} className="items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl" alt="user1" />
+                              <img key={index} src={image} className="items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 " alt="user1" />
                             ))}
                           </div>
                         </td>
@@ -130,15 +196,15 @@ export default function ServiceManagement() {
                           <span className="text-xs font-semibold leading-tight text-slate-400">{item.price}</span>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <span className="text-xs font-semibold leading-tight text-slate-400">{item.CreatedAt}</span>
+                          <span className="text-xs font-semibold leading-tight text-slate-400">{CURRENT_DATE(item.createdAt)}</span>
                         </td>
                         <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                           <span className={`${item.isActive ? ' from-green-600 to-lime-500 ' : 'from-red-600 to-red-500 '} bg-gradient-to-tl  px-2 text-xs rounded-md py-1.5 inline-block whitespace-nowrap text-center align-baseline font-normal  leading-none text-white`}
                           >{item.isActive ? 'Đang Hoạt Động' : 'Dừng Hoạt Động'}</span>
                         </td>
                         <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparen">
-                          <Link onClick={() => handleUpdateService(1)} className="text-xs font-semibold leading-tight text-yellow-500 mr-4"><FontAwesomeIcon icon={faPenToSquare} className='' /> Edit </Link>
-                          <Link onClick={() => DeleteService(1)} className="text-xs font-semibold leading-tight text-red-500"><FontAwesomeIcon icon={faTrashCan} /> Del </Link>
+                          <Link onClick={() => handleUpdateService(item)} className="text-xs font-semibold leading-tight text-yellow-500 mr-4"><FontAwesomeIcon icon={faPenToSquare} className='' /> Edit </Link>
+                          <Link onClick={() => DeleteService(item.id)} className="text-xs font-semibold leading-tight text-red-500"><FontAwesomeIcon icon={faTrashCan} /> Del </Link>
                         </td>
                       </tr>
                     ))}
@@ -153,12 +219,15 @@ export default function ServiceManagement() {
         </div>
       </div>
       <Modal isOpen={isModalOpen} onClose={closeModal} title={isDelete ? "Xóa Người Dùng " : isUpdatingService ? 'Cập nhật' : 'Thêm người dùng'}>
-        {isDelete ? <DeleteForm id={1} onCancel={closeModal} onSubmit={submitDeleteService} title={"Bạn có muốn xóa người dùng này không"} /> :
+        {isDelete ? <DeleteForm id={initialServiceData} onCancel={closeModal} onSubmit={submitDeleteService} title={"Bạn có muốn xóa người dùng này không"} /> :
           <GenericForm
-            formFields={uerviceFormFields}
+            formFields={serviceFormFields}
             onSubmit={submitAddOrUpdateService}
             isUpdate={isUpdatingService}
             initialData={initialServiceData}
+            selectData={categories}
+            dataJobOfServie={tasks}
+            typeForm={'serviceSpa'}
           />
         }
       </Modal>

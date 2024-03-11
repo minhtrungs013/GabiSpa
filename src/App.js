@@ -18,7 +18,7 @@ export default function App() {
     if (refreshToken !== null && !checkRefreshToken(refreshToken)) {
       navigate('/GabiSpa')
     }
-  }, [refreshToken])
+  }, [refreshToken, navigate])
 
 
   return (
