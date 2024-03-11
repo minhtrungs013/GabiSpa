@@ -1,6 +1,6 @@
 import axios from "axios";
 import { INVALID_TOKEN } from "../commom/messageConstant";
-import { checkRefreshToken } from "../components/utils/utils";
+// import { checkRefreshToken } from "../components/utils/utils";
 import { setAccessToken, setRefreshToken } from "../redux/slice/authSlice";
 import { store } from "../redux/store";
 import { refreshTokenAPI } from "./service/AuthService";
@@ -8,12 +8,12 @@ import { refreshTokenAPI } from "./service/AuthService";
 const API = axios.create();
 API.interceptors.request.use(
   function (config) {
-    const refreshToken = store.getState().authReducer.refreshToken;
-    const checkbox = checkRefreshToken(refreshToken)
-    if (!checkbox) {
-      window.location.href = '/GabiSpa';
-      return Promise.reject('Chuyển hướng');
-    }
+    // const refreshToken = store.getState().authReducer.refreshToken;
+    // const checkbox = checkRefreshToken(refreshToken)
+    // if (!checkbox) {
+    //   window.location.href = '/GabiSpa';
+    //   return Promise.reject('Chuyển hướng');
+    // }
     const accessToken = store.getState().authReducer.accessToken;
     if (!accessToken) return config;
     config.headers['Authorization'] = 'Bearer ' + accessToken;

@@ -159,8 +159,8 @@ export default function ServiceManagement() {
                 <button onClick={handleAddService} className='px-4 py-2 font-medium text-xs bg-black text-white rounded-lg shadow-sm' > <FontAwesomeIcon icon={faPlus} className='h-4 w-4 ' /> Thêm Người Dùng</button>
               </div>
             </div>
-            <div className="flex-auto px-0 pt-0 relative">
-              <div className="p-0 overflow-x-auto">
+            <div className="flex-auto px-0 pt-0 relative ">
+              <div className="p-0 overflow-x-auto mb-20">
                 <table className="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
                   <thead className="align-bottom">
                     <tr>
@@ -176,8 +176,8 @@ export default function ServiceManagement() {
                         <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                           <span className="text-xs px-3 py-1 font-semibold leading-tight text-slate-400">{item.name}</span>
                         </td>
-                        <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <span className="text-xs font-semibold leading-tight text-slate-400">{item.description}</span>
+                        <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent max-w-[200px]">
+                          <span className="one-line-paragraph text-xs font-semibol text-slate-400">{item.description}</span>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                           <div className="flex items-center justify-center">
