@@ -15,7 +15,7 @@ export const CURRENT_DATE = () => {
   const vietNamTimeZone = 'Asia/Ho_Chi_Minh';
   const currentDate = new Date();
   const formattedTodayInVietNam = currentDate.toLocaleString('en-US', { timeZone: vietNamTimeZone });
-  return format(formattedTodayInVietNam, 'dd-MM-yyyy- HH:mm');
+  return format(formattedTodayInVietNam, 'dd-MM-yyyy- HH:mm a');
 }
 
 
@@ -94,7 +94,9 @@ export const formatDate = (value) => {
   if (!isValid(date)) {
     return null;
   }
-  const formattedDate = format(date, 'dd-MM-yyyy HH:mm a');
+  const vietNamTimeZone = 'Asia/Ho_Chi_Minh';
+  const formattedTodayInVietNam = date.toLocaleString('en-US', { timeZone: vietNamTimeZone });
+  const formattedDate = format(formattedTodayInVietNam, 'dd-MM-yyyy HH:mm a');
   return formattedDate;
 }
 
@@ -113,3 +115,16 @@ export const checkRefreshToken = (refreshToken) => {
 
   }
 }
+
+export const convertMinutesToHours = (minutes) => {
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+  return `${hours} giờ ${remainingMinutes} phút`;
+}
+
+export const formatCurrency = (number) => {
+  const reversedNumber = number?.toString().split('').reverse().join('');
+  const formattedNumber = reversedNumber?.replace(/(\d{3})(?=\d)/g, '$1,');
+  const result = formattedNumber?.split('').reverse().join('');
+  return `${result} VND`;
+};

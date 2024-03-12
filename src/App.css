@@ -7,6 +7,19 @@
   pointer-events: none;
 }
 
+.selected-image {
+  transform: translateX(-50%);
+}
+
+.image-thumbnail {
+  border: 1px solid transparent; /* Đảm bảo rằng border đã được thiết lập */
+  transition: border-color 0.5s ease-in-out; /* Hiệu ứng chuyển động */
+}
+
+.image-thumbnail.selected {
+  border-color: red; /* Màu sắc border khi được chọn */
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

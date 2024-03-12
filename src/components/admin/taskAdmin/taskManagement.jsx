@@ -30,6 +30,7 @@ export default function TaskManagement() {
   };
 
   const submitAddOrUpdateTask = (taskData) => {
+    taskData.workingTimePerDay = parseInt(taskData.workingTimePerDay, 10)
     if (isUpdatingTask) {
       updateTaskAPI(`tasks/${taskData?.id}/task-id`, taskData).then((res) => {
         if (res) {

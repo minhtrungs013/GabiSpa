@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { handleUpload } from '../utils/utils';
 import Jobs from './Jobs';
+import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const GenericForm = ({ formFields, onSubmit, isUpdate, initialData, selectData, dataJobOfServie, typeForm }) => {
     const [formData, setFormData] = useState({});
@@ -11,7 +13,7 @@ const GenericForm = ({ formFields, onSubmit, isUpdate, initialData, selectData, 
         if (isUpdate && initialData) {
             setFormData(initialData);
             if (typeForm === 'serviceSpa') {
-                setJos( initialData?.jobs);
+                setJos(initialData?.jobs);
             }
         }
     }, [isUpdate, initialData, typeForm]);
@@ -36,11 +38,15 @@ const GenericForm = ({ formFields, onSubmit, isUpdate, initialData, selectData, 
         if (typeForm === 'serviceSpa') {
             formData.jobs = jobs
             formData.images = images
-            formData.price = parseInt(formData.price, 10)
         }
         onSubmit(formData);
     };
 
+    const removeImage = (url) => {
+        const newImages = images.filter(image => image !== url);
+        setImages(newImages);
+    }
+    
     return (
         <form onSubmit={handleSubmit} className="max-w-2xl mx-auto mt-4">
             <div className={`grid ${formFields.length < 4 && '!grid-cols-2'} grid-cols-3 gap-3`}>
@@ -111,7 +117,10 @@ const GenericForm = ({ formFields, onSubmit, isUpdate, initialData, selectData, 
             <div className='flex justify-between items-baseline'>
                 <div className='flex justify-end '>
                     {images.length > 0 && images?.map((url) => (
-                        <img src={url} alt="" className="inline-flex items-center justify-center mr-4 text-sm  transition-all duration-200 ease-soft-in-out h-16 w-16 rounded-sm" />
+                        <div className='p-2 relative'>
+                            <FontAwesomeIcon icon={faClose} className='h-4 w-4 text-red-700 absolute right-7 cursor-pointer' onClick={() => removeImage(url)} />
+                            <img src={url} alt="" className="inline-flex items-center justify-center mr-4 text-sm  transition-all duration-200 ease-soft-in-out h-16 w-16 rounded-sm" />
+                        </div>
                     ))}
                 </div>
                 <button type="submit" className={`${!isUpdate ? " bg-green-500 " : " bg-blue-500 "} max-h-[40px] text-white px-4 py-2 rounded-lg `}>

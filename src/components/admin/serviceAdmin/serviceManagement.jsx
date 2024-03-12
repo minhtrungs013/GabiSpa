@@ -41,6 +41,8 @@ export default function ServiceManagement() {
   };
 
   const submitAddOrUpdateService = (serviceData) => {
+    serviceData.price = parseInt(serviceData.price, 10)
+    serviceData.workingDay = parseInt(serviceData.workingDay, 10)
     if (isUpdatingService) {
       updateServiceSpaAPI(`services/update-service/${serviceData?.id}/service-id`, serviceData).then((res) => {
         if (res) {
@@ -103,6 +105,7 @@ export default function ServiceManagement() {
     Service.price = service.price
     Service.images = service.images
     Service.jobs = newJobs
+    Service.workingDay = service.workingDay
     Service.isActive = service.isActive
     setInitialServiceData(Service);
     setIsUpdatingService(true);

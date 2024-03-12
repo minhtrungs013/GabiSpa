@@ -97,15 +97,21 @@ export default function Navbar() {
                 <div className="hidden w-full lg:w-auto mt-2 lg:!flex lg:mt-0" style={{ display: open ? 'block' : 'none' }} >
                     <ul className="flex flex-col lg:flex-row lg:gap-3" >
                         {menuitems.map((item) => (
-                            <li key={item.id}>
-                                <Link onClick={() => setOpen(!open)}
-                                    to={`${item.path}`}
-                                    className="flex lg:px-2 xl:px-3 py-2 text-gray-600 hover:text-[#214581] font-medium text-xl ">
-                                    {item.title}
-                                </Link>
-                            </li>
+                            <>
+                                {item.id === 1 && !isLoggedIn ?
+                                    <></>
+                                    :
+                                    <li key={item.id}>
+                                        <Link onClick={() => setOpen(!open)}
+                                            to={`${item.path}`}
+                                            className="flex lg:px-2 xl:px-3 py-2 text-gray-600 hover:text-[#214581] font-medium text-xl ">
+                                            {item.title}
+                                        </Link>
+                                    </li>
+                                }
+                            </>
                         ))}
-                    </ul>
+                    </ul >
                     <div className="lg:!hidden flex items-center justify-center mt-3 gap-4 " style={{ display: open ? 'flex' : 'none' }}>
                         <button onClick={openModalLogin} className='w-full rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 ] text-black border-[1px] border-[#2e4d81]' >Đăng nhập</button>
                         <button onClick={openModalRegister} size="md" className='w-full rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 bg-[#214581] text-white hover:bg-[#2e4d81]  border-2 border-transparent'>Đăng ký</button>

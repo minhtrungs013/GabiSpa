@@ -20,3 +20,7 @@ export function updateServiceSpaAPI(endpoint, body) {
 export function deleteServiceSpaAPI(endpoint) {
     return API.delete(`${API_BASE}/${endpoint}`);
 }
+
+export function serviceBookedAPI(endpoint, body) {
+    return API.post(`${API_BASE}/${endpoint}`, body);
+}

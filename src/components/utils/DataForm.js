@@ -27,6 +27,7 @@ export const taskFormFields = [
     { name: 'name', label: 'Tên Nhiệm Vụ', type: 'text', required: true, textrequired: "Vui lòng điền tên Nhiệm Vụ" },
     { name: 'description', label: 'Mô Tả', type: 'text', required: true, textrequired: "Vui lòng điền mô tả" },
     { name: 'object', label: 'Loại Nhiệm Vụ', type: 'select', required: true, textrequired: "Vui lòng Chọn Loại Nhiệm Vụ" },
+    { name: 'workingTimePerDay', label: 'Thời Gian Làm Việc', type: 'number', required: true, textrequired: "Vui lòng nhập thời gian làm việc" },
     { name: 'isActive', label: 'Trạng Thái', type: 'checkbox', required: true, textrequired: "Vui lòng điền mô tả" },
 ];
 export const serviceFormFields = [
@@ -34,6 +35,7 @@ export const serviceFormFields = [
     { name: 'description', label: 'Mô Tả', type: 'text', required: true, textrequired: "Vui lòng điền mô tả" },
     { name: 'categoryId', label: 'Danh Mục', type: 'select', required: true, textrequired: "Vui lòng điền mô tả" },
     { name: 'price', label: 'Giá Tiền', type: 'number', required: true, textrequired: "Vui lòng điền mô tả" },
+    { name: 'workingDay', label: 'Tổng ngày làm việc', type: 'number', required: true, textrequired: "Vui lòng điền số ngày làm việc cho dịch vụ" },
     { name: 'images', label: 'Ảnh', type: 'file', required: false, textrequired: "Vui lòng điền mô tả" },
     { name: 'isActive', label: 'Trạng Thái', type: 'checkbox', required: false, textrequired: "" },
 ];
@@ -48,20 +50,18 @@ export const UserDetails = {
     phone: null,
 }
 
+export const ServiceBooked = {
+    customerId: null,
+    serviceId: null,
+    startDate: null
+}
+
 export const User = {
     username: null,
     password: null,
     confirmPassword: null,
     role: null,
-    userDetail: {
-        avatar: null,
-        fullName: null,
-        dateOfBirth: null,
-        age: null,
-        email: null,
-        address: null,
-        phone: null,
-    }
+    userDetail: UserDetails
 }
 
 export const Service = {
@@ -70,6 +70,7 @@ export const Service = {
     categoryId: null,
     description: null,
     price: null,
+    workingDay: null,
     isActive: null,
     images: [],
     jobs: []
@@ -80,6 +81,7 @@ export const ChangePassword = {
     newPassword: null,
     confirmPassword: null,
 }
+
 export const Task = {
     id: null,
     name: null,
@@ -103,6 +105,7 @@ export const ObjectTask = [
         name: "Mẹ và bé"
     },
 ]
+
 export const Role = [
     {
         name: "Quản trị viên",
@@ -134,82 +137,6 @@ export const ObjectTask1 = [
         name: "Mẹ và bé"
     },
 ]
-
-export const dataServiceManagement = [
-    {
-        id: 0,
-        nameService: 'John Michael',
-        description: 'Manager',
-        ServiceScheduleDetails: [
-            'Manager Employee',
-            'Manager Employee',
-            'Manager Employee',
-            'Manager Employee',
-            'Manager Employee',
-            'Manager Employee'],
-        imageURL: [
-            'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
-            'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
-            'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
-            'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
-        ],
-        rating: 2,
-        CategoryId: 1,
-        price: 100,
-        CreatedAt: '12-02-2024 10:30 PM',
-        UpdatedAt: '12-02-2024 11:30 PM',
-        isActive: true,
-    },
-    {
-        id: 2,
-        nameService: 'John Michael',
-        description: 'Manager',
-        ServiceScheduleDetails: [
-            'Manager Employee',
-            'Manager Employee',
-            'Manager Employee',
-            'Manager Employee',
-            'Manager Employee',
-            'Manager Employee'],
-        imageURL: [
-            'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
-            'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
-            'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
-            'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
-        ],
-        rating: 3,
-        CategoryId: 1,
-        price: 100,
-        CreatedAt: '12-02-2024 10:30 PM',
-        UpdatedAt: '12-02-2024 11:30 PM',
-        isActive: true,
-    },
-];
-
-export const dataCategoriesManagement = [
-    {
-        id: 0,
-        name: 'Dịch Vụ Cho Mẹ Bầu',
-        description: 'Mẹ Bầu',
-        createdAt: '12-02-2024 10:30 PM',
-        isActive: true,
-    },
-    {
-        id: 2,
-        name: 'Dịch Vụ Cho Mẹ Sau Sinh',
-        description: ' Mẹ Sau Sinh',
-        createdAt: '12-02-2024 10:30 PM',
-        isActive: true,
-    },
-    {
-        id: 3,
-        name: 'Dịch Vụ Cho Bé',
-        description: ' Bé',
-        createdAt: '12-02-2024 10:30 PM',
-        isActive: true,
-    },
-];
-
 
 export const dataBookingManagement = [
     {
@@ -456,8 +383,6 @@ export const dataMeetings = [
 
 ]
 
-
-
 export const columnNameBooking = [
     { name: 'Tên Người Dùng', field: 'User' },
     { name: 'Tên Dịch Vụ', field: 'Service' },
@@ -466,7 +391,6 @@ export const columnNameBooking = [
     { name: 'Giá Dịch Vụ', field: 'price' },
     { name: 'Trạng Thái', field: 'Status' },
 ];
-
 
 export const columnNameService = [
     { name: 'Tên Dịch Vụ', field: 'nameService' },
@@ -496,6 +420,7 @@ export const columnNameCategories = [
     { name: 'Ngày tạo', field: 'CreatedAt' },
     { name: 'Trạng thái', field: 'isActive' },
 ];
+
 export const columnNameTask = [
     { name: 'Tên Nhiệm Vụ', field: 'name' },
     { name: 'Mô Tả', field: 'description' },
