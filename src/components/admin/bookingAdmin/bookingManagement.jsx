@@ -1,18 +1,19 @@
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import GenericForm from '../../UI/GenericForm';
+import { toast } from 'react-toastify';
+import { getAllServiceBookedAPI, updateStatusServiceBookedAPI } from '../../../api/service/serviceBooked';
 import Modal from '../../UI/Modal ';
 import Pagination from '../../UI/Pagination';
-import { columnNameBooking, dataBookingManagement, userFormFields } from '../../utils/DataForm';
+import ChangStatusServiceBooked from '../../UI/changStatusServiceBooked';
+import { columnNameBooking, serviceBookedFormFields } from '../../utils/DataForm';
+import { formatCurrency, formatDate } from '../../utils/utils';
 
 export default function BookingManagement() {
-
+  const [dataServiceBooked, setDataServiceBooked] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isDelete, setIsDelete] = useState(false);
-  const [isUpdatingBooking, setIsUpdatingBooking] = React.useState(false);
-  const [initialBookingData, setInitialBookingData] = React.useState(null)
+  const [initialBookingData, setInitialBookingData] = useState(null)
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 4;
 
@@ -26,37 +27,52 @@ export default function BookingManagement() {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setIsDelete(false);
     setInitialBookingData(null);
   };
 
-  const submitAddOrUpdateBooking = (BookingData) => {
-    if (isUpdatingBooking) {
-      // Xử lý logic cập nhật người dùng
-      console.log('Cập nhật người dùng:', BookingData);
-    } else {
-      // Xử lý logic thêm người dùng
-      console.log('Thêm người dùng:', BookingData);
-    }
+  const submitUpdateBooking = (data) => {
+    updateStatusServiceBookedAPI(`services-booked/assign-job/${data?.employeeId}/employee-id/${data?.bookedId}/booked-id/${data?.status}/booked-status`, data).then((res) => {
+      if (res) {
+        closeModal()
+        getAllServiceBooked()
+      }
+    }).catch((error) => {
+      closeModal()
+      toast.error(error.response?.data?.message)
+    })
 
-    closeModal()
   };
 
-  const handleUpdateBooking = (BookingId) => {
-    const BookingToUpdate = {
-      id: BookingId,
-      fullName: 'John Doe',
-      address: '123 Main Street',
-      role: 'Admin',
-      status: 'Active',
-      email: 'john.doe@example.com',
-      phoneNumber: '123-456-7890',
-      image: 'https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png',
-    };
-    setInitialBookingData(BookingToUpdate);
-    setIsUpdatingBooking(true);
+  const handleUpdateBooking = (serviceBooked) => {
+    const data = {
+      bookedId: serviceBooked.id,
+      employeeId: '',
+      status: serviceBooked.status
+    }
+    setInitialBookingData(data);
     openModal()
   };
+
+  const getAllServiceBooked = () => {
+    const data = {
+      page: 1,
+      limit: 6,
+      sort: "createdAt",
+      order: "desc"
+    }
+
+    getAllServiceBookedAPI(`services-booked/get-many`, data).then((res) => {
+      if (res) {
+        setDataServiceBooked(res.data.data?.items)
+      }
+    }).catch((error) => {
+      toast.error(error.response?.data?.message)
+    })
+  }
+
+  useEffect(() => {
+    getAllServiceBooked()
+  }, []);
   return (
     <div className="w-full px-6 py-6 mx-auto">
       <div className="flex flex-wrap -mx-3">
@@ -81,31 +97,31 @@ export default function BookingManagement() {
                     </tr>
                   </thead>
                   <tbody>
-                    {dataBookingManagement.map((item) => (
+                    {dataServiceBooked?.map((item) => (
                       <tr key={item.id}>
                         <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <span className="text-xs px-3 py-1 font-semibold leading-tight text-slate-400">{item.User.name}</span>
+                          <span className="text-xs px-3 py-1 font-semibold leading-tight text-slate-400">{item.customer.userDetail.fullName}</span>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <span className="text-xs font-semibold leading-tight text-slate-400">{item.Service.nameService}</span>
+                          <span className="text-xs font-semibold leading-tight text-slate-400">{item.service.name}</span>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                           <span className="text-xs font-semibold leading-tight text-slate-400">{item?.Employee?.name || "..."}</span>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <span className="text-xs font-semibold leading-tight text-blue-400">{item?.ScheduledDate}</span>
+                          <span className="text-xs font-semibold leading-tight text-blue-400">{formatDate(item?.startDate)}</span>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <span className="text-xs font-semibold leading-tight text-red-400">{item?.Service.price} VND</span>
+                          <span className="text-xs font-semibold leading-tight text-red-400">{formatCurrency(item?.service?.price)} </span>
                         </td>
                         <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <span className={`${item.Status === "Hoàn Thành" ? ' from-green-600 to-lime-500 ' :
-                            item.Status === "Đang thực hiện" ? 'from-orange-600 to-orange-500 ' :
-                              item.Status === "Đang chờ" ? 'from-gray-600 to-gray-500 ' : 'from-red-600 to-red-500 '} min-w-[100px] bg-gradient-to-tl  px-2 text-xs rounded-md py-1.5 inline-block whitespace-nowrap text-center align-baseline font-normal  leading-none text-white`}
-                          >{item.Status}</span>
+                          <span className={`${item.status === "Hoàn Thành" ? ' from-green-600 to-lime-500 ' :
+                            item.status === "Đang thực hiện" ? 'from-orange-600 to-orange-500 ' :
+                              item.status === "Đang chờ" ? 'from-gray-600 to-gray-500 ' : 'from-red-600 to-red-500 '} min-w-[100px] bg-gradient-to-tl  px-2 text-xs rounded-md py-1.5 inline-block whitespace-nowrap text-center align-baseline font-normal  leading-none text-white`}
+                          >{item.status}</span>
                         </td>
                         <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparen">
-                          <Link onClick={() => handleUpdateBooking(1)} className="text-xs font-semibold leading-tight text-yellow-500 mr-4"><FontAwesomeIcon icon={faPenToSquare} className='' /> Edit </Link>
+                          <Link onClick={() => handleUpdateBooking(item)} className="text-xs font-semibold leading-tight text-yellow-500 mr-4"><FontAwesomeIcon icon={faPenToSquare} className='' /> Edit </Link>
                         </td>
                       </tr>
                     ))}
@@ -119,11 +135,10 @@ export default function BookingManagement() {
           </div>
         </div>
       </div>
-      <Modal isOpen={isModalOpen} onClose={closeModal} title={isDelete ? "Xóa Người Dùng " : isUpdatingBooking ? 'Cập nhật' : 'Thêm người dùng'}>
-        <GenericForm
-          formFields={userFormFields}
-          onSubmit={submitAddOrUpdateBooking}
-          isUpdate={isUpdatingBooking}
+      <Modal isOpen={isModalOpen} onClose={closeModal} title={'Cập nhật'}>
+        <ChangStatusServiceBooked
+          formFields={serviceBookedFormFields}
+          onSubmit={submitUpdateBooking}
           initialData={initialBookingData}
         />
       </Modal>

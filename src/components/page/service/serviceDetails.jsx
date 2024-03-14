@@ -11,6 +11,7 @@ import { formatCurrency } from '../../utils/utils'
 
 export default function ServiceDetails() {
     const serviceId = useSelector((state) => state.serviceReducer.serviceId)
+    const isLoggedIn = useSelector(state => state.userReducer.isLoggedIn);
     const [serviceById, setServiceById] = useState({});
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -25,10 +26,10 @@ export default function ServiceDetails() {
     }
 
     const openModal = () => {
-        // if (!isLoggedIn) {
-        //     toast.error("Bạn phải đăng nhập để đặt dịch vụ")
-        //     return
-        // }
+        if (!isLoggedIn) {
+            toast.warning("Bạn phải đăng nhập để đặt dịch vụ")
+            return
+        }
         setIsModalOpen(true);
     };
 

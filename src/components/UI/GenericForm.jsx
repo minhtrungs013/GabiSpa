@@ -46,7 +46,7 @@ const GenericForm = ({ formFields, onSubmit, isUpdate, initialData, selectData, 
         const newImages = images.filter(image => image !== url);
         setImages(newImages);
     }
-    
+
     return (
         <form onSubmit={handleSubmit} className="max-w-2xl mx-auto mt-4">
             <div className={`grid ${formFields.length < 4 && '!grid-cols-2'} grid-cols-3 gap-3`}>
@@ -85,7 +85,7 @@ const GenericForm = ({ formFields, onSubmit, isUpdate, initialData, selectData, 
                                                     <div className='flex items-center justify-start '>
                                                         <select id="countries" required={field.required} name={field.name} class="border rounded-lg text-sm border-gray-400 p-2 w-full" value={formData[field.name]} onChange={handleChange}>
                                                             <option value="" disabled selected>Chọn một</option>
-                                                            {selectData.map((task, index) => (
+                                                            {selectData?.map((task, index) => (
                                                                 <option key={index} value={task.id}>{task.name}</option>
 
                                                             ))}
@@ -113,7 +113,7 @@ const GenericForm = ({ formFields, onSubmit, isUpdate, initialData, selectData, 
                         }</>
                 ))}
             </div>
-            {dataJobOfServie && <Jobs jobs={jobs} setJos={setJos} dataJobOfServie={dataJobOfServie} />}
+            {dataJobOfServie && typeForm === 'serviceSpa' && <Jobs jobs={jobs} setJos={setJos} dataJobOfServie={dataJobOfServie} />}
             <div className='flex justify-between items-baseline'>
                 <div className='flex justify-end '>
                     {images.length > 0 && images?.map((url) => (

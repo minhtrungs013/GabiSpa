@@ -9,16 +9,11 @@ import { CURRENT_DATE, convertMinutesToHours, formatCurrency, formatDate } from 
 import { getUserByIdAPI } from '../../api/service/UserService';
 
 export default function ConfirmBooked({ onClose, dataService, }) {
-    const isLoggedIn = useSelector(state => state.userReducer.isLoggedIn);
     const idUser = useSelector(state => state.userReducer.idUser);
     const [date, setDate] = useState(null)
     const [userById, setUserById] = useState(UserDetails);
 
     const HandleServiceBooked = () => {
-        if (!isLoggedIn) {
-            toast.error("Bạn phải đăng nhập để đặt dịch vụ")
-            return
-        }
         if (date === null) {
             toast.error("Vui lòng chọn ngày bắt đầu dịch vụ")
             return

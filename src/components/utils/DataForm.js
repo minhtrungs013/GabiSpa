@@ -40,6 +40,11 @@ export const serviceFormFields = [
     { name: 'isActive', label: 'Trạng Thái', type: 'checkbox', required: false, textrequired: "" },
 ];
 
+export const serviceBookedFormFields = [
+    { name: 'employeeId', label: 'Nhân viên Thực Hiện', type: 'select', required: true, textrequired: "Vui lòng điền tên Nhiệm Vụ" },
+    { name: 'status', label: 'Trạng Thái', type: 'select', required: true, textrequired: "Vui lòng điền mô tả" },
+];
+
 export const UserDetails = {
     avatar: null,
     fullName: null,
@@ -93,27 +98,34 @@ export const Task = {
 
 export const ObjectTask = [
     {
+        id: "Mẹ mang thai",
         name: "Mẹ mang thai",
     },
     {
+        id: "Mẹ cho con bú",
         name: "Mẹ cho con bú",
     },
     {
+        id: "Em bé",
         name: "Em bé",
     },
     {
+        id: "Mẹ và bé",
         name: "Mẹ và bé"
     },
 ]
 
 export const Role = [
     {
+        id: "Quản trị viên",
         name: "Quản trị viên",
     },
     {
+        id: "Nhân viên",
         name: "Nhân viên",
     },
     {
+        id: "Khách hàng",
         name: "Khách hàng",
     }
 ]
