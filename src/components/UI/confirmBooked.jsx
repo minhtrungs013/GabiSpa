@@ -1,12 +1,13 @@
 import { faNewspaper, faUserShield } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { isBefore, isSameDay } from 'date-fns';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { getUserByIdAPI } from '../../api/service/UserService';
 import { serviceBookedAPI } from '../../api/service/serviceSpaService';
 import { ServiceBooked, UserDetails } from '../utils/DataForm';
-import { CURRENT_DATE, convertMinutesToHours, formatCurrency, formatDate } from '../utils/utils';
-import { getUserByIdAPI } from '../../api/service/UserService';
+import { CURRENT_DATE, convertMinutesToHours, formatCurrency } from '../utils/utils';
 
 export default function ConfirmBooked({ onClose, dataService, }) {
     const idUser = useSelector(state => state.userReducer.idUser);
@@ -18,8 +19,8 @@ export default function ConfirmBooked({ onClose, dataService, }) {
             toast.error("Vui lòng chọn ngày bắt đầu dịch vụ")
             return
         }
-
-        if (formatDate(date) <= CURRENT_DATE()) {
+        const newData = new Date(date)
+        if (isBefore(newData, CURRENT_DATE()) || isSameDay(CURRENT_DATE(), newData)) {
             toast.error("Ngày bắt đầu dịch vụ không hợp lệ")
             return
         }

@@ -12,12 +12,12 @@ import UserManagement from './userAdmin/userManagement';
 
 export default function Admin() {
     return (
-        <div className="flex flex-row">
-            <div className="basis-1/6 ">
+        <div className="lg:flex lg:flex-row">
+            <div className="lg:basis-1/6 hidden lg:block">
                 <SlideBar />
             </div>
-            <div className="basis-5/6">
-                <div className=" flex-row">
+            <div className="lg:basis-5/6 sm:basis-full ">
+                <div className="lg:flex-row">
                     <main className="ease-soft-in-out relative h-full max-h-screen rounded-xl transition-all duration-200">
                         <div className="basis-full ">
                             <NavbarAdmin />

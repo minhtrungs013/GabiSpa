@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AES, enc } from 'crypto-js';
-import { addMinutes, format, getHours, getMinutes, isAfter, isSameDay, isValid, parseISO } from 'date-fns';
+import { addMinutes, format, getHours, getMinutes, isAfter, isSameDay, isValid, parseISO, subHours } from 'date-fns';
 import { jwtDecode } from 'jwt-decode';
 import { clearAuth } from '../../redux/slice/authSlice';
 import { clearUserSlice } from '../../redux/slice/userSlice';
@@ -15,7 +15,7 @@ export const CURRENT_DATE = () => {
   const vietNamTimeZone = 'Asia/Ho_Chi_Minh';
   const currentDate = new Date();
   const formattedTodayInVietNam = currentDate.toLocaleString('en-US', { timeZone: vietNamTimeZone });
-  return format(formattedTodayInVietNam, 'dd-MM-yyyy- HH:mm a');
+  return format(formattedTodayInVietNam, 'dd-MMM-yyyy HH:mm')
 }
 
 
@@ -41,15 +41,14 @@ export const handleUpload = async (files) => {
    * @returns {boolean} true if the current date is the same as the meeting date or the current date is after the meeting date, false otherwise
    */
 export const VALIDATION_DATE_TIME = (startDateTime, endDateTime) => {
-  const currentHour = getHours(CURRENT_DATE());
-  const currentMinute = getMinutes(CURRENT_DATE());
-  const endTime = addMinutes(endDateTime, 30)
-  const endHour = getHours(endTime);
-  const endMinute = getMinutes(endTime);
+  const formatEndDateTime = new Date(endDateTime)
+  formatEndDateTime.setHours(formatEndDateTime.getHours() - 7)
+  const endTime = addMinutes(formatEndDateTime, 30)
 
-  if (isSameDay(startDateTime, CURRENT_DATE()) || isAfter(startDateTime, CURRENT_DATE())) {
+  if (isSameDay(CURRENT_DATE(), formatDate(startDateTime)) || isAfter(formatDate(startDateTime), CURRENT_DATE())) {
     if (isSameDay(endTime, CURRENT_DATE())) {
-      if (currentHour > endHour || (currentHour === endHour && currentMinute > endMinute)) {
+      if (getHours(CURRENT_DATE()) > getHours(endTime) || (getHours(CURRENT_DATE()) === getHours(endTime)
+        && getMinutes(CURRENT_DATE()) > getMinutes(endTime))) {
         return false;
       } else {
         return true;
@@ -96,10 +95,13 @@ export const formatDate = (value) => {
   }
   const vietNamTimeZone = 'Asia/Ho_Chi_Minh';
   const formattedTodayInVietNam = date.toLocaleString('en-US', { timeZone: vietNamTimeZone });
-  const formattedDate = format(formattedTodayInVietNam, 'dd-MM-yyyy HH:mm a');
+  const formattedDate = format(subtract7HoursFromDate(formattedTodayInVietNam), 'dd-MMM-yyyy HH:mm');
   return formattedDate;
 }
 
+export const subtract7HoursFromDate = (date) => {
+  return subHours(date, 7);
+};
 
 export const checkRefreshToken = (refreshToken) => {
   if (refreshToken === null) return false

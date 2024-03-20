@@ -14,9 +14,11 @@ import {
   startOfToday
 } from 'date-fns';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { getAllServiceBookedAPI } from '../../../api/service/serviceBooked';
 import Meeting from '../../UI/Meeting';
+import Modal from '../../UI/Modal ';
 import JobDetails from '../../UI/jobDetails';
-import { dataMeetings } from '../../utils/DataForm';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -27,6 +29,17 @@ export default function CalenderManagement() {
   const [meeting, setMeeting] = useState(null)
   const [selectedDayMeetings, setSelectedDayMeetings] = useState([])
   const [showJobDetails, setShowServiceDetails] = useState(false)
+  const [dataServiceBooked, setDataServiceBooked] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   let today = startOfToday()
   let [selectedDay, setSelectedDay] = useState(today)
   let [currentMonth, setCurrentMonth] = useState(format(today, 'MMM-yyyy'))
@@ -41,6 +54,7 @@ export default function CalenderManagement() {
     setShowServiceDetails(isShow)
   }
   const onClickSelecedDay = (day) => {
+    openModal()
     setSelectedDay(day)
   }
 
@@ -61,51 +75,53 @@ export default function CalenderManagement() {
   }
 
   const findDataMettingById = (id) => {
-    return dataMeetings.find((meeting) =>
+    return dataServiceBooked?.find((meeting) =>
       meeting.id === id
     )
   }
-  // const renderTask = (start, end, id) => {
-  //   const startDatetime = parseISO(start);
-  //   const endDatetime = parseISO(end);
-
-  //   const extractTime = (datetimeString) => {
-  //     const [date, time] = datetimeString.split('T');
-  //     const [hour, minute] = time.split(':');
-  //     return { hour: parseInt(hour, 10), minute: parseInt(minute, 10) };
-  //   };
-  //   const startTime = extractTime(start);
-  //   const endTime = extractTime(end);
-
-  //   const interval = eachDayOfInterval({ start: startDatetime, end: endDatetime });
-  //   const dateObjects = interval.map(date => ({
-  //     id: id,
-  //     startDateTime: format(new Date(date.setHours(startTime.hour, startTime.minute)), "yyyy-MM-dd'T'HH:mm"),
-  //     endDateTime: format(new Date(date.setHours(endTime.hour, endTime.minute)), "yyyy-MM-dd'T'HH:mm"),
-  //   }));
-  //   setDateJob(prevData => [...prevData, dateObjects])
-  // }
 
   useEffect(() => {
     const getDataMeetingToday = () => {
       let data = []
-      for (let i = 0; i < dataMeetings.length; ++i) {
-        let a1 = dataMeetings[i].roleDetails?.find((meeting) =>
+      for (let i = 0; i < dataServiceBooked.length; ++i) {
+        let a1 = dataServiceBooked[i].bookedDetails?.find((meeting) =>
           isSameDay(parseISO(meeting.startDateTime), selectedDay)
         )
         if (a1) {
-          a1 = { ...a1, idMeeting: dataMeetings[i].id };
+          a1 = { ...a1, idMeeting: dataServiceBooked[i].id };
           data.push(a1)
         }
       }
       setSelectedDayMeetings(data)
     }
     getDataMeetingToday()
-  }, [selectedDay])
+  }, [selectedDay, dataServiceBooked])
 
   const sortedMeetings = selectedDayMeetings.sort((a, b) => {
     return new Date(a.startDateTime) - new Date(b.startDateTime);
   });
+
+  const getAllServiceBooked = () => {
+    // const data = {
+    //   page: 1,
+    //   limit: 6,
+    //   sort: "createdAt",
+    //   order: "desc"
+    // }
+
+    getAllServiceBookedAPI(`services-booked/get-many`, {}).then((res) => {
+      if (res) {
+        setDataServiceBooked(res.data.data?.items)
+      }
+    }).catch((error) => {
+      toast.error(error.response?.data?.message)
+    })
+  }
+
+  useEffect(() => {
+    getAllServiceBooked()
+  }, []);
+
   return (
     <div className="w-full px-6 py-6 mx-auto">
       <div className="flex flex-wrap -mx-3">
@@ -118,7 +134,7 @@ export default function CalenderManagement() {
               <div className="p-6 pb-0 mb-3 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
               </div>
             </div>
-            <div className="flex px-0 pt-0 relative">
+            <div className="lg:flex px-0 pt-0 relative">
               <div className=" px-4 sm:px-7 lg:min-w-[920px] ">
                 <div className="md:grid md:grid-cols-2 md:divide-x md:divide-gray-200">
                   <div className="md:pr-14">
@@ -193,15 +209,15 @@ export default function CalenderManagement() {
                           </button>
 
                           <div className="w-1 h-1 mx-auto mt-1">
-                            {dataMeetings.find((meeting) =>
-                              meeting.roleDetails?.some((detail) => isSameDay(parseISO(detail.startDateTime), day))
+                            {dataServiceBooked?.find((meeting) =>
+                              meeting.bookedDetails?.some((detail) => isSameDay(parseISO(detail.startDateTime), day))
                             ) && <div className="w-1 h-1 rounded-full bg-sky-500"></div>}
                           </div>
                         </div>
                       ))}
                     </div>
                   </div>
-                  <section className="mt-12 md:mt-0 md:pl-14">
+                  <section className="hidden lg:block mt-12 md:mt-0 md:pl-14">
                     <h2 className="font-semibold text-gray-900">
                       Schedule for{' '}
                       <time dateTime={format(selectedDay, 'yyyy-MM-dd')}>
@@ -220,10 +236,33 @@ export default function CalenderManagement() {
                   </section>
                 </div>
               </div>
-              {showJobDetails && <JobDetails serviceDetails={serviceDetails} meeting={meeting} />}
+              <div className='hidden lg:block'>
+                {showJobDetails && <JobDetails serviceDetails={serviceDetails} meeting={meeting} />}
+              </div>
             </div>
           </div>
         </div>
+      </div>
+      <div className='lg:hidden'>
+        <Modal isOpen={isModalOpen} onClose={closeModal} title={' Schedule for'}>
+          <section className="w-[300px]">
+            <h2 className="font-semibold text-gray-900">
+              Schedule for{' '}
+              <time dateTime={format(selectedDay, 'yyyy-MM-dd')}>
+                {format(selectedDay, 'MMM dd, yyy')}
+              </time>
+            </h2>
+            <ol className="mt-4 space-y-1 text-sm leading-6 text-gray-500">
+              {sortedMeetings.length > 0 ? (
+                sortedMeetings.map((meeting) => (
+                  <Meeting meeting={meeting} data={findDataMettingById(meeting?.idMeeting)} handleDetails={handleDetails} />
+                ))
+              ) : (
+                <p>No meetings for today.</p>
+              )}
+            </ol>
+          </section>
+        </Modal>
       </div>
     </div>
   )
