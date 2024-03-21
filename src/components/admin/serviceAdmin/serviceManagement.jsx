@@ -24,8 +24,8 @@ export default function ServiceManagement() {
   const [serviceSpas, setServiceSpas] = useState([]);
   const [categories, setCategories] = useState([]);
   const [tasks, setTasks] = useState([]);
+  const [totalPages, setTotalPages] = useState(6);
 
-  const totalPages = 4;
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -46,7 +46,7 @@ export default function ServiceManagement() {
     if (isUpdatingService) {
       updateServiceSpaAPI(`services/update-service/${serviceData?.id}/service-id`, serviceData).then((res) => {
         if (res) {
-          getAllServiceSpa()
+          getAllServiceSpa(currentPage)
           closeModal()
           toast.success(UPDATE_SERVICE_SUCCESS)
         }
@@ -57,7 +57,7 @@ export default function ServiceManagement() {
     } else {
       createServiceSpaAPI(`services`, serviceData).then((res) => {
         if (res) {
-          getAllServiceSpa()
+          getAllServiceSpa(currentPage)
           closeModal()
           toast.success(CREATE_SERVICE_SUCCESS)
         }
@@ -83,7 +83,7 @@ export default function ServiceManagement() {
   const submitDeleteService = (serviceId) => {
     deleteServiceSpaAPI(`services/${serviceId}/service-id`).then((res) => {
       if (res) {
-        getAllServiceSpa()
+        getAllServiceSpa(currentPage)
         closeModal()
         toast.success(DELETE_SERVICE_SUCCESS)
       }
@@ -133,10 +133,18 @@ export default function ServiceManagement() {
     })
   }
 
-  const getAllServiceSpa = () => {
-    getAllServiceSpaAPI(`services`).then((res) => {
+  const getAllServiceSpa = (currentPage) => {
+    const data = {
+      page: currentPage,
+      limit: 6,
+      sort: "createdAt",
+      order: "desc"
+    }
+    getAllServiceSpaAPI(`services/get-many`, data).then((res) => {
       if (res) {
-        setServiceSpas(res.data.data)
+        setServiceSpas(res.data.data.items)
+        setTotalPages(res.data.data?.totalPages)
+        setCurrentPage(res.data.data?.page)
       }
     }).catch((error) => {
       toast.error(error.response?.data?.message)
@@ -144,10 +152,10 @@ export default function ServiceManagement() {
   }
 
   useEffect(() => {
-    getAllServiceSpa()
+    getAllServiceSpa(currentPage, totalPages)
     getAllCategory()
     getAllTask()
-  }, []);
+  }, [currentPage, totalPages]);
 
   return (
     <div className="w-full px-6 py-6 mx-auto">
@@ -174,7 +182,7 @@ export default function ServiceManagement() {
                     </tr>
                   </thead>
                   <tbody>
-                    {serviceSpas.map((item) => (
+                    {serviceSpas?.map((item) => (
                       <tr key={item.id}>
                         <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                           <span className="text-xs px-3 py-1 font-semibold leading-tight text-slate-400">{item.name}</span>

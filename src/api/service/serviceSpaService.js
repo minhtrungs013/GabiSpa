@@ -10,8 +10,8 @@ export function createServiceSpaAPI(endpoint, body) {
     return API.post(`${API_BASE}/${endpoint}`, body);
 }
 
-export function getAllServiceSpaAPI(endpoint) {
-    return API.get(`${API_BASE}/${endpoint}`, null);
+export function getAllServiceSpaAPI(endpoint, body) {
+    return API.post(`${API_BASE}/${endpoint}`, body);
 }
 
 export function updateServiceSpaAPI(endpoint, body) {

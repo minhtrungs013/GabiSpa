@@ -15,7 +15,7 @@ export default function BookingManagement() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [initialBookingData, setInitialBookingData] = useState(null)
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = 4;
+  const [totalPages, setTotalPages] = useState(6);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -34,7 +34,7 @@ export default function BookingManagement() {
     updateStatusServiceBookedAPI(`services-booked/assign-job/${data?.employeeId}/employee-id/${data?.bookedId}/booked-id/${data?.status}/booked-status`, data).then((res) => {
       if (res) {
         closeModal()
-        getAllServiceBooked()
+        getAllServiceBooked(currentPage, totalPages)
       }
     }).catch((error) => {
       closeModal()
@@ -53,9 +53,9 @@ export default function BookingManagement() {
     openModal()
   };
 
-  const getAllServiceBooked = () => {
+  const getAllServiceBooked = (currentPage) => {
     const data = {
-      page: 1,
+      page: currentPage,
       limit: 6,
       sort: "createdAt",
       order: "desc"
@@ -64,6 +64,8 @@ export default function BookingManagement() {
     getAllServiceBookedAPI(`services-booked/get-many`, data).then((res) => {
       if (res) {
         setDataServiceBooked(res.data.data?.items)
+        setTotalPages(res.data.data?.totalPages)
+        setCurrentPage(res.data.data?.page)
       }
     }).catch((error) => {
       toast.error(error.response?.data?.message)
@@ -71,8 +73,9 @@ export default function BookingManagement() {
   }
 
   useEffect(() => {
-    getAllServiceBooked()
-  }, []);
+    getAllServiceBooked(currentPage, totalPages)
+  }, [currentPage, totalPages]);
+
   return (
     <div className="w-full px-6 py-6 mx-auto">
       <div className="flex flex-wrap -mx-3">
@@ -86,7 +89,7 @@ export default function BookingManagement() {
               </div>
             </div>
             <div className="flex-auto px-0 pt-0 relative">
-              <div className="p-0 overflow-x-auto">
+              <div className="p-0 overflow-x-auto mb-20">
                 <table className="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
                   <thead className="align-bottom">
                     <tr>
@@ -106,7 +109,7 @@ export default function BookingManagement() {
                           <span className="text-xs font-semibold leading-tight text-slate-400">{item.service.name}</span>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <span className="text-xs font-semibold leading-tight text-slate-400">{item?.Employee?.name || "..."}</span>
+                          <span className="text-xs font-semibold leading-tight text-slate-400">{item?.employee?.userDetail?.fullName || "..."}</span>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                           <span className="text-xs font-semibold leading-tight text-blue-400">{formatDate(item?.startDate)}</span>
@@ -115,7 +118,7 @@ export default function BookingManagement() {
                           <span className="text-xs font-semibold leading-tight text-red-400">{formatCurrency(item?.service?.price)} </span>
                         </td>
                         <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                          <span className={`${item.status === "Hoàn Thành" ? ' from-green-600 to-lime-500 ' :
+                          <span className={`${item.status === "Hoàn thành" ? ' from-green-600 to-lime-500 ' :
                             item.status === "Đang thực hiện" ? 'from-orange-600 to-orange-500 ' :
                               item.status === "Đang chờ" ? 'from-gray-600 to-gray-500 ' : 'from-red-600 to-red-500 '} min-w-[100px] bg-gradient-to-tl  px-2 text-xs rounded-md py-1.5 inline-block whitespace-nowrap text-center align-baseline font-normal  leading-none text-white`}
                           >{item.status}</span>
