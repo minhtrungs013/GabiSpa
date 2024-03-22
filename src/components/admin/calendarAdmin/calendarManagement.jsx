@@ -136,7 +136,7 @@ export default function CalenderManagement() {
           <div className="min-h-[60vh] relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl drop-shadow-lg overflow-hidden rounded-2xl bg-clip-border">
             <div className='flex justify-between'>
               <div className="p-6 pb-0 mb-3 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-                <h4 className='text-lg font-semibold'> Chi Tiết công việc</h4>
+                <h4 className='text-lg font-semibold'>Quản lý công việc</h4>
               </div>
               <div className="p-6 pb-0 mb-3 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
               </div>
@@ -147,7 +147,7 @@ export default function CalenderManagement() {
                   <div className="md:pr-14">
                     <div className="flex items-center">
                       <h2 className="flex-auto font-semibold text-gray-900">
-                        {format(firstDayCurrentMonth, 'MMMM yyyy')}
+                       Tháng {format(firstDayCurrentMonth, 'MM yyyy')}
                       </h2>
                       <button
                         type="button"
@@ -167,13 +167,13 @@ export default function CalenderManagement() {
                       </button>
                     </div>
                     <div className="grid grid-cols-7 mt-10 text-xs leading-6 text-center text-gray-500">
-                      <div>Su</div>
-                      <div>Mo</div>
-                      <div>Tu</div>
-                      <div>We</div>
-                      <div>Th</div>
-                      <div>Fr</div>
-                      <div>Sa</div>
+                      <div>CN</div>
+                      <div>T2</div>
+                      <div>T3</div>
+                      <div>T4</div>
+                      <div>T5</div>
+                      <div>T6</div>
+                      <div>T7</div>
                     </div>
                     <div className="grid grid-cols-7 mt-2 text-sm">
                       {days.map((day, dayIdx) => (
@@ -226,9 +226,9 @@ export default function CalenderManagement() {
                   </div>
                   <section className=" mt-12 md:mt-0 md:pl-14">
                     <h2 className="font-semibold text-gray-900">
-                      Schedule for{' '}
+                      Lịch trình ngày{' '}
                       <time dateTime={format(selectedDay, 'yyyy-MM-dd')}>
-                        {format(selectedDay, 'MMM dd, yyy')}
+                        {format(selectedDay, 'dd - MM - yyy')}
                       </time>
                     </h2>
                     <ol className="mb-10 lg:mb-0 mt-4 space-y-1 text-sm leading-6 text-gray-500 overflow-y-auto max-h-[400px]">

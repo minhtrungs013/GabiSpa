@@ -1,7 +1,7 @@
 import { faBars, faClock, faCommenting, faRectangleXmark, faRotateRight, faSquareCheck, faStar, faUser, faUserShield } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { addMinutes, format, getHours, getMinutes, isAfter, isBefore, isSameDay } from 'date-fns'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { updateBookedDetailsAPI } from '../../api/service/serviceBooked'
 import { CURRENT_DATE, VALIDATION_DATE_TIME, formatDate, subtract7HoursFromDate } from '../utils/utils'
@@ -46,8 +46,9 @@ export default function JobDetails({ serviceDetails, meeting, getAllServiceBooke
 
                 }
                 updateBookedDetailsAPI(`services-booked/update-booked-detail/${serviceDetails.id}/booked-id`, data).then((res) => {
-                    toast.success('res')
+                    toast.success('Cập nhật trạng thái thành công!')
                     getAllServiceBooked(idUser, role)
+                    meeting.isCompleted = true
                     setShowSpin(false)
                 }).catch((err) => {
                     toast.error('err')
@@ -73,6 +74,16 @@ export default function JobDetails({ serviceDetails, meeting, getAllServiceBooke
         }
         return tasks.filter(task => task.dayWorking === formatDate(startDateTime)) || []
     }
+
+    const handleChange = (e) => {
+        setNote(e.target.value);
+    };
+
+    useEffect(() => {
+        if (meeting) {
+            setNote(meeting.note);
+        }
+    }, [meeting]);
 
     return (
         <div className='w-full lg:px-4 mt-2 '>
@@ -155,8 +166,8 @@ export default function JobDetails({ serviceDetails, meeting, getAllServiceBooke
                 <h3 className="font-semibold text-gray-900 ">Ghi Chú: </h3>
             </div>
             <div className='flex items-center lg:pl-6 sm:pl-2 py-2 mb-4'>
-                <textarea type="text" required={true} className="border rounded-lg text-sm border-gray-400 p-2 w-full "
-                    onChange={(e) => setNote(e.target.value)} />
+                <textarea type="text" required={true} disabled={meeting.isCompleted} value={note} className="border rounded-lg text-sm border-gray-400 p-2 w-full "
+                    onChange={handleChange} />
             </div>
         </div>
     )
