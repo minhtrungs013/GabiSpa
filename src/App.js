@@ -26,6 +26,8 @@ export default function App() {
     <div className="">
       <Helmet>
         <title>Gabi Spa</title>
+        <meta name="description" content="Dịch vụ chăm sóc mẹ và bé" />
+        <meta name="keywords" content="Gabi Spa, Dịch vụ chăm sóc mẹ và bé " />
         <link rel="Gabi Spa" href="https://gabi-spa.vercel.app" />
       </Helmet>
       <ToastContainer />

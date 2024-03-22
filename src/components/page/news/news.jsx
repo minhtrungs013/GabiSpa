@@ -52,6 +52,8 @@ export default function News() {
         <div>
              <Helmet>
                 <title>Gabi Spa - tin tuc</title>
+                <meta name="description" content="Dịch vụ chăm sóc mẹ và bé" />
+                <meta name="keywords" content="Gabi Spa, Tin tức Gabi Spa, Tin tức chăm sóc mẹ và bé, Gabi Spa - tin tuc" />
                 <link rel="Gabi Spa - tin tuc" href="https://gabi-spa.vercel.app/tin-tuc" />
               </Helmet>
             <div className="my-10 md:mt-0">

@@ -45,6 +45,8 @@ export default function Service() {
         <div>
             <Helmet>
                 <title>Gabi Spa - dịch vụ</title>
+                <meta name="description" content="Dịch vụ chăm sóc mẹ và bé" />
+                <meta name="keywords" content="Gabi Spa, dịch vụ Gabi Spa, Dịch vụ chăm sóc mẹ và bé" />
                 <link rel="Gabi Spa - dịch vụ" href="https://gabi-spa.vercel.app/dich-vu" />
             </Helmet>
             <div className="mt-16 md:mt-0 mb-4">
