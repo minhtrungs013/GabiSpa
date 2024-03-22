@@ -50,7 +50,7 @@ export default function Profile() {
                 dispatch(setLoggedIn(false))
                 dispatch(setIdUser(null))
                 setIsUpdateAccount(false)
-                navigate("/GabiSpa");
+                navigate("/");
             }
         }).catch((error) => {
             toast.error(error.response?.data?.message)
@@ -102,7 +102,7 @@ export default function Profile() {
 
     useEffect(() => {
         if (!isLoggedIn) {
-            navigate('/GabiSpa');
+            navigate('/');
         }
     }, [isLoggedIn, navigate]);
 

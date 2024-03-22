@@ -44,7 +44,7 @@ export default function NavbarAdmin() {
                         <li className="flex items-center">
                         </li>
                         <li className="flex items-center px-4">
-                            <Link to={'/GabiSpa'} className="p-0 text-sm transition-all ease-nav-brand text-slate-500" onClick={() => Logout()}>
+                            <Link to={'/'} className="p-0 text-sm transition-all ease-nav-brand text-slate-500" onClick={() => Logout()}>
                                 <FontAwesomeIcon icon={faPowerOff} className="block h-4 w-4 rounded-sm " />
                             </Link>
                         </li>

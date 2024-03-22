@@ -85,7 +85,7 @@ export default function Navbar() {
         <>
             <div className='flex flex-col lg:flex-row justify-between items-center my-5'>
                 <div className="flex w-full lg:w-auto items-center justify-between">
-                    <Link to={'/GabiSpa'} className="text-lg">
+                    <Link to={'/'} className="text-lg">
                         <img className='' src="https://res.cloudinary.com/dax8xvyhi/image/upload/c_fill,h_90,w_250/v1705774032/mdggvkgqlr2osrxdt1hh.png" alt="" />
                     </Link>
                     <div className="block lg:hidden">

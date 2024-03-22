@@ -138,7 +138,7 @@ export default function SlideBar({ handleShowPanigate }) {
                         </Link>
                     </li> */}
                     <li className="mt-0.5 w-full">
-                        <Link to={'/GabiSpa'} className="py-3 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors" onClick={() => Logout()} >
+                        <Link to={'/'} className="py-3 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors" onClick={() => Logout()} >
                             <div className="shadow-slate-300 shadow-md mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
                                 <FontAwesomeIcon icon={faPowerOff} className='h-3 w-3 text-2xl ' />
                             </div>

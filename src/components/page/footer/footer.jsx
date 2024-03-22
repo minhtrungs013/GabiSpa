@@ -9,7 +9,7 @@ export default function Footer() {
             </p>
             <p className="text-center text-xs text-slate-500 mt-1">
                 Made by <Link
-                    to={'/GabiSpa'}
+                    to={'/'}
                     className="hover:underline">
                     Trung
                 </Link>

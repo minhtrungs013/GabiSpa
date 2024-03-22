@@ -16,7 +16,7 @@ export default function App() {
   
   useEffect(() => {
     if (refreshToken !== null && !checkRefreshToken(refreshToken)) {
-      navigate('/GabiSpa')
+      navigate('/')
     }
   }, [refreshToken, navigate])
 
