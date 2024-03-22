@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -8,8 +9,6 @@ import Admin from './components/admin/admin';
 import Footer from './components/page/footer/footer';
 import User from './components/page/user';
 import { checkRefreshToken, compareData } from "./components/utils/utils";
-import { Helmet } from "react-helmet-async";
-import ReactDOM from 'react-dom/client';
 
 export default function App() {
   const role = useSelector((state) => state.userReducer.role)
@@ -35,7 +34,3 @@ export default function App() {
     </div>
   )
 }
-ReactDOM.hydrate(
-  App,
-  document.getElementById(App)
-);
