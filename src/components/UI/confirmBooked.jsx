@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import { getUserByIdAPI } from '../../api/service/UserService';
 import { serviceBookedAPI } from '../../api/service/serviceSpaService';
 import { ServiceBooked, UserDetails } from '../utils/DataForm';
-import { CURRENT_DATE, convertMinutesToHours, formatCurrency } from '../utils/utils';
+import { CURRENT_DATE, formatCurrency } from '../utils/utils';
 
 export default function ConfirmBooked({ onClose, dataService, }) {
     const idUser = useSelector(state => state.userReducer.idUser);
@@ -109,7 +109,7 @@ export default function ConfirmBooked({ onClose, dataService, }) {
                     </div>
                     <div className='flex items-center lg:pl-6 sm:pl-2 py-2 '>
                         <span className='pr-2 text-sm text-[#214581] font-medium '>Thời gian thực hiện: </span>
-                        <h3 className="flex-auto font-normal text-gray-900">{convertMinutesToHours(totalWorkingTimeInMinutes)} </h3>
+                        <h3 className="flex-auto font-normal text-gray-900">{totalWorkingTimeInMinutes} Phút</h3>
                     </div>
                     <div className='flex items-center lg:pl-6 sm:pl-2 py-2 '>
                         <span className='pr-2 text-sm text-[#214581] font-medium '>Ngày bắt đầu: </span>

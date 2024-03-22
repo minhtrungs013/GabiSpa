@@ -9,10 +9,15 @@ import Blog from './blog/blog'
 import News from './news/news'
 import Navbar from './navbar/navbar';
 import Profile from './profile/profile'
+import { Helmet } from 'react-helmet-async'
 
 export default function User() {
   return (
     <div className="container mx-auto ">
+      <Helmet>
+        <title>GabiSpa</title>
+        <link rel="GabiSpa" href="https://gabi-spa.vercel.app" />
+      </Helmet>
       <Navbar />
       <Routes>
         <Route path="/" element={<> <Slider /><Features /><Blog />  </>} />
