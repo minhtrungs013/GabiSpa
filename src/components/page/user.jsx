@@ -15,12 +15,12 @@ export default function User() {
     <div className="container mx-auto ">
       <Navbar />
       <Routes>
-        <Route path="GabiSpa/" element={<> <Slider /><Features /><Blog />  </>} />
-        <Route path="GabiSpa/dich-vu" element={<Service />} />
-        <Route path="GabiSpa/dich-vu/chi-tiet" element={<ServiceDetails />} />
-        <Route path="GabiSpa/cong-viec" element={<Job />} />
-        <Route path="GabiSpa/tin-tuc" element={<News />} />
-        <Route path="GabiSpa/trang-ca-nhan" element={<Profile />} />
+        <Route path="/" element={<> <Slider /><Features /><Blog />  </>} />
+        <Route path="dich-vu" element={<Service />} />
+        <Route path="dich-vu/chi-tiet" element={<ServiceDetails />} />
+        <Route path="cong-viec" element={<Job />} />
+        <Route path="tin-tuc" element={<News />} />
+        <Route path="trang-ca-nhan" element={<Profile />} />
       </Routes>
     </div>
   )

@@ -25,12 +25,12 @@ export default function Admin() {
                         <div className="basis-full ">
 
                             <Routes>
-                                <Route path="GabiSpa/admin/user-management" element={<UserManagement />} />
-                                <Route path="GabiSpa/admin/service-management" element={<ServiceManagement />} />
-                                <Route path="GabiSpa/admin/categories-management" element={<CategoriesManagement />} />
-                                <Route path="GabiSpa/admin/booking-management" element={<BookingManagement />} />
-                                <Route path="GabiSpa/admin/calendar-management" element={<CalenderManagement />} />
-                                <Route path="GabiSpa/admin/task-management" element={<TaskManagement />} />
+                                <Route path="admin/user-management" element={<UserManagement />} />
+                                <Route path="admin/service-management" element={<ServiceManagement />} />
+                                <Route path="admin/categories-management" element={<CategoriesManagement />} />
+                                <Route path="admin/booking-management" element={<BookingManagement />} />
+                                <Route path="admin/calendar-management" element={<CalenderManagement />} />
+                                <Route path="admin/task-management" element={<TaskManagement />} />
                             </Routes>
                         </div>
                     </main>

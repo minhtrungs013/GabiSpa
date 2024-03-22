@@ -68,7 +68,7 @@ export default function Service() {
                                                 <p className='py-2 font-semibold text-base text-[#46b252]' >{formatCurrency(item?.price)}</p>
                                             </div>
                                             <div className='absolute right-3 bottom-[10px] flex justify-end'>
-                                                <Link to={'/GabiSpa/dich-vu/chi-tiet'} onClick={() => setServiceIdRedux(item.id)}
+                                                <Link to={'/dich-vu/chi-tiet'} onClick={() => setServiceIdRedux(item.id)}
                                                     className='rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-5 py-2 bg-[#214581] text-white hover:bg-[#2e4d81]  border-2 border-transparent' >Xem Chi Tiết</Link>
                                             </div>
                                         </div>

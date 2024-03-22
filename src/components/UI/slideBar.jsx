@@ -13,63 +13,63 @@ const SlideNav = [
     {
         id: 0,
         title: "Quản Lý Chung",
-        path: "/GabiSpa/admin/admin-management",
+        path: "/admin/admin-management",
         role: ROLE_ADMIN,
         icon: faStore
     },
     {
         id: 1,
         title: "Quản Lý Người Dùng",
-        path: "/GabiSpa/admin/user-management",
+        path: "/admin/user-management",
         role: ROLE_ADMIN,
         icon: faEnvelopesBulk
     },
     {
         id: 2,
         title: "Quản Lý Dịch Vụ",
-        path: "/GabiSpa/admin/service-management",
+        path: "/admin/service-management",
         role: ROLE_ADMIN,
         icon: faCreditCard
     },
     {
         id: 3,
         title: "Quản Lý Danh Mục",
-        path: "/GabiSpa/admin/categories-management",
+        path: "/admin/categories-management",
         role: ROLE_ADMIN,
         icon: faGears
     },
     {
         id: 4,
         title: "Quản Lý Nhiệm Vụ",
-        path: "/GabiSpa/admin/task-management",
+        path: "/admin/task-management",
         role: ROLE_ADMIN,
         icon: faListCheck
     },
     {
         id: 5,
         title: "Quản Lý Tin Tức",
-        path: "/GabiSpa/admin/news-management",
+        path: "/admin/news-management",
         role: ROLE_ADMIN,
         icon: faCubes
     },
     {
         id: 6,
         title: "Quản Lý Đặt Lịch",
-        path: "/GabiSpa/admin/booking-management",
+        path: "/admin/booking-management",
         role: ROLE_ADMIN,
         icon: faCalendar
     },
     {
         id: 7,
         title: "Chi Tiết công việc",
-        path: "/GabiSpa/admin/calendar-management",
+        path: "/admin/calendar-management",
         role: ROLE_ADMIN,
         icon: faCalendar
     },
     {
         id: 8,
         title: "Chi Tiết công việc",
-        path: "/GabiSpa/admin/calendar-management",
+        path: "/admin/calendar-management",
         role: ROLE_EMPLOYEE,
         icon: faCalendar
     },

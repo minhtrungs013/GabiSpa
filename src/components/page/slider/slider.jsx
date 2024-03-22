@@ -16,8 +16,8 @@ export default function Slider() {
                     tín hàng đầu hiện nay và được Sở Y Tế TP.HCM cấp giấy phép hoạt động Chăm sóc sau sinh theo tiêu chuẩn của Bộ Y TẾ
                 </p>
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                    <Link to={'/GabiSpa/dich-vu'} className='rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-5 py-2.5 bg-[#214581] text-white hover:bg-gray-800  border-2 border-transparent flex gap-1 items-center justify-center'>Đăng Ký Ngay</Link>
-                    <Link to={'/GabiSpa/dich-vu'} className='rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-5 py-2.5 bg-white border-2 border-[#214581] hover:bg-gray-100 text-[#214581]  flex gap-1 items-center justify-center'>Dịch Vụ</Link>
+                    <Link to={'/dich-vu'} className='rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-5 py-2.5 bg-[#214581] text-white hover:bg-gray-800  border-2 border-transparent flex gap-1 items-center justify-center'>Đăng Ký Ngay</Link>
+                    <Link to={'/dich-vu'} className='rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-5 py-2.5 bg-white border-2 border-[#214581] hover:bg-gray-100 text-[#214581]  flex gap-1 items-center justify-center'>Dịch Vụ</Link>
                 </div>
             </div>
         </div>

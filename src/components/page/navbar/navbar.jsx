@@ -14,27 +14,27 @@ const menuitems = [
     {
         id: 0,
         title: "Dịch vụ",
-        path: "GabiSpa/dich-vu",
+        path: "dich-vu",
     },
     {
         id: 1,
         title: "Công Việc",
-        path: "GabiSpa/cong-viec",
+        path: "cong-viec",
     },
     {
         id: 2,
         title: "Tin Tức",
-        path: "GabiSpa/tin-tuc",
+        path: "tin-tuc",
     },
     {
         id: 3,
         title: "Tuyển Dụng",
-        path: "GabiSpa/tuyen-dung",
+        path: "tuyen-dung",
     },
     {
         id: 4,
         title: "Liên Hệ",
-        path: "GabiSpa/lien-he",
+        path: "lien-he",
     },
 ];
 
@@ -148,7 +148,7 @@ export default function Navbar() {
                                 <Menu.Items className="absolute right-0 z-10 mt-2 origin-top-right bg-white rounded-md shadow-lg w-36 ring-1 ring-black ring-opacity-5 focus:outline-none">
                                     <div className="py-1">
                                         <Menu.Item>
-                                            <Link to={'/GabiSpa/trang-ca-nhan'} className='text-gray-700 block px-4 py-2 text-sm'>
+                                            <Link to={'/trang-ca-nhan'} className='text-gray-700 block px-4 py-2 text-sm'>
                                                 Trang Cá Nhân
                                             </Link>
                                         </Menu.Item>
