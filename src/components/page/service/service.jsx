@@ -8,7 +8,8 @@ import { getAllServiceSpaAPI } from '../../../api/service/serviceSpaService';
 import { useDispatch } from 'react-redux';
 import { setServiceId } from '../../../redux/slice/serviceSlice';
 import { formatCurrency } from '../../utils/utils';
-
+import { Helmet } from 'react-helmet-async';
+import ReactDOM from 'react-dom/client';
 export default function Service() {
     const dispatch = useDispatch();
     const [categories, setCategories] = useState([]);
@@ -43,6 +44,10 @@ export default function Service() {
 
     return (
         <div>
+            <Helmet>
+                <title>GabiSpa - dịch vụ</title>
+                <link rel="GabiSpa - dịch vụ" href="https://gabi-spa.vercel.app/dich-vu" />
+            </Helmet>
             <div className="mt-16 md:mt-0 mb-4">
                 <h2 className="text-2xl lg:text-2xl font-bold lg:tracking-tight text-[#214581]">
                     DỊCH VỤ CHĂM SÓC MẸ VÀ BÉ
@@ -82,3 +87,7 @@ export default function Service() {
         </div>
     )
 }
+ReactDOM.hydrate(
+    Service,
+    document.getElementById(Service)
+);

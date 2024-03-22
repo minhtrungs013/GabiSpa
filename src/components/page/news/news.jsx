@@ -1,6 +1,7 @@
 import React from 'react'
 import BlogItem from '../../UI/blogItem';
-
+import { Helmet } from 'react-helmet-async';
+import ReactDOM from 'react-dom/client';
 
 const features = [
     {
@@ -50,6 +51,10 @@ const features = [
 export default function News() {
     return (
         <div>
+             <Helmet>
+                <title>GabiSpa - tin tuc</title>
+                <link rel="GabiSpa - tin tuc" href="https://gabi-spa.vercel.app/tin-tuc" />
+              </Helmet>
             <div className="my-10 md:mt-0">
                 <h2 className="text-2xl lg:text-3xl font-bold lg:tracking-tight text-[#214581]">
                     TIN TỨC - BÀI VIẾT NỔI BẬT
@@ -94,3 +99,7 @@ export default function News() {
         </div>
     )
 }
+ReactDOM.hydrate(
+    News,
+    document.getElementById(News)
+);
