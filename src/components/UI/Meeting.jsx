@@ -1,9 +1,6 @@
-import { Menu, Transition } from '@headlessui/react';
-import { DotsVerticalIcon } from '@heroicons/react/solid';
 import { format } from 'date-fns';
 import React, { Fragment } from 'react';
 import { VALIDATION_DATE_TIME, subtract7HoursFromDate } from '../utils/utils';
-import JobDetails from './jobDetails';
 
 /**
   * @param {object} meeting - meeting object
@@ -46,7 +43,7 @@ export default function Meeting({ meeting, data, handleDetails }) {
           }
         </div>
       </div>
-      <Menu
+      {/* <Menu
         as="div"
         className="lg:hidden relative opacity-0 focus-within:opacity-100 group-hover:opacity-100"
       >
@@ -73,7 +70,7 @@ export default function Meeting({ meeting, data, handleDetails }) {
             </div>
           </Menu.Items>
         </Transition>
-      </Menu>
+      </Menu> */}
     </li>
   )
 }

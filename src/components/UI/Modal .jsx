@@ -2,7 +2,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useCallback, useEffect } from 'react';
 
-const Modal = ({ isOpen, onClose, children, title }) => {
+const Modal = ({ isOpen, onClose, children, title, style1 }) => {
 
     const handleKeyDown = useCallback((e) => {
         if (e.key === 'Escape') {
@@ -23,8 +23,8 @@ const Modal = ({ isOpen, onClose, children, title }) => {
     return (
         <>
             {isOpen && (
-                <div className="fixed inset-0  bg-opacity-30 flex items-start top-8 lg:top-28 justify-center z-50" >
-                    <div onClick={(e) => e.stopPropagation()}>
+                <div className="fixed inset-0  bg-opacity-30 flex items-start top-8 lg:top-28 justify-center z-50 " >
+                    <div onClick={(e) => e.stopPropagation()} className={` ${style1}`}>
                         <div className="relative border-solid shadow-soft-xl drop-shadow-lg bg-white pb-4 pt-12 px-4 rounded-lg">
                             <h3 className="text-lg !z-10 absolute top-0 left-0 p-4 text-black font-medium" >{title}</h3>
                             <FontAwesomeIcon icon={faXmark} onClick={onClose} className="text-xl  !z-10 cursor-pointer absolute top-0 right-0 p-4 text-gray-600 hover:text-gray-800" />

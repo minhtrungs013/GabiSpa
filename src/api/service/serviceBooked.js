@@ -20,3 +20,11 @@ export function updateStatusServiceBookedAPI(endpoint, body) {
 export function deleteServiceBookedAPI(endpoint) {
     return API.delete(`${API_BASE}/${endpoint}`);
 }
+
+export function updateBookedDetailsAPI(endpoint, body) {
+    return API.put(`${API_BASE}/${endpoint}`, body);
+}
+
+export function getAllServiceBookedByUserIdAPI(endpoint) {
+    return API.get(`${API_BASE}/${endpoint}`, null);
+}

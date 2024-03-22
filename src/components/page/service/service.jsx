@@ -24,9 +24,9 @@ export default function Service() {
         })
     }
     const getAllServiceSpa = () => {
-        getAllServiceSpaAPI(`services`).then((res) => {
+        getAllServiceSpaAPI(`services/get-many`).then((res) => {
             if (res) {
-                setServiceSpas(res.data.data)
+                setServiceSpas(res.data.data.items)
             }
         }).catch((error) => {
             toast.error(error.response?.data?.message)

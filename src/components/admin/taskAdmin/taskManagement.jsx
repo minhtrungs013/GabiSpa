@@ -18,6 +18,8 @@ export default function TaskManagement() {
   const [isUpdatingTask, setIsUpdatingTask] = React.useState(false);
   const [initialTaskData, setInitialTaskData] = React.useState(null)
   const [tasks, setTasks] = useState([]);
+  const [totalPages, setTotalPages] = useState(6);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -34,7 +36,7 @@ export default function TaskManagement() {
     if (isUpdatingTask) {
       updateTaskAPI(`tasks/${taskData?.id}/task-id`, taskData).then((res) => {
         if (res) {
-          getAllTask()
+          getAllTask(currentPage)
           toast.success(UPDATE_TASK_SUCCESS)
         }
       }).catch((error) => {
@@ -43,7 +45,7 @@ export default function TaskManagement() {
     } else {
       createTaskAPI(`tasks`, taskData).then((res) => {
         if (res) {
-          getAllTask()
+          getAllTask(currentPage)
           toast.success(CREATE_TASK_SUCCESS)
         }
       }).catch((error) => {
@@ -68,7 +70,7 @@ export default function TaskManagement() {
   const submitDeleteTask = (taskId) => {
     deleteTaskAPI(`tasks/${taskId}/task-id`).then((res) => {
       if (res) {
-        getAllTask()
+        getAllTask(currentPage)
         toast.success(DELETE_TASK_SUCCESS)
       }
     }).catch((error) => {
@@ -83,10 +85,19 @@ export default function TaskManagement() {
     openModal()
   };
 
-  const getAllTask = () => {
-    getAllTaskAPI(`tasks`).then((res) => {
+  const getAllTask = (currentPage) => {
+    const data = {
+      page: currentPage,
+      limit: 6,
+      sort: "createdAt",
+      order: "desc"
+    }
+    
+    getAllTaskAPI(`tasks/get-many`, data).then((res) => {
       if (res) {
-        setTasks(res.data.data)
+        setTasks(res.data.data.items)
+        setTotalPages(res.data.data?.totalPages)
+        setCurrentPage(res.data.data?.page)
       }
     }).catch((error) => {
       toast.error(error.response?.data?.message)
@@ -94,8 +105,8 @@ export default function TaskManagement() {
   }
 
   useEffect(() => {
-    getAllTask()
-  }, []);
+    getAllTask(currentPage, totalPages)
+  }, [currentPage, totalPages]);
 
   return (
     <div className="w-full px-6 py-6 mx-auto">

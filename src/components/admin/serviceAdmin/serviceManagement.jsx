@@ -113,9 +113,9 @@ export default function ServiceManagement() {
   };
 
   const getAllTask = () => {
-    getAllTaskAPI(`tasks`).then((res) => {
+    getAllTaskAPI(`tasks/get-many`,).then((res) => {
       if (res) {
-        setTasks(res.data.data)
+        setTasks(res.data.data.items)
       }
     }).catch((error) => {
       toast.error(error.response?.data?.message)

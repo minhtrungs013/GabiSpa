@@ -14,11 +14,14 @@ import {
   startOfToday
 } from 'date-fns';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { getAllServiceBookedAPI } from '../../../api/service/serviceBooked';
+import { getAllServiceBookedAPI, getAllServiceBookedByUserIdAPI } from '../../../api/service/serviceBooked';
 import Meeting from '../../UI/Meeting';
 import Modal from '../../UI/Modal ';
 import JobDetails from '../../UI/jobDetails';
+import { ROLE_ADMIN, SECRET_ROLE } from '../../../commom/messageConstant';
+import { compareData } from '../../utils/utils';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -31,7 +34,8 @@ export default function CalenderManagement() {
   const [showJobDetails, setShowServiceDetails] = useState(false)
   const [dataServiceBooked, setDataServiceBooked] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const idUser = useSelector(state => state.userReducer.idUser);
+  const role = useSelector((state) => state.userReducer.role)
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -54,7 +58,7 @@ export default function CalenderManagement() {
     setShowServiceDetails(isShow)
   }
   const onClickSelecedDay = (day) => {
-    openModal()
+
     setSelectedDay(day)
   }
 
@@ -83,7 +87,7 @@ export default function CalenderManagement() {
   useEffect(() => {
     const getDataMeetingToday = () => {
       let data = []
-      for (let i = 0; i < dataServiceBooked.length; ++i) {
+      for (let i = 0; i < dataServiceBooked?.length; ++i) {
         let a1 = dataServiceBooked[i].bookedDetails?.find((meeting) =>
           isSameDay(parseISO(meeting.startDateTime), selectedDay)
         )
@@ -101,26 +105,29 @@ export default function CalenderManagement() {
     return new Date(a.startDateTime) - new Date(b.startDateTime);
   });
 
-  const getAllServiceBooked = () => {
-    // const data = {
-    //   page: 1,
-    //   limit: 6,
-    //   sort: "createdAt",
-    //   order: "desc"
-    // }
-
-    getAllServiceBookedAPI(`services-booked/get-many`, {}).then((res) => {
-      if (res) {
-        setDataServiceBooked(res.data.data?.items)
-      }
-    }).catch((error) => {
-      toast.error(error.response?.data?.message)
-    })
+  const getAllServiceBooked = (idUser, role) => {
+    if (compareData(ROLE_ADMIN, role, SECRET_ROLE)) {
+      getAllServiceBookedAPI(`services-booked/get-many`, {}).then((res) => {
+        if (res) {
+          setDataServiceBooked(res.data.data?.items)
+        }
+      }).catch((error) => {
+        toast.error(error.response?.data?.message)
+      })
+    } else {
+      getAllServiceBookedByUserIdAPI(`services-booked/get-by-user-id/${idUser}/user-id`).then((res) => {
+        if (res) {
+          setDataServiceBooked(res.data.data)
+        }
+      }).catch((error) => {
+        toast.error(error.response?.data?.message)
+      })
+    }
   }
 
   useEffect(() => {
-    getAllServiceBooked()
-  }, []);
+    getAllServiceBooked(idUser, role)
+  }, [idUser, role]);
 
   return (
     <div className="w-full px-6 py-6 mx-auto">
@@ -217,17 +224,19 @@ export default function CalenderManagement() {
                       ))}
                     </div>
                   </div>
-                  <section className="hidden lg:block mt-12 md:mt-0 md:pl-14">
+                  <section className=" mt-12 md:mt-0 md:pl-14">
                     <h2 className="font-semibold text-gray-900">
                       Schedule for{' '}
                       <time dateTime={format(selectedDay, 'yyyy-MM-dd')}>
                         {format(selectedDay, 'MMM dd, yyy')}
                       </time>
                     </h2>
-                    <ol className="mt-4 space-y-1 text-sm leading-6 text-gray-500">
+                    <ol className="mb-10 lg:mb-0 mt-4 space-y-1 text-sm leading-6 text-gray-500 overflow-y-auto max-h-[400px]">
                       {sortedMeetings.length > 0 ? (
                         sortedMeetings.map((meeting) => (
-                          <Meeting meeting={meeting} data={findDataMettingById(meeting?.idMeeting)} handleDetails={handleDetails} />
+                          <div onClick={() => openModal()}>
+                            <Meeting meeting={meeting} data={findDataMettingById(meeting?.idMeeting)} handleDetails={handleDetails} />
+                          </div>
                         ))
                       ) : (
                         <p>No meetings for today.</p>
@@ -237,31 +246,15 @@ export default function CalenderManagement() {
                 </div>
               </div>
               <div className='hidden lg:block'>
-                {showJobDetails && <JobDetails serviceDetails={serviceDetails} meeting={meeting} />}
+                {showJobDetails && <JobDetails serviceDetails={serviceDetails} meeting={meeting} getAllServiceBooked={getAllServiceBooked} />}
               </div>
             </div>
           </div>
         </div>
       </div>
       <div className='lg:hidden'>
-        <Modal isOpen={isModalOpen} onClose={closeModal} title={' Schedule for'}>
-          <section className="w-[300px]">
-            <h2 className="font-semibold text-gray-900">
-              Schedule for{' '}
-              <time dateTime={format(selectedDay, 'yyyy-MM-dd')}>
-                {format(selectedDay, 'MMM dd, yyy')}
-              </time>
-            </h2>
-            <ol className="mt-4 space-y-1 text-sm leading-6 text-gray-500">
-              {sortedMeetings.length > 0 ? (
-                sortedMeetings.map((meeting) => (
-                  <Meeting meeting={meeting} data={findDataMettingById(meeting?.idMeeting)} handleDetails={handleDetails} />
-                ))
-              ) : (
-                <p>No meetings for today.</p>
-              )}
-            </ol>
-          </section>
+        <Modal isOpen={isModalOpen} onClose={closeModal} title={'Chi Tiết Công việc'} style1={'min-w-[300px]'}>
+          <JobDetails serviceDetails={serviceDetails} meeting={meeting} getAllServiceBooked={getAllServiceBooked} />
         </Modal>
       </div>
     </div>
