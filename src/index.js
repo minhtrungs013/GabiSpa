@@ -6,7 +6,7 @@ import './index.css';
 import { store, persistor } from './redux/store'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react';
-import {  HelmetProvider } from 'react-helmet-async';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,7 +15,12 @@ root.render(
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
           <HelmetProvider>
-            <App />
+            <App>
+              <Helmet>
+                <title>GabiSpa</title>
+                <link rel="GabiSpa" href="https://gabi-spa.vercel.app" />
+              </Helmet>
+            </App>
           </HelmetProvider>
         </BrowserRouter>
       </PersistGate>
