@@ -8,6 +8,7 @@ import Modal from '../../UI/Modal '
 import ConfirmBooked from '../../UI/confirmBooked'
 import Image from '../../UI/image'
 import { formatCurrency } from '../../utils/utils'
+import { Helmet } from 'react-helmet-async'
 
 export default function ServiceDetails() {
     const serviceId = useSelector((state) => state.serviceReducer.serviceId)
@@ -46,10 +47,16 @@ export default function ServiceDetails() {
 
     return (
         <div>
+            <Helmet>
+                <title>Gabi Spa - Chi Tiết Dịch Vụ Chăm Sóc Mẹ Và Bé</title>
+                <meta name="description" content="Chi Tiết Dịch Vụ Chăm Sóc Mẹ Và Bé" />
+                <meta name="keywords" content="Chi Tiết Dịch Vụ " />
+                <link rel="Gabi Spa - Chi Tiết Dịch Vụ Chăm Sóc Mẹ Và Bé" href="https://gabi-spa.vercel.app/dich-vu/chi-tiet" />
+            </Helmet>
             <div className="mt-16 md:mt-0 mb-4">
-                <h2 className="text-2xl lg:text-2xl font-bold lg:tracking-tight text-[#214581]">
+                <h1 className="text-2xl lg:text-2xl font-bold lg:tracking-tight text-[#214581]">
                     DỊCH VỤ CHĂM SÓC MẸ VÀ BÉ
-                </h2>
+                </h1>
             </div>
             <div className='mb-16'>
                 <div className="grid md:grid-rows-3 md:grid-cols-3 sm:grid-rows-2 sm:grid-cols-2 gap-4 mb-5">

@@ -50,12 +50,12 @@ const features = [
 export default function News() {
     return (
         <div>
-             <Helmet>
-                <title>Gabi Spa - tin tuc</title>
-                <meta name="description" content="Dịch vụ chăm sóc mẹ và bé" />
-                <meta name="keywords" content="Gabi Spa, Tin tức Gabi Spa, Tin tức chăm sóc mẹ và bé, Gabi Spa - tin tuc" />
-                <link rel="Gabi Spa - tin tuc" href="https://gabi-spa.vercel.app/tin-tuc" />
-              </Helmet>
+            <Helmet>
+                <title>Gabi Spa - Tin Tức Chăm Sóc Mẹ Và Bé</title>
+                <meta name="description" content="Tin Tức Chăm Sóc Mẹ Và Bé" />
+                <meta name="keywords" content="Tin Tức Chăm Sóc Mẹ Và Bé" />
+                <link rel="Gabi Spa - Tin Tức" href="https://gabi-spa.vercel.app/tin-tuc" />
+            </Helmet>
             <div className="my-10 md:mt-0">
                 <h2 className="text-2xl lg:text-3xl font-bold lg:tracking-tight text-[#214581]">
                     TIN TỨC - BÀI VIẾT NỔI BẬT

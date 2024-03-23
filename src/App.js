@@ -25,10 +25,10 @@ export default function App() {
   return (
     <div className="">
       <Helmet>
-        <title>Gabi Spa</title>
+        <title>Gabi Spa Chăm Sóc Mẹ Và Bé</title>
         <meta name="description" content="Dịch vụ chăm sóc mẹ và bé" />
         <meta name="keywords" content="Gabi Spa, Dịch vụ chăm sóc mẹ và bé " />
-        <link rel="Gabi Spa" href="https://gabi-spa.vercel.app" />
+        <link rel="Gabi Spa Chăm Sóc Mẹ và Bé" href="https://gabi-spa.vercel.app" />
       </Helmet>
       <ToastContainer />
       {compareData(ROLE_ADMIN, role, SECRET_ROLE) || compareData(ROLE_EMPLOYEE, role, SECRET_ROLE) ? <Admin /> : <User />}

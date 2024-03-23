@@ -10,6 +10,7 @@ import { ChangePassword, UserDetails } from '../../utils/DataForm';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { handleUpload } from '../../utils/utils';
+import { Helmet } from 'react-helmet-async';
 
 export default function Profile() {
     const navigate = useNavigate();
@@ -119,6 +120,12 @@ export default function Profile() {
 
     return (
         <div>
+             <Helmet>
+                <title>Gabi Spa - Trang Cá Nhân</title>
+                <meta name="description" content="Gabi Spa Trang Cá Nhân" />
+                <meta name="keywords" content="Gabi Spa Trang Cá Nhân" />
+                <link rel="Gabi Spa - Trang Cá Nhân" href="https://gabi-spa.vercel.app/trang-ca-nhan" />
+            </Helmet>
             <div className="mt-16 md:mt-0 mb-4">
                 <h2 className="text-2xl lg:text-2xl font-bold lg:tracking-tight text-[#214581]">
                     TRANG CÁ NHÂN

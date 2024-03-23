@@ -44,15 +44,15 @@ export default function Service() {
     return (
         <div>
             <Helmet>
-                <title>Gabi Spa - dịch vụ</title>
-                <meta name="description" content="Dịch vụ chăm sóc mẹ và bé" />
-                <meta name="keywords" content="Gabi Spa, dịch vụ Gabi Spa, Dịch vụ chăm sóc mẹ và bé" />
+                <title>Gabi Spa - Dịch Vụ Chăm Sóc Mẹ Và Bé</title>
+                <meta name="description" content="Dịch Vụ Chăm Sóc Mẹ Và Bé" />
+                <meta name="keywords" content="Dịch Vụ Chăm Sóc Mẹ Và Bé" />
                 <link rel="Gabi Spa - dịch vụ" href="https://gabi-spa.vercel.app/dich-vu" />
             </Helmet>
             <div className="mt-16 md:mt-0 mb-4">
-                <h2 className="text-2xl lg:text-2xl font-bold lg:tracking-tight text-[#214581]">
+                <h1 className="text-2xl lg:text-2xl font-bold lg:tracking-tight text-[#214581]">
                     DỊCH VỤ CHĂM SÓC MẸ VÀ BÉ
-                </h2>
+                </h1>
             </div>
             {categories?.map((category) => (
                 <div className='mb-16' key={category.id}>

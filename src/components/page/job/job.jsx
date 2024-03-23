@@ -331,6 +331,7 @@ import {
   startOfToday,
 } from 'date-fns'
 import { Fragment, useState } from 'react'
+import { Helmet } from 'react-helmet-async'
 
 const meetings = [
   {
@@ -406,6 +407,12 @@ export default function Job() {
 
   return (
     <div className="pt-16">
+      <Helmet>
+        <title>Gabi Spa Chăm Sóc Mẹ Và Bé</title>
+        <meta name="description" content="Gabi Spa Chăm Sóc Mẹ Và Bé" />
+        <meta name="keywords" content="Gabi Spa Chăm Sóc Mẹ Và Bé" />
+        <link rel="Gabi Spa" href="https://gabi-spa.vercel.app/cong-viec" />
+      </Helmet>
       <div className="max-w-md px-4 mx-auto sm:px-7 md:max-w-4xl md:px-6">
         <div className="md:grid md:grid-cols-2 md:divide-x md:divide-gray-200">
           <div className="md:pr-14">
