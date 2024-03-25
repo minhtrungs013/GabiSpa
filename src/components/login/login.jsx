@@ -84,7 +84,7 @@ export default function Login({ showModal, closeModal, switchRegister }) {
                             <div className="max-w-md mx-auto">
                                 <div className='flex text-center items-center '>
                                     <img className='h-[80px]' src={"https://res.cloudinary.com/dax8xvyhi/image/upload/v1705772414/b7hrtq1xljrctwe089kv.png"} alt="" />
-                                    <h1 className="text-2xl font-semibold">Đăng Nhập</h1>
+                                    <p className="text-2xl font-semibold">Đăng Nhập</p>
                                 </div>
                                 <form onSubmit={handleSubmit} className="divide-y divide-gray-200">
                                     <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
