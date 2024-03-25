@@ -127,9 +127,9 @@ export default function Profile() {
                 <link rel="Gabi Spa - Trang Cá Nhân" href="https://gabi-spa.vercel.app/trang-ca-nhan" />
             </Helmet>
             <div className="mt-16 md:mt-0 mb-4">
-                <h2 className="text-2xl lg:text-2xl font-bold lg:tracking-tight text-[#214581]">
+                <h1 className="text-2xl lg:text-2xl font-bold lg:tracking-tight text-[#214581]">
                     TRANG CÁ NHÂN
-                </h2>
+                </h1>
             </div>
             <div className="grid gap-3 lg:grid-cols-4 md:grid-cols-4 xl:grid-cols-4 shadow-lg rounded-md min-h-[60vh]">
                 <div className="xl:col-span-1 lg:col-span-1 md:col-span-1  lg:block ">

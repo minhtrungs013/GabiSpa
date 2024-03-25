@@ -417,9 +417,9 @@ export default function Job() {
         <div className="md:grid md:grid-cols-2 md:divide-x md:divide-gray-200">
           <div className="md:pr-14">
             <div className="flex items-center">
-              <h2 className="flex-auto font-semibold text-gray-900">
+              <h1 className="flex-auto font-semibold text-gray-900">
                 {format(firstDayCurrentMonth, 'MMMM yyyy')}
-              </h2>
+              </h1>
               <button
                 type="button"
                 onClick={previousMonth}

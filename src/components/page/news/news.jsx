@@ -57,9 +57,9 @@ export default function News() {
                 <link rel="Gabi Spa - Tin Tức" href="https://gabi-spa.vercel.app/tin-tuc" />
             </Helmet>
             <div className="my-10 md:mt-0">
-                <h2 className="text-2xl lg:text-3xl font-bold lg:tracking-tight text-[#214581]">
+                <h1 className="text-2xl lg:text-3xl font-bold lg:tracking-tight text-[#214581]">
                     TIN TỨC - BÀI VIẾT NỔI BẬT
-                </h2>
+                </h1>
             </div>
             <div className=" grid gap-3 lg:grid-cols-6 md:grid-cols-3 xl:grid-cols-4">
                 <div className="xl:col-span-1 lg:col-span-2 md:col-span-3  lg:block ">
