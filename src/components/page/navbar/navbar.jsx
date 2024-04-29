@@ -111,11 +111,27 @@ export default function Navbar() {
                                 }
                             </>
                         ))}
+                        {isLoggedIn &&
+                            <li className='border-t border-gray-500'>
+                                <Link to={'/trang-ca-nhan'} className="flex lg:px-2 xl:px-3 py-2 text-gray-600 hover:text-[#214581] font-medium text-xl ">
+                                    Trang Cá Nhân
+                                </Link>
+                            </li>
+                        }
+                        {isLoggedIn &&
+                            <li>
+                                <Link onClick={() => Logout()} className="flex lg:px-2 xl:px-3 py-2 text-red-600 hover:text-[#214581] font-medium text-xl ">
+                                    Đăng Xuất
+                                </Link>
+                            </li>
+                        }
                     </ul >
-                    <div className="lg:!hidden flex items-center justify-center mt-3 gap-4 " style={{ display: open ? 'flex' : 'none' }}>
-                        <button onClick={openModalLogin} className='w-full rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 ] text-black border-[1px] border-[#2e4d81]' >Đăng nhập</button>
-                        <button onClick={openModalRegister} size="md" className='w-full rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 bg-[#214581] text-white hover:bg-[#2e4d81]  border-2 border-transparent'>Đăng ký</button>
-                    </div>
+                    {!isLoggedIn &&
+                        <div className="lg:!hidden flex items-center justify-center mt-3 gap-4 " style={{ display: open ? 'flex' : 'none' }}>
+                            <button onClick={openModalLogin} className='w-full rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 ] text-black border-[1px] border-[#2e4d81]' >Đăng nhập</button>
+                            <button onClick={openModalRegister} size="md" className='w-full rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 bg-[#214581] text-white hover:bg-[#2e4d81]  border-2 border-transparent'>Đăng ký</button>
+                        </div>
+                    }
                 </div>
                 {!isLoggedIn ? <>
                     <div>
@@ -125,7 +141,7 @@ export default function Navbar() {
                         </div>
                     </div>
                 </> :
-                    <div className='flex items-center' >
+                    <div className='hidden lg:flex items-center' >
                         <Menu as="div" className="relative">
                             <div className='flex items-center '>
                                 <Menu.Button className="-m-2 flex items-center rounded-full p-1.5 text-gray-500 hover:text-gray-600">
