@@ -1,1 +1,1 @@
-export const API_BASE = "https://api-gabispa.onrender.com/api/v1";
+export const API_BASE = "https://api-gabispa-c2nd.onrender.com/api/v1";
