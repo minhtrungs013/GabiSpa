@@ -112,14 +112,14 @@ export default function Navbar() {
                             </>
                         ))}
                         {isLoggedIn &&
-                            <li className='border-t border-gray-500'>
+                            <li className='hidden lg:flex border-t border-gray-500'>
                                 <Link to={'/trang-ca-nhan'} onClick={() => setOpen(!open)} className="flex lg:px-2 xl:px-3 py-2 text-gray-600 hover:text-[#214581] font-medium text-xl ">
                                     Trang Cá Nhân
                                 </Link>
                             </li>
                         }
                         {isLoggedIn &&
-                            <li>
+                            <li className='hidden lg:flex'>
                                 <Link onClick={() => { Logout(); setOpen(!open) }} className="flex lg:px-2 xl:px-3 py-2 text-red-600 hover:text-[#214581] font-medium text-xl ">
                                     Đăng Xuất
                                 </Link>
